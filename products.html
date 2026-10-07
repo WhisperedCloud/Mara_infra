@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalogue | Mara Infra Solutions</title>
+    <meta name="description" content="Browse our complete catalogue of Saint-Gobain Weber tile adhesives, epoxy grouts, waterproofing coatings, wall mortars, and glazing systems.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Architecture -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <a href="index.html" class="brand-logo">
+                <div class="brand-mark">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 18V6L12 13L21 6V18" stroke="url(#logo_grad_hdr)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 13V20" stroke="#84cc16" stroke-width="2.5" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="logo_grad_hdr" x1="3" y1="6" x2="21" y2="18" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#38bdf8"/>
+                                <stop offset="1" stop-color="#0ea5e9"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">MARA <span>INFRA</span></span>
+                    <span class="brand-tagline">SOLUTIONS</span>
+                </div>
+            </a>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link active">Products</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="solutions.html" class="nav-link">Solutions</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <button type="button" class="btn btn-primary btn-enquire">
+                    Get a Quote
+                </button>
+                <button type="button" class="mobile-toggle" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Page Header Banner -->
+        <section class="section section-alt" style="padding: 40px 0; border-bottom: 1px solid var(--color-border);">
+            <div class="container">
+                <h1 style="font-size: 2.5rem; margin-bottom: 8px; color: var(--color-primary);">Construction Products & Catalogue</h1>
+                <p class="section-description" style="margin-bottom: 0;">Explore technical materials direct from Saint-Gobain Weber and Mara Infra Solutions.</p>
+            </div>
+        </section>
+
+        <!-- Product Listing & Filtering Section -->
+        <section class="section">
+            <div class="container">
+                <!-- Search & Category Filter Bar -->
+                <div class="catalog-bar">
+                    <div class="search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="product-search" class="search-input" placeholder="Search by product name, category, brand, or application (e.g. Weber, Epoxy, Primer, Waterproofing)...">
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                        <div class="filter-pills">
+                            <button type="button" class="filter-pill active" data-category="all">All Products</button>
+                            <button type="button" class="filter-pill" data-category="adhesives">Tile & Stone Adhesives</button>
+                            <button type="button" class="filter-pill" data-category="grouts">Tile & Stone Joint Fillers</button>
+                            <button type="button" class="filter-pill" data-category="waterproofing">Waterproofing</button>
+                            <button type="button" class="filter-pill" data-category="wall-solutions">Weberwall Finecoat</button>
+                            <button type="button" class="filter-pill" data-category="glazing">Application Tools & Glazing</button>
+                            <button type="button" class="filter-pill" data-category="add-ons">Add-On Chemicals</button>
+                            <button type="button" class="filter-pill" data-category="care">Tile & Stone Care</button>
+                        </div>
+
+                        <div id="product-count" style="font-weight: 600; color: var(--color-text-muted); font-size: 0.875rem;">
+                            Showing products
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Grid (Populated dynamically via js/filters.js & js/products.js) -->
+                <div class="product-grid" id="product-catalog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
+                    <!-- JS Injected Cards -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="brand-logo mb-4">
+                    <div class="brand-mark">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 18V6L12 13L21 6V18" stroke="url(#logo_grad_ftr)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 13V20" stroke="#84cc16" stroke-width="2.5" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="logo_grad_ftr" x1="3" y1="6" x2="21" y2="18" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#38bdf8"/>
+                                    <stop offset="1" stop-color="#0ea5e9"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <span class="brand-name">MARA <span>INFRA</span></span>
+                        <span class="brand-tagline">SOLUTIONS</span>
+                    </div>
+                </div>
+                <p>Authorised distributor of Saint-Gobain & Weber. Supplying high-grade construction chemicals, tile adhesives, epoxy grouts, and structural glazing systems in Hosur & Krishnagiri.</p>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Products</h4>
+                <ul class="footer-links">
+                    <li><a href="products.html?category=adhesives">Tile & Stone Adhesives</a></li>
+                    <li><a href="products.html?category=grouts">Tile & Stone Joint Fillers</a></li>
+                    <li><a href="products.html?category=waterproofing">Waterproofing</a></li>
+                    <li><a href="products.html?category=wall-solutions">Weberwall Finecoat</a></li>
+                    <li><a href="products.html?category=glazing">Application Tools & Glazing</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Company</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Contact</h4>
+                <ul class="footer-links">
+                    <li><i class="fa-solid fa-phone text-accent"></i> <a href="tel:+919884701587">+91 98847 01587</a></li>
+                    <li><i class="fa-solid fa-envelope text-accent"></i> <a href="mailto:senthil@marainfra.com">senthil@marainfra.com</a></li>
+                    <li><i class="fa-solid fa-location-dot text-accent"></i> Hosur & Krishnagiri, TN</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <p>&copy; 2026 Mara Infra Solutions. All Rights Reserved.</p>
+                <p>Authorised Distributor of Saint-Gobain Weber</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
