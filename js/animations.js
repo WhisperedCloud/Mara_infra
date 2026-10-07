@@ -121,10 +121,10 @@ function initDiagnosticWidget() {
         const item = diagnosticData[activeKey];
         diagContainer.innerHTML = `
             <div class="diagnostic-widget">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--color-border); padding-bottom: 16px;">
                     <div>
                         <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase;">ENGINEERING TROUBLESHOOTER</span>
-                        <h3 style="color: var(--color-text-white); margin-top: 4px;">Structural & Waterproofing Diagnostic System</h3>
+                        <h3 style="color: var(--color-text); margin-top: 4px;">Structural & Waterproofing Diagnostic System</h3>
                     </div>
                     <div style="font-size: 0.8rem; background: rgba(14, 165, 233, 0.2); border: 1px solid var(--color-secondary); color: var(--color-secondary-light); padding: 4px 12px; border-radius: var(--radius-full);">
                         <i class="fa-solid fa-microscope"></i> Live Technical Diagnostic
@@ -158,7 +158,7 @@ function initDiagnosticWidget() {
 
                     <div class="diagnostic-result-card">
                         <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-secondary-dark); background: var(--color-secondary-light); padding: 4px 10px; border-radius: var(--radius-full); display: inline-block; margin-bottom: 12px;">RECOMMENDED ENGINEERING SPECIFICATION</span>
-                        <h4 style="color: var(--color-primary); font-size: 1.25rem; margin-bottom: 8px;">${item.title}</h4>
+                        <h4 style="color: var(--color-text); font-size: 1.25rem; margin-bottom: 8px;">${item.title}</h4>
                         <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 16px;"><strong>Root Cause:</strong> ${item.cause}</p>
 
                         <div style="background: var(--color-surface-subtle); padding: 16px; border-radius: var(--radius-md); font-size: 0.875rem; margin-bottom: 16px; border-left: 3px solid var(--color-secondary);">

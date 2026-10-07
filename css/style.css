@@ -4,9 +4,9 @@
 
 :root {
     /* Brand Colors - High-Tech Industrial Palette */
-    --color-primary: #0a192f;          /* Deep Cyber Slate Navy */
-    --color-primary-dark: #060e1a;     /* Obsidian Dark */
-    --color-primary-light: #112240;    /* High-Tech Slate */
+    --color-primary: #ffffff;          /* Clean White */
+    --color-primary-dark: #f8fafc;     /* Light Gray */
+    --color-primary-light: #ffffff;    /* Clean White */
     
     --color-secondary: #0ea5e9;        /* Electric Cyan / Blue */
     --color-secondary-dark: #0284c7;   /* Deep Tech Blue */
@@ -105,7 +105,7 @@ body {
 /* Heading Hierarchy */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    color: var(--color-primary);
+    color: var(--color-text);
     line-height: 1.2;
     font-weight: 700;
 }
@@ -137,7 +137,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .section { padding: var(--space-12) 0; position: relative; }
 .section-alt { background-color: var(--color-surface); }
-.section-dark { background-color: var(--color-primary); color: var(--color-text-white); }
+.section-dark { background-color: var(--color-primary); color: var(--color-text); }
 
 .section-header {
     text-align: center;
@@ -163,15 +163,15 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .section-dark .section-subtitle {
-    color: var(--color-accent);
-    background: rgba(132, 204, 22, 0.1);
-    border-color: rgba(132, 204, 22, 0.25);
+    color: var(--color-secondary-dark);
+    background: rgba(14, 165, 233, 0.1);
+    border-color: rgba(14, 165, 233, 0.25);
 }
 
 .section-title { margin-bottom: var(--space-3); }
-.section-dark .section-title { color: var(--color-text-white); }
+.section-dark .section-title { color: var(--color-text); }
 .section-description { font-size: 1.125rem; color: var(--color-text-muted); }
-.section-dark .section-description { color: var(--color-text-light); }
+.section-dark .section-description { color: var(--color-text-muted); }
 
 /* ==========================================================================
    SCROLL REVEAL ANIMATIONS (Progressive Enhancement)

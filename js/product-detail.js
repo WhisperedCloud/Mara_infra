@@ -58,21 +58,6 @@ export function initProductDetail(productsData) {
     ` : '';
 
     detailContainer.innerHTML = `
-        <!-- Breadcrumb -->
-        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-            <div class="container">
-                <ol class="breadcrumb-list">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></li>
-                    <li class="breadcrumb-item"><a href="products.html">Products</a></li>
-                    <li class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></li>
-                    <li class="breadcrumb-item"><a href="products.html?category=${product.category}">${product.categoryName}</a></li>
-                    <li class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></li>
-                    <li class="breadcrumb-item active" aria-current="page">${product.name}</li>
-                </ol>
-            </div>
-        </nav>
-
         <!-- Product Hero Section -->
         <section class="section section-alt">
             <div class="container">
@@ -83,7 +68,7 @@ export function initProductDetail(productsData) {
                     <div class="product-detail-info">
                         <span class="product-card-badge mb-2">${product.brand}</span>
                         <h1 class="mb-3">${product.name}</h1>
-                        <p class="product-detail-lead font-weight-bold" style="font-size: 1.15rem; color: var(--color-primary);">${product.shortDescription}</p>
+                        <p class="product-detail-lead font-weight-bold" style="font-size: 1.15rem; color: var(--color-text);">${product.shortDescription}</p>
                         <p>${product.description}</p>
                         <div class="detail-actions mt-6" style="display: flex; gap: 16px;">
                             <button type="button" class="btn btn-primary btn-lg btn-enquire" data-product-id="${product.id}" data-product-name="${product.name}">
