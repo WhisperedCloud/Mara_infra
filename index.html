@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+    <!-- Custom Magnetic Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
 
     <!-- Header -->
     <header class="site-header">
@@ -28,11 +32,11 @@
                 <div class="brand-mark">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 18V6L12 13L21 6V18" stroke="url(#logo_grad_hdr)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 13V20" stroke="#84cc16" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M12 13V20" stroke="#990000" stroke-width="2.5" stroke-linecap="round"/>
                         <defs>
                             <linearGradient id="logo_grad_hdr" x1="3" y1="6" x2="21" y2="18" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#38bdf8"/>
-                                <stop offset="1" stop-color="#0ea5e9"/>
+                                <stop stop-color="#b30000"/>
+                                <stop offset="1" stop-color="#800000"/>
                             </linearGradient>
                         </defs>
                     </svg>
@@ -65,80 +69,191 @@
     </header>
 
     <main>
-        <!-- High-Tech Industrial Hero Section -->
-        <section class="section section-dark tech-grid-pattern" style="padding: 110px 0 120px; overflow: hidden;">
-            <div class="container">
-                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center;">
+        <!-- Modern Marquee Hero Section -->
+        <section class="hero-modern" style="padding: 100px 0 60px 0; background: var(--color-background); overflow: hidden; position: relative;">
+            
+            <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1200px; margin: 0 auto 60px;">
+                <!-- Left: Text Content -->
+                <div style="text-align: left;">
+                    <span class="reveal-fade-up" style="display: inline-block; padding: 6px 16px; background: var(--color-secondary-light); color: var(--color-accent); border-radius: 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px;"><i class="fa-solid fa-certificate" style="margin-right: 6px;"></i> Saint-Gobain Weber Official Distributor</span>
+                    <h1 class="reveal-fade-up reveal-delay-1" style="font-size: 3.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 24px; color: var(--color-text); letter-spacing: -0.03em;">Engineered for Excellence. <br><span style="color: var(--color-accent);">Built to Last.</span></h1>
+                    <p class="reveal-fade-up reveal-delay-2" style="font-size: 1.25rem; color: var(--color-text); line-height: 1.6; margin-bottom: 40px;">Your trusted partner for high-performance construction chemicals, premium waterproofing, and advanced architectural glazing systems across Hosur & Krishnagiri.</p>
+                    <div class="reveal-fade-up reveal-delay-3" style="display: flex; gap: 16px; margin-bottom: 32px;">
+                        <a href="products.html" class="btn btn-primary" style="padding: 16px 32px; font-size: 1.1rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(179, 0, 0, 0.2);">Explore Catalog</a>
+                        <a href="contact.html" class="btn btn-outline" style="padding: 16px 32px; font-size: 1.1rem; border-radius: 12px; border: 2px solid var(--color-border); color: var(--color-text);">Contact Sales</a>
+                    </div>
                     
-                    <div class="reveal-fade-up">
-                        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.12); border: 1px solid rgba(14, 165, 233, 0.3); padding: 6px 16px; border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 600; color: var(--color-secondary); margin-bottom: 24px;">
-                            <i class="fa-solid fa-certificate text-accent"></i> Authorised Distributor: <strong>Saint-Gobain Weber</strong>
-                        </div>
-
-                        <h1 style="color: var(--color-text-white); font-size: 3.4rem; letter-spacing: -1px; margin-bottom: 20px;">
-                            High-Performance <span style="background: linear-gradient(135deg, var(--color-secondary), var(--color-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Products & Contracting Services</span>
-                        </h1>
-
-                        <p style="color: #cbd5e1; font-size: 1.2rem; margin-bottom: 36px; max-width: 620px;">
-                            Hosur & Krishnagiri's reference supplier and contractor for Saint-Gobain glass & glazing, Weber tile adhesives, epoxy grouts, and elastomeric waterproofing systems.
-                        </p>
-
-                        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px;">
-                            <a href="products.html" class="btn btn-accent btn-lg">
-                                <i class="fa-solid fa-boxes-stacked"></i> Browse Products
-                            </a>
-                            <a href="services.html" class="btn btn-outline btn-lg" style="color: var(--color-text-white); border-color: rgba(255,255,255,0.3);">
-                                <i class="fa-solid fa-screwdriver-wrench"></i> Explore Contracting Services
-                            </a>
-                        </div>
-
-                        <!-- Animated Live Numbers -->
-                        <div style="display: flex; gap: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12);">
-                            <div>
-                                <div class="animate-counter" data-target="20" data-suffix="+" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: var(--color-accent); line-height: 1;">0+</div>
-                                <span style="font-size: 0.8rem; color: var(--color-text-light);">Years Field Experience</span>
-                            </div>
-                            <div style="width: 1px; background: rgba(255,255,255,0.12);"></div>
-                            <div>
-                                <div class="animate-counter" data-target="500" data-suffix="+" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: var(--color-secondary); line-height: 1;">0+</div>
-                                <span style="font-size: 0.8rem; color: var(--color-text-light);">Projects Completed</span>
-                            </div>
-                            <div style="width: 1px; background: rgba(255,255,255,0.12);"></div>
-                            <div>
-                                <div class="animate-counter" data-target="100" data-suffix="%" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; color: var(--color-accent); line-height: 1;">0%</div>
-                                <span style="font-size: 0.8rem; color: var(--color-text-light);">Quality Guaranteed</span>
-                            </div>
-                        </div>
+                    <div class="reveal-fade-up reveal-delay-4" style="display: flex; gap: 24px; align-items: center; padding-top: 24px; border-top: 1px solid var(--color-border);">
+                        <a href="tel:+919884701587" style="display: flex; align-items: center; gap: 8px; color: var(--color-text); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s ease;">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-surface); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: var(--color-accent);"><i class="fa-solid fa-phone"></i></div>
+                            +91 98847 01587
+                        </a>
+                        <a href="mailto:senthil@marainfra.com" style="display: flex; align-items: center; gap: 8px; color: var(--color-text); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.3s ease;">
+                            <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-surface); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: var(--color-accent);"><i class="fa-solid fa-envelope"></i></div>
+                            senthil@marainfra.com
+                        </a>
                     </div>
-
-                    <!-- Right Hero Media Card -->
-                    <div class="reveal-scale-in">
-                        <div style="background: rgba(17, 34, 64, 0.85); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: var(--radius-xl); padding: 32px; box-shadow: var(--shadow-glow);">
-                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                                <i class="fa-solid fa-shield-halved" style="font-size: 2rem; color: var(--color-secondary);"></i>
-                                <div>
-                                    <h3 style="color: var(--color-text-white); font-size: 1.3rem; margin: 0;">Verified Product & Service Guarantee</h3>
-                                    <span style="font-size: 0.8rem; color: var(--color-accent);">100% Genuine Materials & Certified Applicators</span>
-                                </div>
-                            </div>
-                            <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 24px;">
-                                Direct authorised supply chain and factory-trained execution teams guaranteeing factory-fresh batch dates, company warranties, and technical assistance.
-                            </p>
-                            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; font-size: 0.85rem; font-weight: 600; color: var(--color-text-white);">
-                                <div style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-circle-check text-accent"></i> Waterproofing Contracting & Leak Stop</div>
-                                <div style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-circle-check text-accent"></i> Precision Tile Laying & Weber Epoxy Grouting</div>
-                                <div style="display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-circle-check text-accent"></i> Saint-Gobain Glazing & UPVC Fitting</div>
-                            </div>
-                            <button type="button" class="btn btn-primary btn-block btn-enquire">
-                                Request Technical Inspection & Quote
-                            </button>
-                        </div>
-                    </div>
-
+                </div>
+                
+                <!-- Right: Illustration -->
+                <div class="reveal-fade-up reveal-delay-2" style="position: relative;">
+                    <img src="assets/images/hero_illustration.png" alt="Modern Construction & Glazing Solutions" style="width: 100%; border-radius: 24px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1); transform: perspective(1000px) rotateY(-5deg); transition: transform 0.5s ease;">
                 </div>
             </div>
-        </section>
 
+            <!-- Infinite Scrolling Product Marquee -->
+            <div class="marquee-wrapper reveal-fade-up reveal-delay-4" style="width: 100vw; overflow: hidden; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; padding: 20px 0;">
+                
+                <style>
+                    .marquee-track {
+                        display: flex;
+                        gap: 30px;
+                        width: max-content;
+                        animation: scroll-left 35s linear infinite;
+                    }
+                    .marquee-track:hover {
+                        animation-play-state: paused;
+                    }
+                    @keyframes scroll-left {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(calc(-50% - 15px)); }
+                    }
+                    .marquee-item {
+                        width: 350px;
+                        background: var(--color-surface);
+                        border: 1px solid var(--color-border);
+                        border-radius: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        padding: 16px;
+                        box-shadow: 0 10px 30px rgba(179, 0, 0, 0.05);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+                    .marquee-item:hover {
+                        transform: translateY(-8px);
+                        box-shadow: 0 20px 40px rgba(179, 0, 0, 0.12);
+                        border-color: var(--color-accent);
+                    }
+                    .marquee-image-container {
+                        height: 220px;
+                        width: 100%;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        margin-bottom: 16px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .marquee-image-container img {
+                        max-width: 100%;
+                        max-height: 100%;
+                        object-fit: contain;
+                        transition: transform 0.5s ease;
+                    }
+                    .marquee-item:hover .marquee-image-container img {
+                        transform: scale(1.05);
+                    }
+                    .marquee-text-container {
+                        text-align: center;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                        padding-bottom: 8px;
+                    }
+                    .marquee-category {
+                        font-size: 0.85rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        color: var(--color-accent);
+                        letter-spacing: 0.5px;
+                    }
+                    .marquee-title {
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        color: var(--color-text);
+                        margin: 0;
+                        line-height: 1.3;
+                    }
+                    .sr-only {
+                        position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+                    }
+                </style>
+
+                <h2 class="sr-only">Featured Products</h2>
+                <div class="marquee-track">
+                    <!-- Original -->
+                    <a href="product-detail.html?id=weber-set-polymer" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/weber_tile_adhesive.png" alt="Tile Adhesive"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Tile Adhesives</span><h3 class="marquee-title">Weber Set Polymer</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weber-color-epoxy" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/epoxy_grout.png" alt="Epoxy Grout"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Joint Fillers</span><h3 class="marquee-title">Weber Color Epoxy</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weber-dry-protect" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/waterproofing.png" alt="Waterproofing"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Waterproofing</span><h3 class="marquee-title">Weber Dry Protect</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weber-primer-401" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/addon_chem.png" alt="Addon Chem"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Add-Ons</span><h3 class="marquee-title">Weber Primer 401</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weberwall-finecoat" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/weberwall_finecoat.png" alt="Finecoat"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Wall Solutions</span><h3 class="marquee-title">Weberwall Finecoat</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=saint-gobain-toughened-glazing" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/glazing.png" alt="Glazing"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Architectural Glass</span><h3 class="marquee-title">Saint-Gobain Glazing</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=pu-injection-grout" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/hero.png" alt="Glazing Systems"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Waterproofing</span><h3 class="marquee-title">PU Injection Grout</h3></div>
+                    </a>
+                    
+                    <!-- Duplicate for infinite loop -->
+                    <a href="product-detail.html?id=weber-set-polymer" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/weber_tile_adhesive.png" alt="Tile Adhesive"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Tile Adhesives</span><h3 class="marquee-title">Weber Set Polymer</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weber-color-epoxy" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/epoxy_grout.png" alt="Epoxy Grout"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Joint Fillers</span><h3 class="marquee-title">Weber Color Epoxy</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weber-dry-protect" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/waterproofing.png" alt="Waterproofing"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Waterproofing</span><h3 class="marquee-title">Weber Dry Protect</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weber-primer-401" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/addon_chem.png" alt="Addon Chem"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Add-Ons</span><h3 class="marquee-title">Weber Primer 401</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=weberwall-finecoat" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/weberwall_finecoat.png" alt="Finecoat"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Wall Solutions</span><h3 class="marquee-title">Weberwall Finecoat</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=saint-gobain-toughened-glazing" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/glazing.png" alt="Glazing"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Architectural Glass</span><h3 class="marquee-title">Saint-Gobain Glazing</h3></div>
+                    </a>
+                    <a href="product-detail.html?id=pu-injection-grout" class="marquee-item" style="text-decoration: none;">
+                        <div class="marquee-image-container"><img src="assets/images/hero.png" alt="Glazing Systems"></div>
+                        <div class="marquee-text-container"><span class="marquee-category">Waterproofing</span><h3 class="marquee-title">PU Injection Grout</h3></div>
+                    </a>
+                </div>
+            </div>
+            
+        </section>
+        
+        <!-- Floating WhatsApp Button -->
+        <a href="https://wa.me/919884701587" target="_blank" style="position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4); z-index: 9999; text-decoration: none; transition: transform 0.3s ease;">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+
+
+        
         <!-- Official Partnership & Trust Certification Showcase -->
         <section class="section" style="background: var(--color-surface); border-bottom: 1px solid var(--color-border); padding: 50px 0;">
             <div class="container">
@@ -147,15 +262,15 @@
                     <div class="trust-cert-card reveal-fade-up">
                         <div class="cert-icon"><i class="fa-solid fa-award"></i></div>
                         <div>
-                            <h4 style="margin: 0; font-size: 1.1rem; color: var(--color-primary);">Authorised Stockist</h4>
-                            <span style="font-size: 0.85rem; color: var(--color-secondary); font-weight: 700;">Saint-Gobain Weber Official ID</span>
+                            <h2 style="margin: 0; font-size: 1.1rem; color: var(--color-text);">Authorised Stockist</h2>
+                            <span style="font-size: 0.85rem; color: var(--color-accent); font-weight: 700;">Saint-Gobain Weber Official ID</span>
                         </div>
                     </div>
 
                     <div class="trust-cert-card reveal-fade-up reveal-delay-1">
                         <div class="cert-icon" style="background: var(--color-accent-light); color: var(--color-accent-dark);"><i class="fa-solid fa-circle-check"></i></div>
                         <div>
-                            <h4 style="margin: 0; font-size: 1.1rem; color: var(--color-primary);">Quality Assurance</h4>
+                            <h2 style="margin: 0; font-size: 1.1rem; color: var(--color-text);">Quality Assurance</h2>
                             <span style="font-size: 0.85rem; color: var(--color-accent-dark); font-weight: 700;">100% Genuine Factory Batch</span>
                         </div>
                     </div>
@@ -163,8 +278,8 @@
                     <div class="trust-cert-card reveal-fade-up reveal-delay-2">
                         <div class="cert-icon"><i class="fa-solid fa-file-contract"></i></div>
                         <div>
-                            <h4 style="margin: 0; font-size: 1.1rem; color: var(--color-primary);">Warranty Backed</h4>
-                            <span style="font-size: 0.85rem; color: var(--color-secondary); font-weight: 700;">10-Year Water Tightness Cert</span>
+                            <h2 style="margin: 0; font-size: 1.1rem; color: var(--color-text);">Warranty Backed</h2>
+                            <span style="font-size: 0.85rem; color: var(--color-accent); font-weight: 700;">10-Year Water Tightness Cert</span>
                         </div>
                     </div>
 
@@ -183,14 +298,14 @@
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;" class="reveal-fade-up">
                     <!-- Column 1: Products We Provide -->
-                    <div style="background: var(--color-surface); border: 2px solid var(--color-secondary); border-radius: var(--radius-lg); padding: var(--space-8); box-shadow: var(--shadow-md);">
+                    <div style="background: var(--color-surface); border: 2px solid var(--color-accent); border-radius: var(--radius-lg); padding: var(--space-8); box-shadow: var(--shadow-md);">
                         <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
-                            <div style="width: 50px; height: 50px; background: var(--color-secondary-light); color: var(--color-secondary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                            <div style="width: 50px; height: 50px; background: var(--color-accent-glow); color: var(--color-accent); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
                                 <i class="fa-solid fa-boxes-stacked"></i>
                             </div>
                             <div>
                                 <h3 style="margin: 0; font-size: 1.5rem;">1. Products We Supply</h3>
-                                <span style="font-size: 0.85rem; color: var(--color-secondary); font-weight: 700;">Authorised Wholesale & Retail Distribution</span>
+                                <span style="font-size: 0.85rem; color: var(--color-accent); font-weight: 700;">Authorised Wholesale & Retail Distribution</span>
                             </div>
                         </div>
 
@@ -198,28 +313,28 @@
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">Waterproofing Chemicals</strong>
+                                    <strong style="display: block; color: var(--color-text);">Waterproofing Chemicals</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">Elastomeric coatings, PU injection resins, crystalline slurries, and tank sealants.</span>
                                 </div>
                             </li>
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">Tile & Stone Adhesives</strong>
+                                    <strong style="display: block; color: var(--color-text);">Tile & Stone Adhesives</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">Weber polymer-modified cement mortars for vitrified tiles, granite, and tile-on-tile fixing.</span>
                                 </div>
                             </li>
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">Weber Epoxy Joint Fillers</strong>
+                                    <strong style="display: block; color: var(--color-text);">Weber Epoxy Joint Fillers</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">100% stain-proof, waterproof 3-part resinous epoxy tile grouts in 40+ shades.</span>
                                 </div>
                             </li>
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">Saint-Gobain Architectural Glazing</strong>
+                                    <strong style="display: block; color: var(--color-text);">Saint-Gobain Architectural Glazing</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">Toughened safety glass, acoustic partitions, UPVC windows, and solar control glass.</span>
                                 </div>
                             </li>
@@ -248,28 +363,28 @@
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">Waterproofing Contracting</strong>
+                                    <strong style="display: block; color: var(--color-text);">Waterproofing Contracting</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">Turnkey roof terrace coating, basement leak injection, swimming pool & tank waterproofing.</span>
                                 </div>
                             </li>
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">Tile Laying & Epoxy Grouting Application</strong>
+                                    <strong style="display: block; color: var(--color-text);">Tile Laying & Epoxy Grouting Application</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">Precision trowel application for large format slabs and 100% stain-free epoxy joint grouting.</span>
                                 </div>
                             </li>
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">Architectural Glazing Installation</strong>
+                                    <strong style="display: block; color: var(--color-text);">Architectural Glazing Installation</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">Fitting commercial structural glass curtain walls, UPVC window frames, and acoustic doors.</span>
                                 </div>
                             </li>
                             <li style="display: flex; gap: 12px; align-items: flex-start;">
                                 <i class="fa-solid fa-circle-check text-accent" style="margin-top: 4px;"></i>
                                 <div>
-                                    <strong style="display: block; color: var(--color-primary);">On-Site Technical Moisture Audit</strong>
+                                    <strong style="display: block; color: var(--color-text);">On-Site Technical Moisture Audit</strong>
                                     <span style="font-size: 0.875rem; color: var(--color-text-muted);">Digital moisture testing, substrate evaluation, and written specification reports for developers.</span>
                                 </div>
                             </li>
@@ -287,7 +402,7 @@
         </section>
 
         <!-- Interactive High-Tech Diagnostic Widget -->
-        <section class="section section-dark tech-grid-pattern">
+        <section class="section tech-grid-pattern">
             <div class="container">
                 <div class="section-header reveal-fade-up">
                     <span class="section-subtitle"><i class="fa-solid fa-microscope"></i> TECHNICAL TROUBLESHOOTER</span>
@@ -297,195 +412,6 @@
 
                 <div id="diagnostic-widget-container" class="reveal-scale-in">
                     <!-- JS Injected High-Tech Diagnostic Component -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Product Categories Section -->
-        <section class="section">
-            <div class="container">
-                <div class="section-header reveal-fade-up">
-                    <span class="section-subtitle"><i class="fa-solid fa-layer-group"></i> AUTHORISED PRODUCT RANGE</span>
-                    <h2 class="section-title">Explore Our Products</h2>
-                    <p class="section-description">Engineered structural solutions and high-performance technical chemicals direct from Saint-Gobain & Weber.</p>
-                </div>
-
-                <div class="explore-products-grid">
-                    
-                    <!-- Card 1: Tile & Stone Adhesives -->
-                    <article class="explore-product-card reveal-fade-up">
-                        <div class="explore-card-media">
-                            <img src="assets/images/weber_tile_adhesive.png" alt="Tile & Stone Adhesives" class="explore-card-img" loading="lazy">
-                            <div class="explore-card-overlay">
-                                <div class="explore-card-header-tags">
-                                    <span class="explore-brand-badge">WEBER C2TE</span>
-                                    <span class="explore-feature-badge"><i class="fa-solid fa-bolt"></i> High Bond</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explore-card-content">
-                            <h3 class="explore-card-title">
-                                <i class="fa-solid fa-border-all"></i> Tile & Stone Adhesives
-                            </h3>
-                            <p class="explore-card-desc">Polymer-modified thin-bed cementitious mortars engineered for vitrified tiles, granite, and tile-on-tile fixing with zero slip.</p>
-                            <div class="explore-card-chips">
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Vitrified Slabs</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Marble & Granite</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Tile-on-Tile</span>
-                            </div>
-                            <div class="explore-card-footer">
-                                <a href="products.html?category=adhesives" class="explore-card-btn">
-                                    Explore Adhesives Catalog &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Card 2: Tile & Stone Joint Fillers -->
-                    <article class="explore-product-card reveal-fade-up reveal-delay-1">
-                        <div class="explore-card-media">
-                            <img src="assets/images/epoxy_grout.png" alt="Tile & Stone Joint Fillers" class="explore-card-img" loading="lazy">
-                            <div class="explore-card-overlay">
-                                <div class="explore-card-header-tags">
-                                    <span class="explore-brand-badge">WEBER COLOR EPOXY</span>
-                                    <span class="explore-feature-badge"><i class="fa-solid fa-shield"></i> 100% Stainproof</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explore-card-content">
-                            <h3 class="explore-card-title">
-                                <i class="fa-solid fa-fill-drip"></i> Epoxy Joint Fillers
-                            </h3>
-                            <p class="explore-card-desc">3-component resinous epoxy grouts and antibacterial joint fillers immune to water, acids, and stubborn stain absorption.</p>
-                            <div class="explore-card-chips">
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> 100% Stain-Proof</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> 40+ Architectural Shades</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Hygienic Wet Areas</span>
-                            </div>
-                            <div class="explore-card-footer">
-                                <a href="products.html?category=grouts" class="explore-card-btn">
-                                    Explore Epoxy Grouts &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Card 3: Waterproofing Systems -->
-                    <article class="explore-product-card reveal-fade-up reveal-delay-2">
-                        <div class="explore-card-media">
-                            <img src="assets/images/waterproofing.png" alt="Waterproofing Systems" class="explore-card-img" loading="lazy">
-                            <div class="explore-card-overlay">
-                                <div class="explore-card-header-tags">
-                                    <span class="explore-brand-badge">HEAVY DUTY MEMBRANES</span>
-                                    <span class="explore-feature-badge"><i class="fa-solid fa-certificate"></i> 10-Yr Guarantee</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explore-card-content">
-                            <h3 class="explore-card-title">
-                                <i class="fa-solid fa-droplet-slash"></i> Waterproofing Chemicals
-                            </h3>
-                            <p class="explore-card-desc">Elastomeric acrylic slurries, PU injection resins, and crystalline coatings protecting roofs, basements, and water tanks.</p>
-                            <div class="explore-card-chips">
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Roof Terrace Coating</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> PU Crack Injection</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Sump Tank Sealing</span>
-                            </div>
-                            <div class="explore-card-footer">
-                                <a href="products.html?category=waterproofing" class="explore-card-btn">
-                                    Explore Waterproofing &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Card 4: Weberwall Finecoat -->
-                    <article class="explore-product-card reveal-fade-up">
-                        <div class="explore-card-media">
-                            <img src="assets/images/weberwall_finecoat.png" alt="Weberwall Finecoat" class="explore-card-img" loading="lazy">
-                            <div class="explore-card-overlay">
-                                <div class="explore-card-header-tags">
-                                    <span class="explore-brand-badge">SKIM MORTARS</span>
-                                    <span class="explore-feature-badge"><i class="fa-solid fa-square-check"></i> Zero Cracks</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explore-card-content">
-                            <h3 class="explore-card-title">
-                                <i class="fa-solid fa-spray-can-sparkles"></i> Weberwall Finecoat
-                            </h3>
-                            <p class="explore-card-desc">Polymer-enriched skim finishing mortar replacing brittle wall putty for smooth, weather-resistant exterior and interior walls.</p>
-                            <div class="explore-card-chips">
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Replaces Wall Putty</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Weather Resistant</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Smooth Primer Finish</span>
-                            </div>
-                            <div class="explore-card-footer">
-                                <a href="products.html?category=wall-solutions" class="explore-card-btn">
-                                    Explore Wall Mortars &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Card 5: Architectural Glazing & UPVC -->
-                    <article class="explore-product-card reveal-fade-up reveal-delay-1">
-                        <div class="explore-card-media">
-                            <img src="assets/images/glazing.png" alt="Architectural Glazing & UPVC" class="explore-card-img" loading="lazy">
-                            <div class="explore-card-overlay">
-                                <div class="explore-card-header-tags">
-                                    <span class="explore-brand-badge">SAINT-GOBAIN GLASS</span>
-                                    <span class="explore-feature-badge"><i class="fa-solid fa-sun"></i> Solar & Acoustic</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explore-card-content">
-                            <h3 class="explore-card-title">
-                                <i class="fa-solid fa-building"></i> Architectural Glazing & Tools
-                            </h3>
-                            <p class="explore-card-desc">Saint-Gobain structural toughened safety glass, acoustic partitions, UPVC windows, and precision application trowels.</p>
-                            <div class="explore-card-chips">
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Toughened Safety Glass</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> UPVC Windows</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Notched Trowels</span>
-                            </div>
-                            <div class="explore-card-footer">
-                                <a href="products.html?category=glazing" class="explore-card-btn">
-                                    Explore Glazing Systems &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Card 6: Add-On Construction Chemicals -->
-                    <article class="explore-product-card reveal-fade-up reveal-delay-2">
-                        <div class="explore-card-media">
-                            <img src="assets/images/addon_chem.png" alt="Add-On Construction Chemicals" class="explore-card-img" loading="lazy">
-                            <div class="explore-card-overlay">
-                                <div class="explore-card-header-tags">
-                                    <span class="explore-brand-badge">SPECIALTY ADMIXTURES</span>
-                                    <span class="explore-feature-badge"><i class="fa-solid fa-flask"></i> Industrial</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explore-card-content">
-                            <h3 class="explore-card-title">
-                                <i class="fa-solid fa-flask-vial"></i> Add-On Construction Chemicals
-                            </h3>
-                            <p class="explore-card-desc">High-performance SBR latex bonding agents, acrylic primers, repair mortars, and concrete strength admixtures.</p>
-                            <div class="explore-card-chips">
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> SBR Bonding Latex</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Primer Admixtures</span>
-                                <span class="explore-chip"><i class="fa-solid fa-check"></i> Structural Repair</span>
-                            </div>
-                            <div class="explore-card-footer">
-                                <a href="products.html?category=add-ons" class="explore-card-btn">
-                                    Explore Specialty Chemicals &rarr;
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-
                 </div>
             </div>
         </section>
@@ -508,7 +434,7 @@
                         <p style="font-size: 0.95rem; font-style: italic; color: var(--color-text-muted); margin-bottom: 20px;">
                             "Mara Infra Solutions diagnosed our factory terrace leakage in Hosur using digital moisture meters and supplied Weber Dry Protect. Not a single drop of seepage in 3 years."
                         </p>
-                        <strong style="display: block; color: var(--color-primary);">K. Venkatesh</strong>
+                        <strong style="display: block; color: var(--color-text);">K. Venkatesh</strong>
                         <span style="font-size: 0.8rem; color: var(--color-text-light);">Industrial Works Director, Hosur</span>
                     </div>
 
@@ -519,7 +445,7 @@
                         <p style="font-size: 0.95rem; font-style: italic; color: var(--color-text-muted); margin-bottom: 20px;">
                             "As an interior architect, I insist on genuine Weber epoxy grouting for my residential projects. Mara Infra is our go-to stockist for fresh stock and technical guidance."
                         </p>
-                        <strong style="display: block; color: var(--color-primary);">Priya Sundaram</strong>
+                        <strong style="display: block; color: var(--color-text);">Priya Sundaram</strong>
                         <span style="font-size: 0.8rem; color: var(--color-text-light);">Lead Interior Architect, Krishnagiri</span>
                     </div>
 
@@ -530,7 +456,7 @@
                         <p style="font-size: 0.95rem; font-style: italic; color: var(--color-text-muted); margin-bottom: 20px;">
                             "Senthil sir provided excellent Saint-Gobain glazing for my villa project. Their technical support team worked with extreme precision."
                         </p>
-                        <strong style="display: block; color: var(--color-primary);">S. Anand</strong>
+                        <strong style="display: block; color: var(--color-text);">S. Anand</strong>
                         <span style="font-size: 0.8rem; color: var(--color-text-light);">Property Owner, Hosur</span>
                     </div>
 
@@ -538,18 +464,85 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section class="section section-dark tech-grid-pattern" style="text-align: center;">
-            <div class="container reveal-scale-in">
-                <h2 style="color: var(--color-text-white); margin-bottom: 16px;">Ready to Source Products or Book Contracting Services?</h2>
-                <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto 32px;">Contact our technical specialists today for genuine Saint-Gobain & Weber product recommendations or on-site contracting inspection.</p>
-                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                    <button type="button" class="btn btn-accent btn-lg btn-enquire">
-                        <i class="fa-solid fa-paper-plane"></i> Get Technical Quote
-                    </button>
-                    <a href="contact.html" class="btn btn-outline btn-lg" style="color: var(--color-text-white); border-color: rgba(255,255,255,0.3);">
-                        <i class="fa-solid fa-location-dot"></i> Visit Showroom
-                    </a>
+        <!-- Professional Contact Section -->
+        <section class="section" style="background: var(--color-surface); padding: 80px 0; border-top: 1px solid var(--color-border);">
+            <div class="container">
+                <div class="section-header reveal-fade-up text-center">
+                    <span class="section-subtitle"><i class="fa-solid fa-headset"></i> GET IN TOUCH</span>
+                    <h2 class="section-title">Ready to Start Your Project?</h2>
+                    <p class="section-description" style="max-width: 600px; margin: 0 auto;">Connect with our technical experts for genuine product recommendations, site inspections, and customized quotations.</p>
+                </div>
+
+                <div class="reveal-fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); background: var(--color-surface); border-radius: 24px; box-shadow: 0 24px 48px rgba(179, 0, 0, 0.12); overflow: hidden; max-width: 1000px; margin: 40px auto 0;">
+                    
+                    <!-- Left: Modern Dark Panel -->
+                    <div style="background: var(--color-accent); padding: 50px; color: #ffffff; display: flex; flex-direction: column; justify-content: center;">
+                        <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; color: #ffffff;">Contact Information</h3>
+                        <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 40px; font-size: 0.95rem;">Reach out directly or send us a message. We usually respond within 2 hours.</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 32px;">
+                            <div style="display: flex; gap: 20px; align-items: flex-start;">
+                                <div style="font-size: 1.4rem; color: #ffffff; margin-top: 4px;">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span style="display: block; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Call Us</span>
+                                    <a href="tel:+919884701587" style="font-weight: 600; font-size: 1.1rem; color: #ffffff; text-decoration: none;">+91 98847 01587</a>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 20px; align-items: flex-start;">
+                                <div style="font-size: 1.4rem; color: #ffffff; margin-top: 4px;">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span style="display: block; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Email Support</span>
+                                    <a href="mailto:senthil@marainfra.com" style="font-weight: 600; font-size: 1.1rem; color: #ffffff; text-decoration: none;">senthil@marainfra.com</a>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 20px; align-items: flex-start;">
+                                <div style="font-size: 1.4rem; color: #ffffff; margin-top: 4px;">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span style="display: block; font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Visit Showroom</span>
+                                    <strong style="color: #ffffff; font-size: 1rem; font-weight: 500; line-height: 1.5;">Main Road, Hosur & Krishnagiri Town,<br>Tamil Nadu</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Modern Clean Form -->
+                    <div style="background: var(--color-surface); padding: 50px;">
+                        <h3 style="margin-bottom: 24px; font-size: 1.5rem; color: var(--color-text);">Send an Enquiry</h3>
+                        <form style="display: flex; flex-direction: column; gap: 20px;">
+                            <div style="display: flex; gap: 20px;">
+                                <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                                    <label style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text);">Name</label>
+                                    <input type="text" placeholder="John Doe" style="padding: 12px 0; border: none; border-bottom: 2px solid var(--color-secondary-light); background: transparent; color: var(--color-text); font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderBottomColor='var(--color-accent)'" onblur="this.style.borderBottomColor='var(--color-secondary-light)'" required>
+                                </div>
+                                <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                                    <label style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text);">Phone</label>
+                                    <input type="tel" placeholder="+91 00000 00000" style="padding: 12px 0; border: none; border-bottom: 2px solid var(--color-secondary-light); background: transparent; color: var(--color-text); font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderBottomColor='var(--color-accent)'" onblur="this.style.borderBottomColor='var(--color-secondary-light)'" required>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <label style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text);">Email</label>
+                                <input type="email" placeholder="john@example.com" style="padding: 12px 0; border: none; border-bottom: 2px solid var(--color-secondary-light); background: transparent; color: var(--color-text); font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderBottomColor='var(--color-accent)'" onblur="this.style.borderBottomColor='var(--color-secondary-light)'">
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px;">
+                                <label style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text);">Message</label>
+                                <textarea placeholder="How can we help?" rows="3" style="padding: 12px 0; border: none; border-bottom: 2px solid var(--color-secondary-light); background: transparent; color: var(--color-text); font-size: 1rem; outline: none; resize: none; transition: 0.3s;" onfocus="this.style.borderBottomColor='var(--color-accent)'" onblur="this.style.borderBottomColor='var(--color-secondary-light)'" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="padding: 16px; font-size: 1.1rem; border-radius: 12px; margin-top: 8px; width: 100%;">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -563,11 +556,11 @@
                     <div class="brand-mark">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 18V6L12 13L21 6V18" stroke="url(#logo_grad_ftr)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 13V20" stroke="#84cc16" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M12 13V20" stroke="#990000" stroke-width="2.5" stroke-linecap="round"/>
                             <defs>
                                 <linearGradient id="logo_grad_ftr" x1="3" y1="6" x2="21" y2="18" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#38bdf8"/>
-                                    <stop offset="1" stop-color="#0ea5e9"/>
+                                    <stop stop-color="#b30000"/>
+                                    <stop offset="1" stop-color="#800000"/>
                                 </linearGradient>
                             </defs>
                         </svg>
@@ -581,7 +574,7 @@
             </div>
 
             <div>
-                <h4 class="footer-title">Products & Services</h4>
+                <h2 class="footer-title">Products & Services</h2>
                 <ul class="footer-links">
                     <li><a href="products.html?category=adhesives">Tile & Stone Adhesives</a></li>
                     <li><a href="products.html?category=grouts">Tile & Stone Joint Fillers</a></li>
@@ -592,7 +585,7 @@
             </div>
 
             <div>
-                <h4 class="footer-title">Company</h4>
+                <h2 class="footer-title">Company</h2>
                 <ul class="footer-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="products.html">Products Catalogue</a></li>
@@ -604,7 +597,7 @@
             </div>
 
             <div>
-                <h4 class="footer-title">Contact</h4>
+                <h2 class="footer-title">Contact</h2>
                 <ul class="footer-links">
                     <li><i class="fa-solid fa-phone text-accent"></i> <a href="tel:+919884701587">+91 98847 01587</a></li>
                     <li><i class="fa-solid fa-envelope text-accent"></i> <a href="mailto:senthil@marainfra.com">senthil@marainfra.com</a></li>
@@ -624,5 +617,69 @@
     <!-- Scripts -->
     <script src="data/products.js"></script>
     <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('hero-slider-track');
+            if (!track) return;
+            const slides = document.querySelectorAll('.hero-slide');
+            const dotsContainer = document.getElementById('hero-slider-dots');
+            
+            let currentIndex = 0;
+            const slideCount = slides.length;
+            let autoPlayInterval;
+
+            // Create dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.style.width = '12px';
+                dot.style.height = '12px';
+                dot.style.borderRadius = '50%';
+                dot.style.background = index === 0 ? 'var(--color-secondary)' : 'rgba(128, 0, 0,0.3)';
+                dot.style.cursor = 'pointer';
+                dot.style.transition = 'background 0.3s ease';
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            const dots = dotsContainer.querySelectorAll('div');
+
+            function updateDots() {
+                dots.forEach((dot, index) => {
+                    dot.style.background = index === currentIndex ? 'var(--color-secondary)' : 'rgba(128, 0, 0,0.3)';
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                if (currentIndex < 0) currentIndex = slideCount - 1;
+                if (currentIndex >= slideCount) currentIndex = 0;
+                
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                updateDots();
+                resetAutoPlay();
+            }
+
+            window.moveSlide = function(direction) {
+                goToSlide(currentIndex + direction);
+            };
+
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(() => {
+                    goToSlide(currentIndex + 1);
+                }, 4000); // 4 seconds per slide
+            }
+
+            function resetAutoPlay() {
+                clearInterval(autoPlayInterval);
+                startAutoPlay();
+            }
+
+            // Start auto play
+            startAutoPlay();
+            
+            // Pause on hover over track to allow reading
+            track.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+            track.addEventListener('mouseleave', startAutoPlay);
+        });
+    </script>
 </body>
 </html>

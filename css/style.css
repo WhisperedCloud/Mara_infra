@@ -1,42 +1,43 @@
 /* ==========================================================================
-   MARA INFRA SOLUTIONS - HIGH-TECH & INDUSTRIAL DESIGN SYSTEM
+   MARA INFRA SOLUTIONS - PREMIUM "APPLE-LIKE" DESIGN SYSTEM
    ========================================================================== */
 
 :root {
-    /* Brand Colors - High-Tech Industrial Palette */
-    --color-primary: #0a192f;          /* Deep Cyber Slate Navy */
-    --color-primary-dark: #060e1a;     /* Obsidian Dark */
-    --color-primary-light: #112240;    /* High-Tech Slate */
+    /* Brand Colors - Premium Minimalist Palette */
+    --color-primary: #ffffff;          /* Clean White */
+    --color-primary-dark: #ffffff;     
+    --color-primary-light: #ffffff;    
     
-    --color-secondary: #0ea5e9;        /* Electric Cyan / Blue */
-    --color-secondary-dark: #0284c7;   /* Deep Tech Blue */
-    --color-secondary-light: #e0f2fe;  /* Ice Blue Glow Tint */
+    --color-secondary: #000000;        /* Pure black */
+    --color-secondary-dark: #000000;   
+    --color-secondary-light: #ffe6e6;  /* Light maroon tint, no muddy grey */
 
-    --color-accent: #84cc16;           /* Weber Safety Lime Green */
-    --color-accent-dark: #65a30d;      /* Deep Industrial Green */
-    --color-accent-glow: rgba(132, 204, 22, 0.3);
+    /* The brand's Maroon - Accent */
+    --color-accent: #b30000;           /* Crisp, bright maroon */
+    --color-accent-dark: #800000;      
+    --color-accent-glow: #ffe6e6;
 
-    --color-orange: #f97316;           /* Industrial Warning Accent */
-    --color-purple-tech: #8b5cf6;      /* High-Tech Accent */
+    --color-orange: #ff9500;           
+    --color-purple-tech: #b30000;      
 
-    /* Neutral Surfaces */
-    --color-background: #0f172a;       /* Tech Dark mode ready or crisp light */
-    --color-background-light: #f8fafc;
-    --color-surface: #ffffff;
-    --color-surface-subtle: #f1f5f9;
-    --color-surface-dark: #1e293b;
+    /* Neutral Surfaces - ONLY WHITE */
+    --color-background: #ffffff;       
+    --color-background-light: #ffffff;
+    --color-surface: #ffffff;          
+    --color-surface-subtle: #ffffff;
+    --color-surface-dark: #b30000;
 
-    --color-text: #1e293b;
-    --color-text-muted: #64748b;
-    --color-text-light: #94a3b8;
+    --color-text: #000000;             /* Pure black for main text */
+    --color-text-muted: #000000;       /* NO grey or muddy text */
+    --color-text-light: #000000;  
     --color-text-white: #ffffff;
 
-    --color-border: #e2e8f0;
-    --color-border-glow: rgba(14, 165, 233, 0.3);
+    --color-border: #b30000;           /* Maroon border */
+    --color-border-glow: #ffe6e6;
 
-    /* Typography - Professional Corporate Tech Font */
-    --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    /* Typography - Archivo or System Fonts for absolute clarity */
+    --font-primary: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-heading: 'Archivo', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
     /* Spacing */
     --space-1: 0.25rem;
@@ -47,28 +48,29 @@
     --space-6: 2rem;
     --space-8: 3rem;
     --space-10: 4rem;
-    --space-12: 5rem;
+    --space-12: 6rem;                  /* Increased for breathing room */
 
-    /* Radius System */
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
+    /* Radius System - Large, smooth Apple-style corners */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
     --radius-xl: 24px;
     --radius-full: 9999px;
 
-    /* High-Tech Shadows & Glows */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 10px 25px -5px rgba(14, 165, 233, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
-    --shadow-lg: 0 20px 40px -10px rgba(10, 25, 47, 0.15);
-    --shadow-glow: 0 0 25px rgba(14, 165, 233, 0.35);
-    --shadow-glow-accent: 0 0 25px rgba(132, 204, 22, 0.35);
+    /* Premium Shadows & Glows */
+    --shadow-sm: 0 2px 8px rgba(128, 0, 0, 0.04);
+    --shadow-md: 0 4px 24px rgba(128, 0, 0, 0.06);
+    --shadow-lg: 0 12px 48px rgba(128, 0, 0, 0.08);
+    --shadow-glow: 0 0 24px rgba(128, 0, 0, 0.04);
+    --shadow-glow-accent: 0 8px 32px rgba(128, 0, 0, 0.15);
 
-    --container-width: 1240px;
-    --header-height: 80px;
+    --container-width: 1200px;         /* Slightly tighter max-width for better reading */
+    --header-height: 72px;
 
-    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Smooth, elegant transitions */
+    --transition-fast: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    --transition-base: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* ==========================================================================
@@ -83,118 +85,127 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
     font-family: var(--font-primary);
     color: var(--color-text);
-    background-color: var(--color-background-light);
-    line-height: 1.6;
+    background-color: var(--color-background);
+    line-height: 1.5;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
 }
 
-/* High-Tech Background Pattern Utility */
+/* Premium Background Pattern (Subtle Gradient instead of harsh grid) */
 .tech-grid-pattern {
-    background-image: 
-        linear-gradient(to right, rgba(14, 165, 233, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-background) 100%);
+}
+
+/* Glassmorphism Utility */
+.glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 /* Heading Hierarchy */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    color: var(--color-primary);
-    line-height: 1.2;
+    color: var(--color-text);
+    line-height: 1.15;
     font-weight: 700;
 }
 
-h1 { font-size: 3rem; letter-spacing: -0.02em; }
-h2 { font-size: 2.25rem; letter-spacing: -0.01em; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.2rem; }
+h1 { font-size: 3.5rem; letter-spacing: -0.03em; }
+h2 { font-size: 2.5rem; letter-spacing: -0.02em; }
+h3 { font-size: 1.5rem; letter-spacing: -0.01em; font-weight: 600; }
+h4 { font-size: 1.25rem; font-weight: 600; }
 
 p {
     color: var(--color-text-muted);
-    font-size: 1rem;
+    font-size: 1.05rem;
     margin-bottom: var(--space-4);
+    letter-spacing: -0.01em;
 }
 
 p:last-child { margin-bottom: 0; }
 
 a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
 
-img { max-width: 100%; height: auto; display: block; }
+img { max-width: 100%; height: auto; display: block; border-radius: var(--radius-sm); }
 
 /* Layout Utilities */
 .container {
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: 0 var(--space-5);
+    padding: 0 var(--space-6);
 }
 
 .section { padding: var(--space-12) 0; position: relative; }
 .section-alt { background-color: var(--color-surface); }
-.section-dark { background-color: var(--color-primary); color: var(--color-text-white); }
+.section-dark { background-color: var(--color-surface-dark); color: var(--color-text-white); }
 
 .section-header {
     text-align: center;
-    max-width: 760px;
+    max-width: 800px;
     margin: 0 auto var(--space-10);
 }
 
 .section-subtitle {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: inline-block;
     font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.8125rem;
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--color-secondary);
-    background: rgba(14, 165, 233, 0.08);
-    padding: 6px 14px;
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(14, 165, 233, 0.2);
+    color: var(--color-accent);
     margin-bottom: var(--space-3);
 }
 
 .section-dark .section-subtitle {
-    color: var(--color-accent);
-    background: rgba(132, 204, 22, 0.1);
-    border-color: rgba(132, 204, 22, 0.25);
+    color: var(--color-text-light);
 }
 
-.section-title { margin-bottom: var(--space-3); }
+.section-title { 
+    margin-bottom: var(--space-4); 
+    color: var(--color-text);
+}
 .section-dark .section-title { color: var(--color-text-white); }
-.section-description { font-size: 1.125rem; color: var(--color-text-muted); }
+
+.section-description { 
+    font-size: 1.25rem; 
+    color: var(--color-text-muted); 
+    line-height: 1.6;
+}
 .section-dark .section-description { color: var(--color-text-light); }
 
 /* ==========================================================================
-   SCROLL REVEAL ANIMATIONS (Progressive Enhancement)
+   SCROLL REVEAL ANIMATIONS (Smooth & Premium)
    ========================================================================== */
 .reveal-fade-up, .reveal-scale-in {
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(0) scale(1);
+    transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .js-reveal-ready .reveal-fade-up:not(.is-visible) {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
 }
 
 .js-reveal-ready .reveal-scale-in:not(.is-visible) {
     opacity: 0;
-    transform: scale(0.94);
+    transform: scale(0.96) translateY(20px);
 }
 
-.reveal-delay-1 { transition-delay: 0.15s; }
-.reveal-delay-2 { transition-delay: 0.3s; }
-.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
 
 /* Accessibility Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
@@ -203,4 +214,66 @@ img { max-width: 100%; height: auto; display: block; }
         transform: none !important;
         transition: none !important;
     }
+}
+
+/* ==========================================================================
+   MAGNETIC CUSTOM CURSOR
+   ========================================================================== */
+body {
+    cursor: none; /* Hide default cursor */
+}
+
+a, button, input, textarea, select, .marquee-item {
+    cursor: none !important; /* Ensure interactive elements don't show default cursor */
+}
+
+.cursor-dot,
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary);
+}
+
+.cursor-ring {
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid rgba(179, 0, 0, 0.4);
+    transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+/* Hover State - Magnetic Effect */
+.cursor-ring.hovered {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(179, 0, 0, 0.05);
+    border-color: rgba(179, 0, 0, 0.8);
+    backdrop-filter: blur(2px);
+}
+
+.cursor-dot.hovered {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-accent);
+}
+
+/* ==========================================================================
+   ARCHITECTURAL GLASSMORPHISM
+   ========================================================================== */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
 }

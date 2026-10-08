@@ -21,6 +21,19 @@
         grid-template-columns: 1fr 1fr;
         gap: var(--space-6);
     }
+    
+    /* Hero Modern Split Screen */
+    .hero-modern .container {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+        text-align: center !important;
+    }
+    .hero-modern .container > div:first-child {
+        text-align: center !important;
+    }
+    .hero-modern .container > div:first-child > div {
+        justify-content: center !important;
+    }
 }
 
 /* Tablets Portrait (768px) */

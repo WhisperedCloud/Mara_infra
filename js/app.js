@@ -145,7 +145,7 @@
             roof: {
                 title: "Terrace & Roof Moisture Seepage",
                 cause: "Thermal expansion cracks in concrete slab & UV breakdown of uncertified surface coatings.",
-                system: "Saint-Gobain Weber Elastomeric Slurry System",
+                system: "Weber Elastomeric Slurry System",
                 product: "Weber Dry Protect Coating",
                 productId: "weber-dry-protect",
                 specs: "2-part polymer modified slurry coat with glass fiber reinforcing mesh.",
@@ -196,16 +196,16 @@
                     <div class="diag-progress-bar" id="diag-progress-bar"></div>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--color-border); padding-bottom: 16px; flex-wrap: wrap; gap: 12px;">
                     <div>
                         <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-accent); letter-spacing: 0.12em; text-transform: uppercase;">
                             AUTOMATIC ENGINEERING TROUBLESHOOTER
                         </span>
-                        <h3 style="color: var(--color-text-white); margin-top: 4px; font-size: 1.5rem;">Structural & Waterproofing Diagnostic System</h3>
+                        <h3 style="color: var(--color-text); margin-top: 4px; font-size: 1.5rem;">Structural & Waterproofing Diagnostic System</h3>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 500;" id="diag-counter-text">Card 1 of 4</span>
-                        <button type="button" id="diag-play-pause-btn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Toggle Auto Switch">
+                        <span style="font-size: 0.75rem; color: var(--color-text-muted); font-weight: 500;" id="diag-counter-text">Card 1 of 4</span>
+                        <button type="button" id="diag-play-pause-btn" style="background: var(--color-surface-subtle); border: 1px solid var(--color-border); color: var(--color-text); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Toggle Auto Switch">
                             <i class="fa-solid fa-pause" id="diag-play-pause-icon"></i> <span id="diag-play-pause-text">Auto Switching</span>
                         </button>
                     </div>
@@ -231,11 +231,11 @@
 
                     <div class="diagnostic-result-card" id="diag-result-card">
                         <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-secondary-dark); background: var(--color-secondary-light); padding: 4px 10px; border-radius: var(--radius-full); display: inline-block; margin-bottom: 12px;">RECOMMENDED SPECIFICATION</span>
-                        <h4 style="color: var(--color-primary); font-size: 1.3rem; margin-bottom: 8px;" id="diag-res-title"></h4>
+                        <h4 style="color: var(--color-text); font-size: 1.3rem; margin-bottom: 8px;" id="diag-res-title"></h4>
                         <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px; line-height: 1.5;"><strong>Root Cause:</strong> <span id="diag-res-cause"></span></p>
 
-                        <div style="background: var(--color-surface-subtle); padding: 16px; border-radius: var(--radius-md); font-size: 0.875rem; margin-bottom: 18px; border-left: 4px solid var(--color-secondary);">
-                            <div style="margin-bottom: 8px;"><strong>System Solution:</strong> <span style="color: var(--color-primary); font-weight: 600;" id="diag-res-system"></span></div>
+                        <div style="background: var(--color-surface-subtle); padding: 16px; border-radius: var(--radius-md); font-size: 0.875rem; margin-bottom: 18px; border-left: 4px solid var(--color-accent);">
+                            <div style="margin-bottom: 8px;"><strong>System Solution:</strong> <span style="color: var(--color-text); font-weight: 600;" id="diag-res-system"></span></div>
                             <div style="margin-bottom: 8px;"><strong>Primary Product:</strong> <span style="color: var(--color-secondary-dark); font-weight: 700;" id="diag-res-product"></span></div>
                             <div><strong>Warranty:</strong> <span style="color: var(--color-accent-dark); font-weight: 700;"><i class="fa-solid fa-shield-halved"></i> <span id="diag-res-warranty"></span></span></div>
                         </div>
@@ -491,18 +491,6 @@
         const related = allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3);
 
         detailContainer.innerHTML = `
-            <nav class="breadcrumb-nav">
-                <div class="container">
-                    <ol class="breadcrumb-list">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></li>
-                        <li class="breadcrumb-item"><a href="products.html">Products</a></li>
-                        <li class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></li>
-                        <li class="breadcrumb-item active">${product.name}</li>
-                    </ol>
-                </div>
-            </nav>
-
             <section class="section section-alt">
                 <div class="container">
                     <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center;">
@@ -512,7 +500,7 @@
                         <div>
                             <span class="product-card-badge" style="position: static; display: inline-block; margin-bottom: 12px;">${product.brand}</span>
                             <h1 style="font-size: 2.4rem; margin-bottom: 16px;">${product.name}</h1>
-                            <p style="font-size: 1.1rem; color: var(--color-primary); font-weight: 600; margin-bottom: 16px;">${product.shortDescription}</p>
+                            <p style="font-size: 1.1rem; color: var(--color-text); font-weight: 600; margin-bottom: 16px;">${product.shortDescription}</p>
                             <p>${product.description}</p>
                             <div style="display: flex; gap: 16px; margin-top: 28px;">
                                 <button type="button" class="btn btn-primary btn-lg btn-enquire" data-product-name="${product.name}">
@@ -529,13 +517,13 @@
                 <div class="container">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
                         <div>
-                            <h3><i class="fa-solid fa-bullseye" style="color: var(--color-secondary);"></i> Key Applications</h3>
+                            <h3><i class="fa-solid fa-bullseye" style="color: var(--color-accent);"></i> Key Applications</h3>
                             <ul style="list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
                                 ${product.applications.map(app => `<li style="display: flex; gap: 10px;"><i class="fa-solid fa-circle-check" style="color: var(--color-accent); margin-top: 4px;"></i> <span>${app}</span></li>`).join('')}
                             </ul>
                         </div>
                         <div>
-                            <h3><i class="fa-solid fa-layer-group" style="color: var(--color-secondary);"></i> Suitable Substrates</h3>
+                            <h3><i class="fa-solid fa-layer-group" style="color: var(--color-accent);"></i> Suitable Substrates</h3>
                             <ul style="list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
                                 ${product.substrates.map(sub => `<li style="display: flex; gap: 10px;"><i class="fa-solid fa-circle-check" style="color: var(--color-accent); margin-top: 4px;"></i> <span>${sub}</span></li>`).join('')}
                             </ul>
