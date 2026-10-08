@@ -80,7 +80,7 @@ function initDiagnosticWidget() {
         roof: {
             title: "Terrace & Roof Moisture Seepage",
             cause: "Thermal expansion cracks in concrete slab & UV breakdown of uncertified surface coatings.",
-            system: "Saint-Gobain Weber Elastomeric Slurry System",
+            system: "Weber Elastomeric Slurry System",
             product: "Weber Dry Protect Coating",
             productId: "weber-dry-protect",
             specs: "2-part polymer modified slurry coat with glass fiber reinforcing mesh.",
@@ -126,7 +126,7 @@ function initDiagnosticWidget() {
                         <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-accent); letter-spacing: 0.1em; text-transform: uppercase;">ENGINEERING TROUBLESHOOTER</span>
                         <h3 style="color: var(--color-text); margin-top: 4px;">Structural & Waterproofing Diagnostic System</h3>
                     </div>
-                    <div style="font-size: 0.8rem; background: rgba(14, 165, 233, 0.2); border: 1px solid var(--color-secondary); color: var(--color-secondary-light); padding: 4px 12px; border-radius: var(--radius-full);">
+                    <div style="font-size: 0.8rem; background: rgba(128, 0, 0, 0.2); border: 1px solid var(--color-secondary); color: var(--color-secondary-light); padding: 4px 12px; border-radius: var(--radius-full);">
                         <i class="fa-solid fa-microscope"></i> Live Technical Diagnostic
                     </div>
                 </div>
