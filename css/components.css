@@ -237,7 +237,12 @@
     background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
     border-radius: var(--radius-full);
 }
-
+.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.gap-8 { gap: 32px; }
+.gap-4 { gap: 16px; }
 .diag-progress-bar.paused {
     opacity: 0.35;
 }

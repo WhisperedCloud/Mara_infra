@@ -216,56 +216,7 @@ img { max-width: 100%; height: auto; display: block; border-radius: var(--radius
     }
 }
 
-/* ==========================================================================
-   MAGNETIC CUSTOM CURSOR
-   ========================================================================== */
-body {
-    cursor: none; /* Hide default cursor */
-}
 
-a, button, input, textarea, select, .marquee-item {
-    cursor: none !important; /* Ensure interactive elements don't show default cursor */
-}
-
-.cursor-dot,
-.cursor-ring {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    z-index: 9999;
-    pointer-events: none;
-    transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
-}
-
-.cursor-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-primary);
-}
-
-.cursor-ring {
-    width: 30px;
-    height: 30px;
-    border: 1.5px solid rgba(179, 0, 0, 0.4);
-    transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
-}
-
-/* Hover State - Magnetic Effect */
-.cursor-ring.hovered {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(179, 0, 0, 0.05);
-    border-color: rgba(179, 0, 0, 0.8);
-    backdrop-filter: blur(2px);
-}
-
-.cursor-dot.hovered {
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-accent);
-}
 
 /* ==========================================================================
    ARCHITECTURAL GLASSMORPHISM

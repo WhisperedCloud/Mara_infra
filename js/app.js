@@ -493,7 +493,7 @@
         detailContainer.innerHTML = `
             <section class="section section-alt">
                 <div class="container">
-                    <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center;">
+                    <div class="pd-hero-grid" style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center;">
                         <div>
                             <img src="${product.image}" alt="${product.name}" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-height: 420px; width: 100%; object-fit: cover;">
                         </div>
@@ -502,7 +502,7 @@
                             <h1 style="font-size: 2.4rem; margin-bottom: 16px;">${product.name}</h1>
                             <p style="font-size: 1.1rem; color: var(--color-text); font-weight: 600; margin-bottom: 16px;">${product.shortDescription}</p>
                             <p>${product.description}</p>
-                            <div style="display: flex; gap: 16px; margin-top: 28px;">
+                            <div class="pd-action-row" style="display: flex; gap: 16px; margin-top: 28px; flex-wrap: wrap;">
                                 <button type="button" class="btn btn-primary btn-lg btn-enquire" data-product-name="${product.name}">
                                     <i class="fa-solid fa-envelope"></i> Enquire About This Product
                                 </button>
@@ -515,7 +515,7 @@
 
             <section class="section">
                 <div class="container">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+                    <div class="pd-apps-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
                         <div>
                             <h3><i class="fa-solid fa-bullseye" style="color: var(--color-accent);"></i> Key Applications</h3>
                             <ul style="list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
@@ -579,7 +579,7 @@
                                     <input type="text" id="enquiry-name" class="form-input" placeholder="e.g. Rajesh Kumar" required>
                                     <div class="form-error" id="error-name"></div>
                                 </div>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <div class="modal-phone-email-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                                     <div class="form-group">
                                         <label class="form-label" for="enquiry-phone">Phone Number *</label>
                                         <input type="tel" id="enquiry-phone" class="form-input" placeholder="+91 98847 01587" required>
