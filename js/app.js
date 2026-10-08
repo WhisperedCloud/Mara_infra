@@ -682,4 +682,50 @@
         }
     }
 
+    // Web3Forms AJAX Submission Handler
+    document.addEventListener("DOMContentLoaded", () => {
+        const forms = document.querySelectorAll("form[action^='https://api.web3forms.com']");
+        forms.forEach(form => {
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const btn = form.querySelector("button[type='submit']");
+                const originalBtnText = btn ? btn.innerHTML : "Send Message";
+                if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                
+                const formData = new FormData(form);
+                
+                try {
+                    const response = await fetch(form.action, {
+                        method: "POST",
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        // Show animated success message in place of the form
+                        form.innerHTML = `
+                            <style>
+                                @keyframes formSuccessBounce {
+                                    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+                                    100% { opacity: 1; transform: scale(1) translateY(0); }
+                                }
+                            </style>
+                            <div style="text-align: center; padding: 40px 20px; background: rgba(179,0,0,0.03); border-radius: var(--radius-lg); border: 1px dashed rgba(179,0,0,0.2); animation: formSuccessBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;">
+                                <div style="width: 70px; height: 70px; background: var(--color-accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2rem; box-shadow: 0 10px 30px rgba(179,0,0,0.2);">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <h3 style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 12px;">Message Sent Successfully!</h3>
+                                <p style="color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 0;">Thank you for reaching out. Our technical team will get back to you shortly.</p>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error("Failed to send");
+                    }
+                } catch (error) {
+                    if (btn) btn.innerHTML = originalBtnText;
+                    alert("Something went wrong. Please try again later.");
+                }
+            });
+        });
+    });
+
 })();

@@ -1,50 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Catalogue | Mara Infra Solutions</title>
-    <meta name="description" content="Browse our complete catalogue of Saint-Gobain Weber tile adhesives, epoxy grouts, waterproofing coatings, wall mortars, and glazing systems.">
-    
+    <meta name="description"
+        content="Browse our complete catalogue of Saint-Gobain Weber tile adhesives, epoxy grouts, waterproofing coatings, wall mortars, and glazing systems.">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- CSS Architecture -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body>
     <!-- Custom Magnetic Cursor -->
     <div class="cursor-dot"></div>
     <div class="cursor-ring"></div>
 
+    <!-- Very Top Bar -->
+    <div class="very-top-bar">
+        Mara Infra Solutions... <strong>Authorised Distributor of Saint-Gobain, Weber</strong>
+    </div>
+
+    <!-- Top Info Bar -->
+    <div class="top-info-bar">
+        <div class="container">
+            <div class="top-info-contact">
+                <a href="https://maps.google.com/?q=Hosur+Krishnagiri+Tamil+Nadu" target="_blank" class="top-info-item">
+                    <div class="top-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="top-info-text">
+                        <span class="top-info-label">Hosur, Krishnagiri</span>
+                        <span class="top-info-sub">Locate us</span>
+                    </div>
+                </a>
+                <div class="top-info-divider"></div>
+                <a href="tel:+919884701587" class="top-info-item">
+                    <div class="top-info-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div class="top-info-text">
+                        <span class="top-info-label">+91 98847 01587</span>
+                        <span class="top-info-sub">Mon - Fri: 9.00 am to 9.00 pm</span>
+                    </div>
+                </a>
+                <div class="top-info-divider"></div>
+                <a href="mailto:senthil@marainfra.com" class="top-info-item">
+                    <div class="top-info-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="top-info-text">
+                        <span class="top-info-label">senthil@marainfra.com</span>
+                        <span class="top-info-sub">Get a Free Quote</span>
+                    </div>
+                </a>
+            </div>
+            <div class="top-info-logos">
+                <img src="assets/images/weber%20logo.png" alt="Weber Saint-Gobain" class="top-logo-img">
+                <img src="assets/images/saint_gobain_logo.png" alt="Saint-Gobain" class="top-logo-img">
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="site-header">
         <div class="container header-container">
             <a href="index.html" class="brand-logo">
-                <div class="brand-mark">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 18V6L12 13L21 6V18" stroke="url(#logo_grad_hdr)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 13V20" stroke="#990000" stroke-width="2.5" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="logo_grad_hdr" x1="3" y1="6" x2="21" y2="18" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#b30000"/>
-                                <stop offset="1" stop-color="#800000"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-                <div class="brand-text">
-                    <span class="brand-name">MARA <span>INFRA</span></span>
-                    <span class="brand-tagline">SOLUTIONS</span>
-                </div>
+                <img src="assets/images/mara%20logo.png" alt="Mara Infra Solutions" class="brand-logo-img"
+                    style="height: 80px; width: auto; object-fit: contain; border-radius: 0; padding: 4px;">
             </a>
 
             <nav class="nav-menu">
@@ -72,8 +102,10 @@
         <!-- Page Header Banner -->
         <section class="section section-alt" style="padding: 40px 0; border-bottom: 1px solid var(--color-border);">
             <div class="container">
-                <h1 style="font-size: 2.5rem; margin-bottom: 8px; color: var(--color-text);">Construction Products & Catalogue</h1>
-                <p class="section-description" style="margin-bottom: 0;">Explore technical materials direct from Saint-Gobain Weber and Mara Infra Solutions.</p>
+                <h1 style="font-size: 2.5rem; margin-bottom: 8px; color: var(--color-text);">Construction Products &
+                    Catalogue</h1>
+                <p class="section-description" style="margin-bottom: 0;">Explore technical materials direct from
+                    Saint-Gobain Weber and Mara Infra Solutions.</p>
             </div>
         </section>
 
@@ -84,29 +116,38 @@
                 <div class="catalog-bar">
                     <div class="search-wrapper">
                         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                        <input type="text" id="product-search" class="search-input" placeholder="Search by product name, category, brand, or application (e.g. Weber, Epoxy, Primer, Waterproofing)...">
+                        <input type="text" id="product-search" class="search-input"
+                            placeholder="Search by product name, category, brand, or application (e.g. Weber, Epoxy, Primer, Waterproofing)...">
                     </div>
 
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
                         <div class="filter-pills">
                             <button type="button" class="filter-pill active" data-category="all">All Products</button>
-                            <button type="button" class="filter-pill" data-category="adhesives">Tile & Stone Adhesives</button>
-                            <button type="button" class="filter-pill" data-category="grouts">Tile & Stone Joint Fillers</button>
-                            <button type="button" class="filter-pill" data-category="waterproofing">Waterproofing</button>
-                            <button type="button" class="filter-pill" data-category="wall-solutions">Weberwall Finecoat</button>
-                            <button type="button" class="filter-pill" data-category="glazing">Application Tools & Glazing</button>
+                            <button type="button" class="filter-pill" data-category="adhesives">Tile & Stone
+                                Adhesives</button>
+                            <button type="button" class="filter-pill" data-category="grouts">Tile & Stone Joint
+                                Fillers</button>
+                            <button type="button" class="filter-pill"
+                                data-category="waterproofing">Waterproofing</button>
+                            <button type="button" class="filter-pill" data-category="wall-solutions">Weberwall
+                                Finecoat</button>
+                            <button type="button" class="filter-pill" data-category="glazing">Application Tools &
+                                Glazing</button>
                             <button type="button" class="filter-pill" data-category="add-ons">Add-On Chemicals</button>
                             <button type="button" class="filter-pill" data-category="care">Tile & Stone Care</button>
                         </div>
 
-                        <div id="product-count" style="font-weight: 600; color: var(--color-text-muted); font-size: 0.875rem;">
+                        <div id="product-count"
+                            style="font-weight: 600; color: var(--color-text-muted); font-size: 0.875rem;">
                             Showing products
                         </div>
                     </div>
                 </div>
 
                 <!-- Product Grid (Populated dynamically via js/filters.js & js/products.js) -->
-                <div class="product-grid" id="product-catalog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+                <div class="product-grid" id="product-catalog-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
                     <!-- JS Injected Cards -->
                 </div>
             </div>
@@ -117,25 +158,11 @@
     <footer class="site-footer">
         <div class="container footer-grid">
             <div class="footer-brand">
-                <div class="brand-logo mb-4">
-                    <div class="brand-mark">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 18V6L12 13L21 6V18" stroke="url(#logo_grad_ftr)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 13V20" stroke="#990000" stroke-width="2.5" stroke-linecap="round"/>
-                            <defs>
-                                <linearGradient id="logo_grad_ftr" x1="3" y1="6" x2="21" y2="18" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#b30000"/>
-                                    <stop offset="1" stop-color="#800000"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <div class="brand-text">
-                        <span class="brand-name">MARA <span>INFRA</span></span>
-                        <span class="brand-tagline">SOLUTIONS</span>
-                    </div>
-                </div>
-                <p>Authorised distributor of Saint-Gobain & Weber. Supplying high-grade construction chemicals, tile adhesives, epoxy grouts, and structural glazing systems in Hosur & Krishnagiri.</p>
+                <img src="assets/images/mara%20logo.png" alt="Mara Infra Solutions"
+                    style="height: 140px; width: auto; margin-bottom: 24px; object-fit: contain; border-radius: 0;"
+                    class="footer-logo-main">
+                <p>Mara Infra Solutions is committed to delivering exceptional results by offering personalized
+                    solutions that ensure long-term durability and unmatched value for our clients.</p>
             </div>
 
             <div>
@@ -163,8 +190,10 @@
             <div>
                 <h4 class="footer-title">Contact</h4>
                 <ul class="footer-links">
-                    <li><i class="fa-solid fa-phone text-accent"></i> <a href="tel:+919884701587">+91 98847 01587</a></li>
-                    <li><i class="fa-solid fa-envelope text-accent"></i> <a href="mailto:senthil@marainfra.com">senthil@marainfra.com</a></li>
+                    <li><i class="fa-solid fa-phone text-accent"></i> <a href="tel:+919884701587">+91 98847 01587</a>
+                    </li>
+                    <li><i class="fa-solid fa-envelope text-accent"></i> <a
+                            href="mailto:senthil@marainfra.com">senthil@marainfra.com</a></li>
                     <li><i class="fa-solid fa-location-dot text-accent"></i> Hosur & Krishnagiri, TN</li>
                 </ul>
             </div>
@@ -182,4 +211,5 @@
     <script src="data/products.js"></script>
     <script src="js/app.js"></script>
 </body>
+
 </html>
