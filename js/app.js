@@ -12,6 +12,7 @@
         document.documentElement.classList.add('js-reveal-ready');
 
         initNavigation();
+        initFooterLayout();
         initAnimations();
         initDiagnosticWidget();
         initEnquiryModal();
@@ -32,6 +33,21 @@
     /* ==========================================================================
        1. NAVIGATION MODULE
        ========================================================================== */
+    function initFooterLayout() {
+        document.querySelectorAll('.footer-grid').forEach((grid) => {
+            if (grid.querySelector('.footer-links-card')) return;
+
+            const brand = grid.querySelector('.footer-brand');
+            const sections = [...grid.children].filter((child) => child !== brand);
+            if (!brand || sections.length < 2) return;
+
+            const groupedCard = document.createElement('div');
+            groupedCard.className = 'footer-links-card';
+            sections[0].before(groupedCard);
+            sections.forEach((section) => groupedCard.appendChild(section));
+        });
+    }
+
     function initNavigation() {
         const header = document.querySelector('.site-header');
         const mobileToggle = document.querySelector('.mobile-toggle');
@@ -49,40 +65,164 @@
         }
 
         if (mobileToggle && navMenu) {
+            const closeMobileMenu = () => {
+                navMenu.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                mobileToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            };
+
             mobileToggle.addEventListener('click', () => {
                 const isOpen = navMenu.classList.toggle('active');
                 mobileToggle.setAttribute('aria-expanded', isOpen);
                 mobileToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
-                document.body.style.overflow = isOpen ? 'hidden' : '';
             });
 
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                    if (mobileToggle) mobileToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                    closeMobileMenu();
                 });
             });
 
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                    if (mobileToggle) mobileToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                    closeMobileMenu();
+                }
+            });
+
+            // The mobile menu should never travel with the page.
+            window.addEventListener('scroll', () => {
+                if (navMenu.classList.contains('active')) closeMobileMenu();
+            }, { passive: true });
+            document.addEventListener('touchmove', () => {
+                if (navMenu.classList.contains('active')) closeMobileMenu();
+            }, { passive: true });
+        }
+
+        // Dynamic Active Link Navigation & Intelligent ScrollSpy
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        const isHomePage = currentPath === 'index.html' || currentPath === '';
+
+        function setActiveNav(targetHref) {
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === targetHref) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
                 }
             });
         }
 
-        // Highlight active link based on URL
-        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-        navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPath || (currentPath === '' && href === 'index.html')) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
+        if (!isHomePage) {
+            // Static active link for dedicated subpages (about.html, products.html, etc.)
+            setActiveNav(currentPath);
+        } else {
+            // Intelligent ScrollSpy for Home Page
+            setActiveNav('index.html');
+
+            // Smooth scroll to top when clicking Home link while already on home page
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === 'index.html') {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            });
+
+            let ticking = false;
+
+            function updateScrollSpy() {
+                const scrollY = window.scrollY;
+                const headerHeight = header ? header.offsetHeight : 70;
+                const triggerPoint = headerHeight + 120; // Visual reading line below sticky header
+
+                // 1. If at the top of the page, always highlight Home
+                if (scrollY < 200) {
+                    setActiveNav('index.html');
+                    ticking = false;
+                    return;
+                }
+
+                // 2. If scrolled near the bottom of the page, highlight Contact
+                if ((window.innerHeight + scrollY) >= (document.documentElement.scrollHeight - 80)) {
+                    setActiveNav('contact.html');
+                    ticking = false;
+                    return;
+                }
+
+                // 3. Handle What We Provide (Products, Services, Construction)
+                const whatWeProvide = document.getElementById('what-we-provide');
+                if (whatWeProvide) {
+                    const wwpRect = whatWeProvide.getBoundingClientRect();
+                    if (wwpRect.top <= triggerPoint && wwpRect.bottom > triggerPoint) {
+                        const isMobile = window.innerWidth <= 768;
+                        if (isMobile) {
+                            const colConstruction = document.getElementById('construction');
+                            const colServices = document.getElementById('services');
+
+                            if (colConstruction && colConstruction.getBoundingClientRect().top <= triggerPoint) {
+                                setActiveNav('construction.html');
+                            } else if (colServices && colServices.getBoundingClientRect().top <= triggerPoint) {
+                                setActiveNav('services.html');
+                            } else {
+                                setActiveNav('products.html');
+                            }
+                        } else {
+                            const progress = (triggerPoint - wwpRect.top) / wwpRect.height;
+                            if (progress < 0.35) {
+                                setActiveNav('products.html');
+                            } else if (progress < 0.70) {
+                                setActiveNav('services.html');
+                            } else {
+                                setActiveNav('construction.html');
+                            }
+                        }
+                        ticking = false;
+                        return;
+                    }
+                }
+
+                // 4. Other key sections (Solutions, About, Resources, Contact)
+                const primarySections = [
+                    { id: 'contact', href: 'contact.html' },
+                    { id: 'resources', href: 'resources.html' },
+                    { id: 'process', href: 'about.html' },
+                    { id: 'why-choose-us', href: 'about.html' },
+                    { id: 'about', href: 'about.html' },
+                    { id: 'solutions', href: 'solutions.html' }
+                ];
+
+                for (const sec of primarySections) {
+                    const el = document.getElementById(sec.id);
+                    if (el) {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top <= triggerPoint && rect.bottom > triggerPoint) {
+                            setActiveNav(sec.href);
+                            ticking = false;
+                            return;
+                        }
+                    }
+                }
+
+                // Default fallback if above What We Provide
+                if (whatWeProvide && whatWeProvide.getBoundingClientRect().top > triggerPoint) {
+                    setActiveNav('index.html');
+                }
+
+                ticking = false;
             }
-        });
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateScrollSpy);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // Initial execution
+            updateScrollSpy();
+        }
     }
 
     /* ==========================================================================
@@ -234,7 +374,7 @@
                         <h4 style="color: var(--color-text); font-size: 1.3rem; margin-bottom: 8px;" id="diag-res-title"></h4>
                         <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px; line-height: 1.5;"><strong>Root Cause:</strong> <span id="diag-res-cause"></span></p>
 
-                        <div style="background: var(--color-surface-subtle); padding: 16px; border-radius: var(--radius-md); font-size: 0.875rem; margin-bottom: 18px; border-left: 4px solid var(--color-accent);">
+                        <div style="font-size: 0.875rem; margin-bottom: 18px;">
                             <div style="margin-bottom: 8px;"><strong>System Solution:</strong> <span style="color: var(--color-text); font-weight: 600;" id="diag-res-system"></span></div>
                             <div style="margin-bottom: 8px;"><strong>Primary Product:</strong> <span style="color: var(--color-secondary-dark); font-weight: 700;" id="diag-res-product"></span></div>
                             <div><strong>Warranty:</strong> <span style="color: var(--color-accent-dark); font-weight: 700;"><i class="fa-solid fa-shield-halved"></i> <span id="diag-res-warranty"></span></span></div>
@@ -576,24 +716,24 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="enquiry-name">Full Name *</label>
-                                    <input type="text" id="enquiry-name" class="form-input" placeholder="e.g. Rajesh Kumar" required>
+                                    <input type="text" id="enquiry-name" class="form-input" placeholder="Enter your full name" required>
                                     <div class="form-error" id="error-name"></div>
                                 </div>
                                 <div class="modal-phone-email-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                                     <div class="form-group">
                                         <label class="form-label" for="enquiry-phone">Phone Number *</label>
-                                        <input type="tel" id="enquiry-phone" class="form-input" placeholder="+91 98847 01587" required>
+                                        <input type="tel" id="enquiry-phone" class="form-input" placeholder="Enter your mobile number" required>
                                         <div class="form-error" id="error-phone"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="enquiry-email">Email Address *</label>
-                                        <input type="email" id="enquiry-email" class="form-input" placeholder="name@company.com" required>
+                                        <input type="email" id="enquiry-email" class="form-input" placeholder="Enter your email address" required>
                                         <div class="form-error" id="error-email"></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="enquiry-req">Requirement Details *</label>
-                                    <textarea id="enquiry-req" class="form-textarea" rows="3" placeholder="Tell us about your surface area (sq ft) or product quantity needed..." required></textarea>
+                                    <textarea id="enquiry-req" class="form-textarea" rows="3" placeholder="Please provide details about your project requirements..." required></textarea>
                                     <div class="form-error" id="error-req"></div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa-solid fa-paper-plane"></i> Submit Enquiry</button>
@@ -633,7 +773,7 @@
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
         if (overlay) {
             overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) closeModal();
+                if (e.target === overlay && window.innerWidth > 768) closeModal();
             });
         }
 
@@ -667,16 +807,67 @@
                 }
 
                 if (valid) {
-                    document.querySelector('#modal-body-content').innerHTML = `
-                        <div style="text-align: center; padding: 24px;">
-                            <div style="width: 56px; height: 56px; background: var(--color-accent-light); color: var(--color-accent-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.5rem;">
-                                <i class="fa-solid fa-check"></i>
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+
+                    const formData = new FormData();
+                    formData.append('access_key', '2c0746e7-ba78-4283-9d0d-338352e27cb6');
+                    formData.append('subject', 'New Product Enquiry - Mara Infra');
+                    formData.append('Product/Subject', document.querySelector('#enquiry-product').value);
+                    formData.append('Name', name);
+                    formData.append('Phone', phone);
+                    formData.append('Email', email);
+                    formData.append('Requirements', req);
+
+                    fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.querySelector('#modal-body-content').innerHTML = `
+                                <div style="text-align: center; padding: 24px;">
+                                    <div style="width: 56px; height: 56px; background: var(--color-accent-light); color: var(--color-accent-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.5rem;">
+                                        <i class="fa-solid fa-check"></i>
+                                    </div>
+                                    <h3>Enquiry Submitted</h3>
+                                    <p style="margin-top: 8px;">Thank you ${name}! Our technical team for Hosur & Krishnagiri will contact you shortly.</p>
+                                    <button type="button" class="btn btn-primary mt-6" onclick="document.querySelector('#enquiry-modal-overlay').classList.remove('active'); document.body.style.overflow='';">Continue Browsing</button>
+                                </div>
+                            `;
+                        } else {
+                            throw new Error('Form submission failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Web3Forms API failed, falling back to mailto:', error);
+                        
+                        const emailSubject = encodeURIComponent(`New Product Enquiry - ${document.querySelector('#enquiry-product').value}`);
+                        const emailBody = encodeURIComponent(
+                            `Name: ${name}\n` +
+                            `Phone: ${phone}\n` +
+                            `Email: ${email}\n\n` +
+                            `Requirement Details:\n${req}`
+                        );
+                        
+                        // Trigger mailto fallback
+                        window.location.href = `mailto:admin@marainfra.co.in?subject=${emailSubject}&body=${emailBody}`;
+                        
+                        // Update UI to explain the fallback
+                        document.querySelector('#modal-body-content').innerHTML = `
+                            <div style="text-align: center; padding: 24px;">
+                                <div style="width: 56px; height: 56px; background: var(--color-surface); color: var(--color-text-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.5rem; border: 1px solid var(--color-border);">
+                                    <i class="fa-solid fa-envelope-open-text"></i>
+                                </div>
+                                <h3>Opening Email App...</h3>
+                                <p style="margin-top: 8px;">Our automated system is currently unreachable (this can happen due to ad-blockers). We are opening your default email application to send this enquiry directly to <strong>admin@marainfra.co.in</strong>.</p>
+                                <button type="button" class="btn btn-primary mt-6" onclick="document.querySelector('#enquiry-modal-overlay').classList.remove('active'); document.body.style.overflow='';">Close Window</button>
                             </div>
-                            <h3>Enquiry Submitted</h3>
-                            <p style="margin-top: 8px;">Thank you ${name}! Our technical team for Hosur & Krishnagiri will contact you shortly.</p>
-                            <button type="button" class="btn btn-primary mt-6" onclick="document.querySelector('#enquiry-modal-overlay').classList.remove('active'); document.body.style.overflow='';">Continue Browsing</button>
-                        </div>
-                    `;
+                        `;
+                    });
                 }
             });
         }

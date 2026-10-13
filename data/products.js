@@ -152,7 +152,7 @@ const products = [
         brand: "Weber",
         category: "add-ons",
         categoryName: "Add-On Chemicals",
-        image: "assets/images/addon_chem.png",
+        image: "assets/images/weber_primer_401.png",
         shortDescription: "Synthetic acrylic primer for porous substrates prior to tile adhesive and self-leveling underlayment application.",
         description: "Weber Primer 401 is a deep-penetrating, water-based synthetic acrylic resin primer formulated to seal porous plaster, concrete, and screed surfaces, improving adhesion and preventing rapid water loss from mortar beds.",
         applications: [
@@ -388,6 +388,12 @@ const categories = [
         name: "Add-On Chemicals",
         description: "Acrylic primers, mortar admixtures, bonding agents, and joint pastes.",
         image: "assets/images/addon_chem.png"
+    },
+    {
+        id: "construction",
+        name: "Construction & Development",
+        description: "Residential construction, commercial projects, renovations and interior integration.",
+        image: "assets/images/hero_illustration.png"
     }
 ];
 
@@ -432,6 +438,14 @@ const solutions = [
         category: "glazing",
         description: "Saint-Gobain toughened safety glass, UPVC windows, acoustic partitions, and solar control glazing.",
         recommendedProducts: ["saint-gobain-toughened-glazing"]
+    },
+    {
+        id: "construction",
+        title: "Construction & Development",
+        icon: "fa-helmet-safety",
+        category: "construction",
+        description: "End-to-end residential and commercial construction, renovations, and redevelopment services.",
+        recommendedProducts: ["weber-set-polymer", "saint-gobain-toughened-glazing"]
     }
 ];
 

@@ -36,6 +36,31 @@
     --color-border-glow: #ffe6e6;
 
     /* Typography */
+
+    /* Typography scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.8rem;
+    --text-4xl: 2.5rem;
+    --text-5xl: 3rem;
+
+    /* Line heights */
+    --leading-tight: 1.15;
+    --leading-heading: 1.25;
+    --leading-subtitle: 1.5;
+    --leading-body: 1.6;
+
+    /* Font weights */
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    --weight-extrabold: 800;
+
     --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-heading: 'SangBleu Versailles', 'Playfair Display', serif;
 
@@ -86,6 +111,8 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 body {
@@ -177,10 +204,10 @@ img { max-width: 100%; height: auto; display: block; border-radius: var(--radius
 }
 .section-dark .section-title { color: var(--color-text-white); }
 
-.section-description { 
-    font-size: 1.25rem; 
-    color: var(--color-text-muted); 
-    line-height: 1.6;
+.section-description {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: var(--leading-subtitle);
 }
 .section-dark .section-description { color: var(--color-text-light); }
 
@@ -240,3 +267,188 @@ img { max-width: 100%; height: auto; display: block; border-radius: var(--radius
 }
 
 @media (max-width: 768px) { .hide-on-mobile { display: none !important; } }
+
+/* Interactive Icon Box */
+.hover-icon-box {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+.hover-icon-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(179,0,0,0.15);
+}
+
+
+/* Typography Utility Classes */
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: var(--leading-tight);
+    font-weight: var(--weight-extrabold);
+}
+
+.page-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: var(--leading-heading);
+    font-weight: var(--weight-extrabold);
+}
+
+.section-title {
+    font-size: var(--text-3xl);
+    line-height: var(--leading-heading);
+    font-weight: var(--weight-bold);
+}
+
+.section-title-large {
+    font-size: var(--text-4xl);
+    line-height: var(--leading-heading);
+    font-weight: var(--weight-bold);
+}
+
+.card-title {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-heading);
+    font-weight: var(--weight-semibold);
+}
+
+.body-text {
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    font-weight: var(--weight-regular);
+}
+
+.body-text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--leading-body);
+    font-weight: var(--weight-regular);
+}
+
+.small-text {
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+}
+
+.small-text-bold {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-body);
+}
+
+.card-subtitle {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-secondary);
+}
+
+
+/* ─── Typography Gap-Fills ───────────────────────────────────────────────── */
+
+/* Section description (below section headings) — was 1.25rem or 1.15rem inline */
+.section-description {
+    font-size: var(--text-lg);       /* 1.125rem  */
+    line-height: var(--leading-subtitle);
+    color: var(--color-text-muted);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Card body text — was 0.95rem / 0.925rem / 0.9rem inline */
+.card-body {
+    font-size: var(--text-sm);       /* 0.875rem  */
+    line-height: var(--leading-body);
+    color: var(--color-text-muted);
+}
+
+/* Resource / small card text — was 0.9rem inline */
+.text-muted-sm {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-body);
+}
+
+/* Testimonial quote — was 1.05rem italic inline */
+.testimonial-quote {
+    font-size: var(--text-base);
+    font-style: italic;
+    line-height: var(--leading-body);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-5);
+}
+
+/* Testimonial author — was 1.1rem inline */
+.testimonial-author {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+}
+
+/* Process step heading (h3 in process section) — was 1.3rem inline */
+.process-title {
+    font-size: var(--text-2xl);      /* 1.5rem */
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-heading);
+    color: inherit;
+    margin: 0;
+}
+
+/* Why-choose card heading (h3 in feature cards) — was 1.25rem inline */
+.feature-card-title {
+    font-size: var(--text-xl);       /* 1.25rem */
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-heading);
+    margin-bottom: 1rem;
+}
+
+/* Feature card body — was 0.95rem inline */
+.feature-card-body {
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    color: var(--color-text-muted);
+}
+
+/* Form labels — was 0.9rem / 0.875rem inline */
+.form-label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+}
+
+/* Resource/document card description — was 0.9rem */
+.doc-card-desc {
+    font-size: var(--text-sm);
+    line-height: var(--leading-body);
+    flex-grow: 1;
+}
+
+/* Contact info label (tiny label above phone/email) — was 0.85rem */
+.contact-info-label {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    display: block;
+}
+
+/* Contact info value — was 1.1rem font-weight 700 */
+.contact-info-value {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+}
+
+/* Mini badge / metadata tag — was 0.875rem or 0.85rem */
+.meta-tag {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--color-accent);
+}
+
+/* CTA large heading (standalone sections) — was 2rem / 2.5rem inline h3 */
+.cta-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-heading);
+}
+
+/* Section badge count / stat number — was 1.75rem inline in divs */
+.stat-number {
+    font-size: var(--text-4xl);      /* 2.5rem */
+    font-weight: var(--weight-extrabold);
+    line-height: 1;
+}

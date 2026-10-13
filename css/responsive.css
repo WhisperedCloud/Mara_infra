@@ -56,7 +56,7 @@
    ========================================================================== */
 @media (max-width: 768px) {
     :root {
-        --header-height: 68px;
+        --header-height: 70px;
     }
 
     h1 { font-size: 2.1rem; line-height: 1.2; }
@@ -64,26 +64,80 @@
     h3 { font-size: 1.35rem; }
 
     /* ── Header / Nav ── */
+    .site-header {
+        position: relative;
+        top: auto;
+        z-index: 1001;
+        background: #ffffff !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand-logo-img {
+        height: 48px !important;
+        max-height: 48px !important;
+        width: auto !important;
+    }
+
     .nav-menu {
-        position: fixed;
-        top: var(--header-height);
+        position: absolute;
+        top: 100%;
         left: 0;
         width: 100%;
-        background-color: var(--color-surface);
+        box-sizing: border-box;
+        background-color: #ffffff !important;
         border-bottom: 1px solid var(--color-border);
         flex-direction: column;
         align-items: flex-start;
         padding: var(--space-6);
         gap: var(--space-4);
-        box-shadow: var(--shadow-lg);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
         transform: translateY(-150%);
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 999;
+        z-index: 1000;
     }
 
     .nav-menu.active { transform: translateY(0); }
+
+    /* Make each complete mobile-menu row a tap target. */
+    .nav-menu .nav-link {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+
     .mobile-toggle { display: block; }
     .header-actions .btn-enquire { display: none; }
+
+    /* ── About Overview Center Alignment ── */
+    .about-overview-grid {
+        grid-template-columns: 1fr !important;
+        gap: 36px !important;
+        text-align: center !important;
+    }
+
+    .about-overview-text {
+        text-align: center !important;
+        align-items: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+
+    .about-overview-text p {
+        text-align: center !important;
+        text-wrap: balance;
+        text-wrap: pretty;
+        max-width: 620px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .about-overview-badges {
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 12px !important;
+        margin: 0 auto !important;
+    }
 
     /* ── Hero ── */
     .hero-modern {
@@ -105,6 +159,50 @@
         justify-content: center !important;
         flex-wrap: wrap !important;
         gap: 12px !important;
+    }
+
+    .hero-grid > div:first-child > div.reveal-delay-3,
+    .hero-grid > div:first-child > div:has(> .btn) {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 24px !important;
+    }
+
+    .hero-grid > div:first-child > div.reveal-delay-3 .btn,
+    .hero-grid > div:first-child > div:has(> .btn) .btn {
+        width: 100% !important;
+        max-width: 320px !important;
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 14px 24px !important;
+        font-size: 1rem !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+
+    .hero-grid > div:first-child > div.reveal-delay-4,
+    .hero-grid > div:first-child > div[style*="border-top"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding-top: 20px !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .hero-grid > div:first-child > div.reveal-delay-4 a,
+    .hero-grid > div:first-child > div[style*="border-top"] a {
+        justify-content: center !important;
+        text-align: center !important;
+        font-size: 0.95rem !important;
     }
 
     /* Hide illustration on tablet portrait */
@@ -179,6 +277,11 @@
         grid-column: span 2;
     }
 
+    .footer-links-card {
+        grid-column: span 2;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .footer-bottom .container {
         flex-direction: column !important;
         gap: var(--space-3) !important;
@@ -214,6 +317,31 @@
 @media (max-width: 480px) {
     :root { --header-height: 64px; }
 
+    .brand-logo-img {
+        height: 44px !important;
+        max-height: 44px !important;
+        width: auto !important;
+    }
+
+    .about-overview-badges {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        gap: 10px !important;
+    }
+
+    .about-badge {
+        display: inline-flex !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        margin: 0 auto !important;
+    }
+
     .container {
         padding-left: 16px;
         padding-right: 16px;
@@ -241,9 +369,11 @@
     }
 
     .hero-grid h1 {
-        font-size: 2rem !important;
+        font-size: clamp(1.65rem, 6vw, 1.95rem) !important;
         letter-spacing: -0.02em !important;
         text-align: center !important;
+        line-height: 1.2 !important;
+        word-break: break-word !important;
     }
 
     .hero-grid p {
@@ -251,26 +381,65 @@
         text-align: center !important;
     }
 
-    /* Badges centered */
-    .hero-grid > div:first-child > span:first-child {
+    /* Badges centered & wrapped without overflow */
+    .hero-grid > div:first-child > span:first-child,
+    .hero-grid span[style*="border-radius: 20px"],
+    .hero-grid span.reveal-fade-up {
         display: inline-block !important;
+        max-width: 100% !important;
+        white-space: normal !important;
         text-align: center !important;
+        font-size: 0.74rem !important;
+        letter-spacing: 0.5px !important;
+        padding: 6px 12px !important;
+        line-height: 1.4 !important;
+        box-sizing: border-box !important;
     }
 
-    /* Contact bar in hero: stack vertically */
-    .hero-grid > div:first-child > div[style*="border-top"] {
+    /* Hero button container: stack vertically and center */
+    .hero-grid .reveal-delay-3,
+    .hero-grid > div:first-child > div:has(> .btn) {
+        display: flex !important;
         flex-direction: column !important;
-        gap: 10px !important;
         align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        margin-bottom: 24px !important;
     }
 
-    /* Buttons: full width and centered */
+    /* Buttons: centered with balanced padding */
     .hero-grid .btn {
         width: 100% !important;
+        max-width: 320px !important;
         text-align: center !important;
         justify-content: center !important;
-        padding: 14px 20px !important;
+        padding: 14px 24px !important;
         font-size: 1rem !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Contact bar in hero: stack vertically and center */
+    .hero-grid > div:first-child > div[style*="border-top"],
+    .hero-grid .reveal-delay-4 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding-top: 20px !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .hero-grid > div:first-child > div[style*="border-top"] a,
+    .hero-grid .reveal-delay-4 a {
+        justify-content: center !important;
+        text-align: center !important;
+        font-size: 0.92rem !important;
     }
 
     /* ── Products & Services ── */
@@ -392,6 +561,17 @@
 
     .footer-brand { grid-column: span 1 !important; }
 
+    .footer-links-card {
+        grid-column: span 1 !important;
+        grid-template-columns: 1fr;
+    }
+
+    .footer-links-card > div + div {
+        border-left: 0;
+        border-top: 1px solid rgba(179, 0, 0, 0.14);
+        padding: 22px 0 0;
+    }
+
     .footer-brand p {
         font-size: 0.875rem;
         text-align: left;
@@ -471,6 +651,13 @@
    PRODUCT DETAIL PAGE (JS-Rendered)
    ========================================================================== */
 @media (max-width: 768px) {
+    .page-header { padding: 48px 0; }
+    .contact-layout { grid-template-columns: 1fr; gap: 28px; }
+    .contact-details-panel { padding: 0; }
+    .contact-form-card { padding: 28px 22px; }
+
+    .contact-form-grid { grid-template-columns: 1fr; }
+
     /* Hero: image stacks above text */
     .pd-hero-grid {
         grid-template-columns: 1fr !important;
@@ -503,10 +690,182 @@
         justify-content: center !important;
     }
 
-    /* Services page: fixed 320px column → single col */
-    .service-card-grid {
+    /* Services, Solutions & Construction page mobile layout */
+    .service-card-grid, .solution-card-grid, .construction-service-card {
         grid-template-columns: 1fr !important;
         gap: 24px !important;
+        min-height: auto !important;
+        padding: 24px !important;
+        box-sizing: border-box !important;
+    }
+
+    .construction-media-wrapper, .service-media-wrapper, .solution-media-wrapper {
+        width: 100% !important;
+        height: 260px !important;
+        max-width: 100% !important;
+        aspect-ratio: auto !important;
+        border-radius: var(--radius-md) !important;
+        overflow: hidden !important;
+        box-shadow: var(--shadow-md) !important;
+        border: 1px solid var(--color-border) !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+
+    .construction-media-wrapper > img,
+    .service-media-wrapper > img,
+    .solution-media-wrapper > img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: cover !important;
+        border-radius: var(--radius-md) !important;
+        display: block !important;
+    }
+
+    /* Match the frame to each source photo so it fills without white bars. */
+    .construction-media-wrapper.full-image-frame {
+        height: auto !important;
+        aspect-ratio: 3 / 2 !important;
+    }
+
+    .construction-media-wrapper.full-image-frame.img-6-frame {
+        aspect-ratio: 1487 / 1058 !important;
+    }
+
+    .construction-media-wrapper.full-image-frame > img {
+        object-fit: cover !important;
+    }
+
+    /* Keep the complete native photo visible in every construction card. */
+    .construction-service-card .construction-media-wrapper {
+        height: auto !important;
+        aspect-ratio: auto !important;
+    }
+
+    .construction-service-card .construction-media-wrapper > img {
+        height: auto !important;
+        object-fit: initial !important;
+    }
+
+    .service-card-grid .service-media-wrapper,
+    .solution-card-grid .solution-media-wrapper {
+        height: auto !important;
+        aspect-ratio: 3 / 2 !important;
+    }
+
+    .service-card-grid .service-media-wrapper > img,
+    .solution-card-grid .solution-media-wrapper > img {
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    /* Center align buttons in mobile cards with comfortable padding */
+    .service-card-grid > div:last-child,
+    .construction-service-card > div:last-child {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+    }
+
+    .service-card-grid .btn,
+    .construction-service-card .btn {
+        align-self: center !important;
+        margin: 20px auto 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 13px 28px !important;
+        font-size: 0.95rem !important;
+        max-width: 100% !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        line-height: 1.35 !important;
+        box-shadow: 0 4px 14px rgba(128, 0, 0, 0.2) !important;
+    }
+
+    /* Solutions page button container & buttons */
+    .solution-card-grid [style*="display: flex; gap: 16px;"],
+    .solution-card-grid div:has(> .btn) {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+    }
+
+    .solution-card-grid [style*="margin-top: 24px;"] h4 {
+        text-align: center !important;
+    }
+
+    .solution-card-grid .btn {
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 12px 20px !important;
+        white-space: normal !important;
+        line-height: 1.3 !important;
+    }
+
+    /* CTA bottom buttons centered on mobile */
+    .section-alt div[style*="display: flex; gap: 16px; justify-content: center;"],
+    div[style*="display: flex; gap: 16px; justify-content: center;"] {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    .section-alt div[style*="display: flex; gap: 16px; justify-content: center;"] .btn,
+    div[style*="display: flex; gap: 16px; justify-content: center;"] .btn {
+        width: 100% !important;
+        max-width: 320px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 14px 24px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Product card footer on mobile */
+    .product-card-footer {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        width: 100% !important;
+    }
+
+    .product-card-footer .btn {
+        width: 100% !important;
+        max-width: 320px !important;
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 12px 20px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Resources page buttons */
+    .doc-card-desc + a.btn,
+    a.btn[style*="align-self: flex-start;"] {
+        align-self: center !important;
+        margin: 16px auto 0 !important;
+        width: 100% !important;
+        max-width: 280px !important;
+        text-align: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
     }
 
     /* Enquiry modal: phone+email row → stack */
@@ -539,9 +898,22 @@
         grid-template-columns: 1fr !important;
     }
 
-    /* Services cards: reduce padding */
-    .service-card-grid {
-        padding: var(--space-5) !important;
+    /* Services, Solutions & Construction cards: uniform padding & media */
+    .service-card-grid, .solution-card-grid, .construction-service-card {
+        padding: 20px !important;
+        gap: 20px !important;
+    }
+
+    .construction-media-wrapper, .service-media-wrapper, .solution-media-wrapper {
+        height: 240px !important;
+    }
+
+    .service-card-grid .btn,
+    .construction-service-card .btn {
+        width: 100% !important;
+        max-width: 320px !important;
+        padding: 12px 20px !important;
+        font-size: 0.9rem !important;
     }
 
     /* Spec table: allow horizontal scroll */
@@ -578,7 +950,84 @@
     }
 
     /* Services: tighter card padding */
-    .service-card-grid > div:first-child {
+    .service-card-grid > div:first-child, .solution-card-grid > div:last-child {
         max-width: 100% !important;
+    }
+}
+
+
+/* ─── Fluid Typography — Responsive Overrides ───────────────────────────── */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: clamp(1.875rem, 7vw, 2.5rem);
+    }
+    .page-title {
+        font-size: clamp(1.625rem, 5.5vw, 2rem);
+    }
+    .section-title {
+        font-size: clamp(1.375rem, 4.5vw, 1.75rem);
+    }
+    .section-title-large {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+    .cta-title {
+        font-size: clamp(1.5rem, 5vw, 1.875rem);
+    }
+    .section-description {
+        font-size: var(--text-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: clamp(1.75rem, 8vw, 2.25rem);
+    }
+    .page-title {
+        font-size: clamp(1.5rem, 6vw, 1.875rem);
+    }
+    .section-title {
+        font-size: clamp(1.25rem, 5.5vw, 1.625rem) !important;
+    }
+    .feature-card-title {
+        font-size: var(--text-lg);
+    }
+    .card-title {
+        font-size: var(--text-xl);
+    }
+}
+
+/* ─── Why Choose Us & Video Responsive (Video on Top in Mobile View) ─── */
+@media (max-width: 991px) {
+    .why-choose-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 32px !important;
+    }
+    .why-choose-video-column {
+        order: -1 !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+    .why-choose-cards-grid {
+        order: 1 !important;
+        width: 100% !important;
+    }
+    .why-choose-video-wrapper {
+        max-width: 320px !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .why-choose-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .why-choose-card {
+        padding: 28px 20px;
+    }
+    .why-choose-video-wrapper {
+        max-width: 290px !important;
     }
 }
