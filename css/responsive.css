@@ -69,6 +69,23 @@
         width: auto !important;
     }
 
+    .brand-name {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 6px;
+    }
+    .brand-name-main,
+    .brand-name-sub {
+        font-family: var(--font-heading) !important;
+        font-size: 1.05rem !important;
+        font-weight: 800 !important;
+        color: #8B1C1C !important;
+        letter-spacing: -0.02em !important;
+        line-height: 1 !important;
+        text-transform: none !important;
+        padding: 0 !important;
+    }
+
     .nav-menu {
         position: absolute;
         top: 100%;
@@ -233,6 +250,23 @@
         height: 44px !important;
         max-height: 44px !important;
         width: auto !important;
+    }
+
+    .brand-name {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 5px;
+    }
+    .brand-name-main,
+    .brand-name-sub {
+        font-family: var(--font-heading) !important;
+        font-size: 0.95rem !important;
+        font-weight: 800 !important;
+        color: #8B1C1C !important;
+        letter-spacing: -0.02em !important;
+        line-height: 1 !important;
+        text-transform: none !important;
+        padding: 0 !important;
     }
 
     
