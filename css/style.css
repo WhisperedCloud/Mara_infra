@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MARA INFRA SOLUTIONS - PREMIUM "APPLE-LIKE" DESIGN SYSTEM
+   MARA INFRA CONSTRUCTIONS - PREMIUM "APPLE-LIKE" DESIGN SYSTEM
    ========================================================================== */
 
 :root {
@@ -34,6 +34,8 @@
 
     --color-border: #b30000;           /* Maroon border */
     --color-border-glow: #ffe6e6;
+    --color-hairline: rgba(128, 0, 0, 0.14); /* Soft maroon divider for lists and cards */
+    --color-tint: #fff6f5;             /* Warm band for alternating sections */
 
     /* Typography */
 
@@ -111,7 +113,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
-    overflow-x: hidden;
+    overflow-x: clip; /* clip, not hidden, so position: sticky keeps working */
     max-width: 100%;
 }
 
@@ -120,23 +122,10 @@ body {
     color: var(--color-text);
     background-color: var(--color-background);
     line-height: 1.5;
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.011em;
-}
-
-/* Premium Background Pattern (Subtle Gradient instead of harsh grid) */
-.tech-grid-pattern {
-    background: linear-gradient(180deg, #ffffff 0%, var(--color-background) 100%);
-}
-
-/* Glassmorphism Utility */
-.glass {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 /* Heading Hierarchy */
@@ -174,47 +163,33 @@ img { max-width: 100%; height: auto; display: block; border-radius: var(--radius
 }
 
 .section { padding: var(--space-12) 0; position: relative; }
-.section-alt { background-color: var(--color-surface); }
-.section-dark { background-color: var(--color-surface-dark); color: var(--color-text-white); }
-
-.section-header {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto var(--space-10);
-}
 
 .section-subtitle {
     display: inline-block;
     font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.875rem;
-    letter-spacing: 0.05em;
+    font-weight: 700;
+    font-size: clamp(0.95rem, 1.2vw, 1.125rem);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-accent);
     margin-bottom: var(--space-3);
-}
-
-.section-dark .section-subtitle {
-    color: var(--color-text-light);
 }
 
 .section-title { 
     margin-bottom: var(--space-4); 
     color: var(--color-text);
 }
-.section-dark .section-title { color: var(--color-text-white); }
 
 .section-description {
     font-size: var(--text-lg);
     color: var(--color-text-muted);
     line-height: var(--leading-subtitle);
 }
-.section-dark .section-description { color: var(--color-text-light); }
 
 /* ==========================================================================
    SCROLL REVEAL ANIMATIONS (Smooth & Premium)
    ========================================================================== */
-.reveal-fade-up, .reveal-scale-in {
+.reveal-fade-up {
     opacity: 1;
     transform: translateY(0) scale(1);
     transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
@@ -225,58 +200,22 @@ img { max-width: 100%; height: auto; display: block; border-radius: var(--radius
     transform: translateY(40px);
 }
 
-.js-reveal-ready .reveal-scale-in:not(.is-visible) {
-    opacity: 0;
-    transform: scale(0.96) translateY(20px);
-}
-
 .reveal-delay-1 { transition-delay: 0.1s; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 
 /* Accessibility Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-    .reveal-fade-up, .reveal-scale-in {
+    .reveal-fade-up {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
     }
 }
 
-
-
 /* ==========================================================================
    ARCHITECTURAL GLASSMORPHISM
    ========================================================================== */
-.glass-panel {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: saturate(180%) blur(24px);
-    -webkit-backdrop-filter: saturate(180%) blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-}
-
-/* Universal Hover Card */
-.hover-card {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-.hover-card:hover {
-    transform: translateY(-8px) !important;
-    box-shadow: 0 15px 35px rgba(179,0,0,0.15) !important;
-    border-color: var(--color-accent) !important;
-}
-
-@media (max-width: 768px) { .hide-on-mobile { display: none !important; } }
-
-/* Interactive Icon Box */
-.hover-icon-box {
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-}
-.hover-icon-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(179,0,0,0.15);
-}
-
 
 /* Typography Utility Classes */
 .hero-title {
@@ -285,65 +224,19 @@ img { max-width: 100%; height: auto; display: block; border-radius: var(--radius
     font-weight: var(--weight-extrabold);
 }
 
-.page-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: var(--leading-heading);
-    font-weight: var(--weight-extrabold);
-}
-
+/* Section headings match the h2 scale */
 .section-title {
-    font-size: var(--text-3xl);
-    line-height: var(--leading-heading);
+    font-size: clamp(2rem, 3.4vw, 2.5rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
     font-weight: var(--weight-bold);
 }
-
-.section-title-large {
-    font-size: var(--text-4xl);
-    line-height: var(--leading-heading);
-    font-weight: var(--weight-bold);
-}
-
-.card-title {
-    font-size: var(--text-2xl);
-    line-height: var(--leading-heading);
-    font-weight: var(--weight-semibold);
-}
-
-.body-text {
-    font-size: var(--text-base);
-    line-height: var(--leading-body);
-    font-weight: var(--weight-regular);
-}
-
-.body-text-lg {
-    font-size: var(--text-lg);
-    line-height: var(--leading-body);
-    font-weight: var(--weight-regular);
-}
-
-.small-text {
-    font-size: var(--text-sm);
-    line-height: var(--leading-body);
-}
-
-.small-text-bold {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    line-height: var(--leading-body);
-}
-
-.card-subtitle {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    color: var(--color-secondary);
-}
-
 
 /* ─── Typography Gap-Fills ───────────────────────────────────────────────── */
 
-/* Section description (below section headings) — was 1.25rem or 1.15rem inline */
+/* Section description (below section headings): was 1.25rem or 1.15rem inline */
 .section-description {
-    font-size: var(--text-lg);       /* 1.125rem  */
+    font-size: 1.25rem;
     line-height: var(--leading-subtitle);
     color: var(--color-text-muted);
     max-width: 700px;
@@ -351,104 +244,9 @@ img { max-width: 100%; height: auto; display: block; border-radius: var(--radius
     margin-right: auto;
 }
 
-/* Card body text — was 0.95rem / 0.925rem / 0.9rem inline */
-.card-body {
-    font-size: var(--text-sm);       /* 0.875rem  */
-    line-height: var(--leading-body);
-    color: var(--color-text-muted);
-}
-
-/* Resource / small card text — was 0.9rem inline */
-.text-muted-sm {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    line-height: var(--leading-body);
-}
-
-/* Testimonial quote — was 1.05rem italic inline */
-.testimonial-quote {
-    font-size: var(--text-base);
-    font-style: italic;
-    line-height: var(--leading-body);
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-5);
-}
-
-/* Testimonial author — was 1.1rem inline */
-.testimonial-author {
-    font-size: var(--text-base);
-    font-weight: var(--weight-bold);
-    color: var(--color-text);
-}
-
-/* Process step heading (h3 in process section) — was 1.3rem inline */
-.process-title {
-    font-size: var(--text-2xl);      /* 1.5rem */
-    font-weight: var(--weight-semibold);
-    line-height: var(--leading-heading);
-    color: inherit;
-    margin: 0;
-}
-
-/* Why-choose card heading (h3 in feature cards) — was 1.25rem inline */
-.feature-card-title {
-    font-size: var(--text-xl);       /* 1.25rem */
-    font-weight: var(--weight-semibold);
-    line-height: var(--leading-heading);
-    margin-bottom: 1rem;
-}
-
-/* Feature card body — was 0.95rem inline */
-.feature-card-body {
-    font-size: var(--text-base);
-    line-height: var(--leading-body);
-    color: var(--color-text-muted);
-}
-
-/* Form labels — was 0.9rem / 0.875rem inline */
+/* Form labels: was 0.9rem / 0.875rem inline */
 .form-label {
     font-size: var(--text-sm);
     font-weight: var(--weight-semibold);
 }
 
-/* Resource/document card description — was 0.9rem */
-.doc-card-desc {
-    font-size: var(--text-sm);
-    line-height: var(--leading-body);
-    flex-grow: 1;
-}
-
-/* Contact info label (tiny label above phone/email) — was 0.85rem */
-.contact-info-label {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    display: block;
-}
-
-/* Contact info value — was 1.1rem font-weight 700 */
-.contact-info-value {
-    font-size: var(--text-lg);
-    font-weight: var(--weight-bold);
-    color: var(--color-text);
-}
-
-/* Mini badge / metadata tag — was 0.875rem or 0.85rem */
-.meta-tag {
-    font-size: var(--text-sm);
-    font-weight: var(--weight-semibold);
-    color: var(--color-accent);
-}
-
-/* CTA large heading (standalone sections) — was 2rem / 2.5rem inline h3 */
-.cta-title {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: var(--weight-bold);
-    line-height: var(--leading-heading);
-}
-
-/* Section badge count / stat number — was 1.75rem inline in divs */
-.stat-number {
-    font-size: var(--text-4xl);      /* 2.5rem */
-    font-weight: var(--weight-extrabold);
-    line-height: 1;
-}

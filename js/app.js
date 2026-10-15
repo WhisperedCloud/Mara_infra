@@ -1,7 +1,7 @@
 /**
- * MARA INFRA SOLUTIONS - STANDALONE COMPATIBLE APP SCRIPT
+ * MARA INFRA CONSTRUCTIONS - STANDALONE COMPATIBLE APP SCRIPT
  * Compatible with local file:// protocol and web servers alike.
- * Handles Navigation, Dynamic Catalog, Filtering, Live Search, Product Detail, Modal Enquiries, and Animations.
+ * Handles navigation, scroll animations, enquiry forms and homepage interactions.
  */
 
 (function () {
@@ -12,41 +12,17 @@
         document.documentElement.classList.add('js-reveal-ready');
 
         initNavigation();
-        initFooterLayout();
         initAnimations();
-        initDiagnosticWidget();
         initEnquiryModal();
-
-        // Catalog & Filters Page (products.html)
-        const catalogContainer = document.querySelector('#product-catalog-grid');
-        if (catalogContainer && window.products) {
-            initCatalogAndFilters(window.products, catalogContainer);
-        }
-
-        // Product Detail Page (product-detail.html)
-        const detailContainer = document.querySelector('#product-detail-container');
-        if (detailContainer && window.products) {
-            initProductDetail(window.products, detailContainer);
-        }
+        initStoryScroll();
+        initServiceMarquee();
+        initProcessSteps();
+        initPageTransitions();
     });
 
     /* ==========================================================================
        1. NAVIGATION MODULE
        ========================================================================== */
-    function initFooterLayout() {
-        document.querySelectorAll('.footer-grid').forEach((grid) => {
-            if (grid.querySelector('.footer-links-card')) return;
-
-            const brand = grid.querySelector('.footer-brand');
-            const sections = [...grid.children].filter((child) => child !== brand);
-            if (!brand || sections.length < 2) return;
-
-            const groupedCard = document.createElement('div');
-            groupedCard.className = 'footer-links-card';
-            sections[0].before(groupedCard);
-            sections.forEach((section) => groupedCard.appendChild(section));
-        });
-    }
 
     function initNavigation() {
         const header = document.querySelector('.site-header');
@@ -65,6 +41,8 @@
         }
 
         if (mobileToggle && navMenu) {
+            mobileToggle.setAttribute('aria-expanded', 'false');
+
             const closeMobileMenu = () => {
                 navMenu.classList.remove('active');
                 mobileToggle.setAttribute('aria-expanded', 'false');
@@ -114,7 +92,7 @@
         }
 
         if (!isHomePage) {
-            // Static active link for dedicated subpages (about.html, products.html, etc.)
+            // Static active link for dedicated subpages (about.html, contact.html, etc.)
             setActiveNav(currentPath);
         } else {
             // Intelligent ScrollSpy for Home Page
@@ -151,46 +129,12 @@
                     return;
                 }
 
-                // 3. Handle What We Provide (Products, Services, Construction)
-                const whatWeProvide = document.getElementById('what-we-provide');
-                if (whatWeProvide) {
-                    const wwpRect = whatWeProvide.getBoundingClientRect();
-                    if (wwpRect.top <= triggerPoint && wwpRect.bottom > triggerPoint) {
-                        const isMobile = window.innerWidth <= 768;
-                        if (isMobile) {
-                            const colConstruction = document.getElementById('construction');
-                            const colServices = document.getElementById('services');
-
-                            if (colConstruction && colConstruction.getBoundingClientRect().top <= triggerPoint) {
-                                setActiveNav('construction.html');
-                            } else if (colServices && colServices.getBoundingClientRect().top <= triggerPoint) {
-                                setActiveNav('services.html');
-                            } else {
-                                setActiveNav('products.html');
-                            }
-                        } else {
-                            const progress = (triggerPoint - wwpRect.top) / wwpRect.height;
-                            if (progress < 0.35) {
-                                setActiveNav('products.html');
-                            } else if (progress < 0.70) {
-                                setActiveNav('services.html');
-                            } else {
-                                setActiveNav('construction.html');
-                            }
-                        }
-                        ticking = false;
-                        return;
-                    }
-                }
-
-                // 4. Other key sections (Solutions, About, Resources, Contact)
+                // 3. Highlight the page that matches the section under the reading line
                 const primarySections = [
                     { id: 'contact', href: 'contact.html' },
-                    { id: 'resources', href: 'resources.html' },
-                    { id: 'process', href: 'about.html' },
                     { id: 'why-choose-us', href: 'about.html' },
                     { id: 'about', href: 'about.html' },
-                    { id: 'solutions', href: 'solutions.html' }
+                    { id: 'services-overview', href: 'construction.html' }
                 ];
 
                 for (const sec of primarySections) {
@@ -205,10 +149,7 @@
                     }
                 }
 
-                // Default fallback if above What We Provide
-                if (whatWeProvide && whatWeProvide.getBoundingClientRect().top > triggerPoint) {
-                    setActiveNav('index.html');
-                }
+                setActiveNav('index.html');
 
                 ticking = false;
             }
@@ -242,7 +183,7 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal-fade-up, .reveal-scale-in').forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal-fade-up, .reveal-scale-in, [data-reveal]').forEach(el => observer.observe(el));
 
         // Animated Counters
         const counterElements = document.querySelectorAll('.animate-counter');
@@ -266,7 +207,8 @@
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const current = Math.floor(progress * (end - start) + start);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * (end - start) + start);
             obj.innerHTML = `${current.toLocaleString()}${suffix}`;
             if (progress < 1) window.requestAnimationFrame(step);
         };
@@ -274,460 +216,38 @@
     }
 
     /* ==========================================================================
-       3. HIGH-TECH DIAGNOSTIC TROUBLESHOOTER WIDGET
-       ========================================================================== */
-    function initDiagnosticWidget() {
-        const diagContainer = document.querySelector('#diagnostic-widget-container');
-        if (!diagContainer) return;
-
-        const diagnosticKeys = ['roof', 'bathroom', 'hollow', 'wall'];
-        const diagnosticData = {
-            roof: {
-                title: "Terrace & Roof Moisture Seepage",
-                cause: "Thermal expansion cracks in concrete slab & UV breakdown of uncertified surface coatings.",
-                system: "Weber Elastomeric Slurry System",
-                product: "Weber Dry Protect Coating",
-                productId: "weber-dry-protect",
-                specs: "2-part polymer modified slurry coat with glass fiber reinforcing mesh.",
-                warranty: "10-Year Water-Tightness Guarantee Certificate",
-                icon: "fa-house-crack"
-            },
-            bathroom: {
-                title: "Bathroom & Wet-Area Sub-Surface Dampness",
-                cause: "Water absorption through traditional cement tile grout & unsealed floor-wall joints.",
-                system: "Weber 100% Epoxy Hygienic Joint System",
-                product: "Weber Color Epoxy Grout",
-                productId: "weber-color-epoxy",
-                specs: "3-component resinous epoxy grout. 100% non-porous and stain proof.",
-                warranty: "Lifetime Zero-Stain & Mold Immunity",
-                icon: "fa-shower"
-            },
-            hollow: {
-                title: "Tile Debonding & Hollow Sound",
-                cause: "Using traditional sand-cement mortar beds which shrink and lose adhesion on vitrified tiles.",
-                system: "Weber High-Polymer Bed Adhesive System",
-                product: "Weber Set Polymer Tile Adhesive",
-                productId: "weber-set-polymer",
-                specs: "Polymer modified thin-bed mortar. C2TE high bond strength for wall & floor.",
-                warranty: "High Impact & Shock-Resistant Adhesion",
-                icon: "fa-border-all"
-            },
-            wall: {
-                title: "Exterior Wall Hairline Cracks",
-                cause: "Atmospheric thermal stress and brittle wall putty cracking under sun exposure.",
-                system: "Weberwall Finecoat Skim Mortar System",
-                product: "Weberwall Finecoat Finishing Mortar",
-                productId: "weberwall-finecoat",
-                specs: "Polymer skim coat that replaces wall putty and eliminates shrinkage cracks.",
-                warranty: "Crack-Free Smooth Exterior Finish",
-                icon: "fa-spray-can-sparkles"
-            }
-        };
-
-        let currentIndex = 0;
-        let autoRotateTimer = null;
-        let isPaused = false;
-        const ROTATE_INTERVAL = 4000; // 4 seconds
-
-        // Render skeleton layout ONCE
-        diagContainer.innerHTML = `
-            <div class="diagnostic-widget" id="diag-widget-wrapper">
-                <div class="diag-progress-bar-wrap">
-                    <div class="diag-progress-bar" id="diag-progress-bar"></div>
-                </div>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--color-border); padding-bottom: 16px; flex-wrap: wrap; gap: 12px;">
-                    <div>
-                        <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-accent); letter-spacing: 0.12em; text-transform: uppercase;">
-                            AUTOMATIC ENGINEERING TROUBLESHOOTER
-                        </span>
-                        <h3 style="color: var(--color-text); margin-top: 4px; font-size: 1.5rem;">Structural & Waterproofing Diagnostic System</h3>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="font-size: 0.75rem; color: var(--color-text-muted); font-weight: 500;" id="diag-counter-text">Card 1 of 4</span>
-                        <button type="button" id="diag-play-pause-btn" style="background: var(--color-surface-subtle); border: 1px solid var(--color-border); color: var(--color-text); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; gap: 6px;" title="Toggle Auto Switch">
-                            <i class="fa-solid fa-pause" id="diag-play-pause-icon"></i> <span id="diag-play-pause-text">Auto Switching</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="diagnostic-steps">
-                    <div>
-                        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 14px; color: var(--color-text-light);">
-                            1. Select Issue Or Watch Auto Rotation:
-                        </label>
-                        <div class="diagnostic-options" id="diag-options-grid">
-                            ${diagnosticKeys.map((key, idx) => {
-                                const d = diagnosticData[key];
-                                return `
-                                    <button type="button" class="diag-opt-btn ${idx === 0 ? 'active' : ''}" data-index="${idx}" data-key="${key}">
-                                        <i class="fa-solid ${d.icon}"></i>
-                                        <span>${key === 'roof' ? 'Roof Seepage' : key === 'bathroom' ? 'Bathroom Dampness' : key === 'hollow' ? 'Tile Debonding' : 'Wall Cracks'}</span>
-                                    </button>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-
-                    <div class="diagnostic-result-card" id="diag-result-card">
-                        <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-secondary-dark); background: var(--color-secondary-light); padding: 4px 10px; border-radius: var(--radius-full); display: inline-block; margin-bottom: 12px;">RECOMMENDED SPECIFICATION</span>
-                        <h4 style="color: var(--color-text); font-size: 1.3rem; margin-bottom: 8px;" id="diag-res-title"></h4>
-                        <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px; line-height: 1.5;"><strong>Root Cause:</strong> <span id="diag-res-cause"></span></p>
-
-                        <div style="font-size: 0.875rem; margin-bottom: 18px;">
-                            <div style="margin-bottom: 8px;"><strong>System Solution:</strong> <span style="color: var(--color-text); font-weight: 600;" id="diag-res-system"></span></div>
-                            <div style="margin-bottom: 8px;"><strong>Primary Product:</strong> <span style="color: var(--color-secondary-dark); font-weight: 700;" id="diag-res-product"></span></div>
-                            <div><strong>Warranty:</strong> <span style="color: var(--color-accent-dark); font-weight: 700;"><i class="fa-solid fa-shield-halved"></i> <span id="diag-res-warranty"></span></span></div>
-                        </div>
-
-                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                            <a href="#" id="diag-res-link" class="btn btn-outline btn-sm">View Technical Details &rarr;</a>
-                            <button type="button" id="diag-res-enquire-btn" class="btn btn-primary btn-sm btn-enquire">
-                                Request Inspection
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        const progressBar = diagContainer.querySelector('#diag-progress-bar');
-        const counterText = diagContainer.querySelector('#diag-counter-text');
-        const playPauseBtn = diagContainer.querySelector('#diag-play-pause-btn');
-        const playPauseIcon = diagContainer.querySelector('#diag-play-pause-icon');
-        const playPauseText = diagContainer.querySelector('#diag-play-pause-text');
-        const optionBtns = diagContainer.querySelectorAll('.diag-opt-btn');
-        const resultCard = diagContainer.querySelector('#diag-result-card');
-
-        const resTitle = diagContainer.querySelector('#diag-res-title');
-        const resCause = diagContainer.querySelector('#diag-res-cause');
-        const resSystem = diagContainer.querySelector('#diag-res-system');
-        const resProduct = diagContainer.querySelector('#diag-res-product');
-        const resWarranty = diagContainer.querySelector('#diag-res-warranty');
-        const resLink = diagContainer.querySelector('#diag-res-link');
-        const resEnquireBtn = diagContainer.querySelector('#diag-res-enquire-btn');
-
-        function updateCardUI(idx) {
-            currentIndex = idx;
-            const activeKey = diagnosticKeys[currentIndex];
-            const item = diagnosticData[activeKey];
-
-            // Update button active states
-            optionBtns.forEach((btn, bIdx) => {
-                if (bIdx === currentIndex) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-
-            // Smooth fade update for content
-            resultCard.style.opacity = '0.5';
-            resultCard.style.transform = 'translateY(4px)';
-
-            setTimeout(() => {
-                resTitle.textContent = item.title;
-                resCause.textContent = item.cause;
-                resSystem.textContent = item.system;
-                resProduct.textContent = item.product;
-                resWarranty.textContent = item.warranty;
-                resLink.href = `product-detail.html?id=${item.productId}`;
-                resEnquireBtn.setAttribute('data-product-name', `${item.product} (${item.title})`);
-                counterText.textContent = `Card ${currentIndex + 1} of ${diagnosticKeys.length}`;
-
-                resultCard.style.transition = 'all 0.25s ease';
-                resultCard.style.opacity = '1';
-                resultCard.style.transform = 'translateY(0)';
-            }, 100);
-
-            resetProgressBar();
-        }
-
-        function resetProgressBar() {
-            if (!progressBar) return;
-            progressBar.style.transition = 'none';
-            progressBar.style.width = '0%';
-            void progressBar.offsetWidth; // Force reflow
-            if (!isPaused) {
-                progressBar.style.transition = `width ${ROTATE_INTERVAL}ms linear`;
-                progressBar.style.width = '100%';
-            }
-        }
-
-        function startTimer() {
-            stopTimer();
-            isPaused = false;
-            playPauseIcon.className = 'fa-solid fa-pause';
-            playPauseText.textContent = 'Auto Switching';
-            resetProgressBar();
-            autoRotateTimer = setInterval(() => {
-                const nextIdx = (currentIndex + 1) % diagnosticKeys.length;
-                updateCardUI(nextIdx);
-            }, ROTATE_INTERVAL);
-        }
-
-        function stopTimer() {
-            if (autoRotateTimer) {
-                clearInterval(autoRotateTimer);
-                autoRotateTimer = null;
-            }
-            isPaused = true;
-            playPauseIcon.className = 'fa-solid fa-play';
-            playPauseText.textContent = 'Paused';
-            if (progressBar) {
-                progressBar.style.transition = 'none';
-            }
-        }
-
-        // Click handlers for option buttons
-        optionBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const newIdx = parseInt(btn.getAttribute('data-index'), 10);
-                updateCardUI(newIdx);
-                if (!isPaused) {
-                    startTimer();
-                }
-            });
-        });
-
-        // Play / Pause button
-        if (playPauseBtn) {
-            playPauseBtn.addEventListener('click', () => {
-                if (isPaused) {
-                    startTimer();
-                } else {
-                    stopTimer();
-                }
-            });
-        }
-
-        // Start auto-rotation immediately
-        updateCardUI(0);
-        startTimer();
-    }
-
-    /* ==========================================================================
-       4. PRODUCT CATALOG & FILTERS (products.html)
-       ========================================================================== */
-    function renderProductCardHTML(product) {
-        return `
-            <article class="product-card" data-id="${product.id}" data-category="${product.category}">
-                <span class="product-card-badge">${product.brand}</span>
-                <img src="${product.image}" alt="${product.name}" class="product-card-image" loading="lazy">
-                <div class="product-card-body">
-                    <span class="product-card-category">${product.categoryName}</span>
-                    <h3 class="product-card-title">
-                        <a href="product-detail.html?id=${product.id}">${product.name}</a>
-                    </h3>
-                    <p class="product-card-desc">${product.shortDescription}</p>
-                    <div class="product-card-footer">
-                        <a href="product-detail.html?id=${product.id}" class="btn btn-outline btn-sm">View Product Details</a>
-                        <button type="button" class="btn btn-primary btn-sm btn-enquire" data-product-id="${product.id}" data-product-name="${product.name}">
-                            Enquire Now
-                        </button>
-                    </div>
-                </div>
-            </article>
-        `;
-    }
-
-    function initCatalogAndFilters(allProducts, containerEl) {
-        const countEl = document.querySelector('#product-count');
-        const searchInput = document.querySelector('#product-search');
-        const filterPills = document.querySelectorAll('.filter-pill');
-
-        let activeCategory = 'all';
-
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('category')) activeCategory = urlParams.get('category');
-
-        function applyFilters() {
-            const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-            const filtered = allProducts.filter(p => {
-                const matchCat = (activeCategory === 'all') || (p.category === activeCategory);
-                const matchQuery = !query || (
-                    p.name.toLowerCase().includes(query) ||
-                    p.categoryName.toLowerCase().includes(query) ||
-                    p.brand.toLowerCase().includes(query) ||
-                    p.shortDescription.toLowerCase().includes(query)
-                );
-                return matchCat && matchQuery;
-            });
-
-            if (countEl) countEl.textContent = `Showing ${filtered.length} product${filtered.length === 1 ? '' : 's'}`;
-
-            if (filtered.length === 0) {
-                containerEl.innerHTML = `
-                    <div class="empty-state" style="grid-column: 1 / -1;">
-                        <div class="empty-state-icon"><i class="fa-solid fa-box-open"></i></div>
-                        <h3>No products found</h3>
-                        <p>Try searching with another keyword or select all products.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            containerEl.innerHTML = filtered.map(renderProductCardHTML).join('');
-        }
-
-        filterPills.forEach(pill => {
-            pill.addEventListener('click', () => {
-                filterPills.forEach(p => p.classList.remove('active'));
-                pill.classList.add('active');
-                activeCategory = pill.getAttribute('data-category');
-                applyFilters();
-            });
-        });
-
-        if (searchInput) {
-            let timer;
-            searchInput.addEventListener('input', () => {
-                clearTimeout(timer);
-                timer = setTimeout(applyFilters, 150);
-            });
-        }
-
-        // Set active pill state from URL
-        filterPills.forEach(pill => {
-            if (pill.getAttribute('data-category') === activeCategory) {
-                pill.classList.add('active');
-            } else {
-                pill.classList.remove('active');
-            }
-        });
-
-        applyFilters();
-    }
-
-    /* ==========================================================================
-       5. DYNAMIC PRODUCT DETAIL RENDERER (product-detail.html)
-       ========================================================================== */
-    function initProductDetail(allProducts, detailContainer) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-        const product = allProducts.find(p => p.id === productId);
-
-        if (!product) {
-            detailContainer.innerHTML = `
-                <div class="container section text-center">
-                    <h2>Product Not Found</h2>
-                    <p>The product you requested does not exist or may have been updated.</p>
-                    <a href="products.html" class="btn btn-primary mt-4">Explore Products Catalogue</a>
-                </div>
-            `;
-            return;
-        }
-
-        document.title = `${product.name} | Mara Infra Solutions`;
-
-        const specEntries = Object.entries(product.specifications || {}).filter(([k, v]) => Boolean(v));
-        const specRows = specEntries.map(([key, val]) => {
-            const formattedKey = key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-            return `<tr><th>${formattedKey}</th><td>${val}</td></tr>`;
-        }).join('');
-
-        const related = allProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3);
-
-        detailContainer.innerHTML = `
-            <section class="section section-alt">
-                <div class="container">
-                    <div class="pd-hero-grid" style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center;">
-                        <div>
-                            <img src="${product.image}" alt="${product.name}" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-height: 420px; width: 100%; object-fit: cover;">
-                        </div>
-                        <div>
-                            <span class="product-card-badge" style="position: static; display: inline-block; margin-bottom: 12px;">${product.brand}</span>
-                            <h1 style="font-size: 2.4rem; margin-bottom: 16px;">${product.name}</h1>
-                            <p style="font-size: 1.1rem; color: var(--color-text); font-weight: 600; margin-bottom: 16px;">${product.shortDescription}</p>
-                            <p>${product.description}</p>
-                            <div class="pd-action-row" style="display: flex; gap: 16px; margin-top: 28px; flex-wrap: wrap;">
-                                <button type="button" class="btn btn-primary btn-lg btn-enquire" data-product-name="${product.name}">
-                                    <i class="fa-solid fa-envelope"></i> Enquire About This Product
-                                </button>
-                                <a href="#specifications" class="btn btn-outline btn-lg">Technical Specs</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <div class="container">
-                    <div class="pd-apps-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
-                        <div>
-                            <h3><i class="fa-solid fa-bullseye" style="color: var(--color-accent);"></i> Key Applications</h3>
-                            <ul style="list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
-                                ${product.applications.map(app => `<li style="display: flex; gap: 10px;"><i class="fa-solid fa-circle-check" style="color: var(--color-accent); margin-top: 4px;"></i> <span>${app}</span></li>`).join('')}
-                            </ul>
-                        </div>
-                        <div>
-                            <h3><i class="fa-solid fa-layer-group" style="color: var(--color-accent);"></i> Suitable Substrates</h3>
-                            <ul style="list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
-                                ${product.substrates.map(sub => `<li style="display: flex; gap: 10px;"><i class="fa-solid fa-circle-check" style="color: var(--color-accent); margin-top: 4px;"></i> <span>${sub}</span></li>`).join('')}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="specifications" class="section section-alt">
-                <div class="container">
-                    <h3 style="margin-bottom: 24px;">Technical Specifications</h3>
-                    <div class="spec-table-wrapper">
-                        <table class="spec-table">
-                            <tbody>${specRows}</tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            ${related.length > 0 ? `
-                <section class="section">
-                    <div class="container">
-                        <h3 style="margin-bottom: 24px;">Related Products</h3>
-                        <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">
-                            ${related.map(renderProductCardHTML).join('')}
-                        </div>
-                    </div>
-                </section>
-            ` : ''}
-        `;
-    }
-
-    /* ==========================================================================
-       6. ENQUIRY MODAL SYSTEM
+       3. ENQUIRY MODAL SYSTEM
        ========================================================================== */
     function initEnquiryModal() {
         if (!document.querySelector('#enquiry-modal-overlay')) {
             const modalHtml = `
-                <div class="modal-overlay" id="enquiry-modal-overlay">
+                <div class="modal-overlay" id="enquiry-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
                     <div class="modal-container">
                         <div class="modal-header">
                             <h3 class="modal-title" id="modal-title">Request a quote</h3>
-                            <button type="button" class="modal-close" id="modal-close-btn">&times;</button>
+                            <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
                         </div>
                         <div class="modal-body" id="modal-body-content">
                             <form id="enquiry-form" novalidate>
+                                <input type="checkbox" id="enquiry-botcheck" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
                                 <div class="form-group">
                                     <label class="form-label" for="enquiry-product">Project type</label>
-                                    <input type="text" id="enquiry-product" class="form-input" readonly style="background-color: var(--color-surface-subtle); font-weight: 600;">
+                                    <input type="text" id="enquiry-product" class="form-input" readonly style="font-weight: 600;">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="enquiry-name">Full Name *</label>
-                                    <input type="text" id="enquiry-name" class="form-input" placeholder="Enter your full name" required>
+                                    <input type="text" id="enquiry-name" class="form-input" placeholder="Enter your full name" autocomplete="name" required>
                                     <div class="form-error" id="error-name"></div>
                                 </div>
                                 <div class="modal-phone-email-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                                     <div class="form-group">
                                         <label class="form-label" for="enquiry-phone">Phone Number *</label>
-                                        <input type="tel" id="enquiry-phone" class="form-input" placeholder="Enter your mobile number" required>
+                                        <input type="tel" id="enquiry-phone" class="form-input" placeholder="Enter your mobile number" autocomplete="tel" required>
                                         <div class="form-error" id="error-phone"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="enquiry-email">Email Address *</label>
-                                        <input type="email" id="enquiry-email" class="form-input" placeholder="Enter your email address" required>
+                                        <input type="email" id="enquiry-email" class="form-input" placeholder="Enter your email address" autocomplete="email" required>
                                         <div class="form-error" id="error-email"></div>
                                     </div>
                                 </div>
@@ -736,8 +256,9 @@
                                     <textarea id="enquiry-req" class="form-textarea" rows="3" placeholder="Please provide details about your project requirements..." required></textarea>
                                     <div class="form-error" id="error-req"></div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa-solid fa-paper-plane"></i> Submit Enquiry</button>
+                                <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Submit Enquiry</button>
                             </form>
+                            <div class="form-status" id="enquiry-status" role="status" hidden></div>
                         </div>
                     </div>
                 </div>
@@ -747,173 +268,367 @@
 
         const overlay = document.querySelector('#enquiry-modal-overlay');
         const closeBtn = document.querySelector('#modal-close-btn');
+        const form = document.querySelector('#enquiry-form');
+        const status = document.querySelector('#enquiry-status');
+        if (!overlay || !form || !status) return;
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const submitLabel = submitBtn.innerHTML;
+        let lastFocus = null;
+
+        // Each opening starts from a clean form, even after a previous submission
+        function showForm() {
+            form.reset();
+            form.hidden = false;
+            status.hidden = true;
+            status.replaceChildren();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = submitLabel;
+            form.querySelectorAll('.form-error').forEach(el => { el.textContent = ''; });
+        }
+
+        function showStatus(icon, title, message) {
+            const iconEl = document.createElement('div');
+            iconEl.className = 'form-status-icon';
+            iconEl.innerHTML = `<i class="fa-solid ${icon}" aria-hidden="true"></i>`;
+            const heading = document.createElement('h3');
+            heading.textContent = title;
+            const text = document.createElement('p');
+            text.textContent = message;
+            const doneBtn = document.createElement('button');
+            doneBtn.type = 'button';
+            doneBtn.className = 'btn btn-primary';
+            doneBtn.textContent = 'Close';
+            doneBtn.addEventListener('click', closeModal);
+            status.replaceChildren(iconEl, heading, text, doneBtn);
+            form.hidden = true;
+            status.hidden = false;
+            doneBtn.focus();
+        }
 
         function openModal(pName = 'General Enquiry') {
-            if (!overlay) return;
+            showForm();
             document.querySelector('#enquiry-product').value = pName;
+            lastFocus = document.activeElement;
             overlay.classList.add('active');
+            overlay.setAttribute('aria-hidden', 'false');
+            overlay.scrollTop = 0;
             document.body.style.overflow = 'hidden';
+            const nameInput = document.querySelector('#enquiry-name');
+            requestAnimationFrame(() => nameInput.focus());
+            setTimeout(() => { if (document.activeElement !== nameInput) nameInput.focus(); }, 320);
         }
 
         function closeModal() {
-            if (!overlay) return;
+            if (!overlay.classList.contains('active')) return;
             overlay.classList.remove('active');
+            overlay.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
+            if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
         }
 
         document.addEventListener('click', (e) => {
             const btn = e.target.closest('.btn-enquire');
             if (btn) {
                 e.preventDefault();
-                const pName = btn.getAttribute('data-product-name') || 'General Enquiry';
-                openModal(pName);
+                openModal(btn.getAttribute('data-product-name') || 'General Enquiry');
             }
         });
 
         if (closeBtn) closeBtn.addEventListener('click', closeModal);
-        if (overlay) {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay && window.innerWidth > 768) closeModal();
-            });
-        }
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay && window.innerWidth > 768) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
 
-        const form = document.querySelector('#enquiry-form');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                document.querySelectorAll('.form-error').forEach(el => el.textContent = '');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.querySelectorAll('.form-error').forEach(el => { el.textContent = ''; });
 
-                const name = document.querySelector('#enquiry-name').value.trim();
-                const phone = document.querySelector('#enquiry-phone').value.trim();
-                const email = document.querySelector('#enquiry-email').value.trim();
-                const req = document.querySelector('#enquiry-req').value.trim();
+            const product = document.querySelector('#enquiry-product').value;
+            const name = document.querySelector('#enquiry-name').value.trim();
+            const phone = document.querySelector('#enquiry-phone').value.trim();
+            const email = document.querySelector('#enquiry-email').value.trim();
+            const req = document.querySelector('#enquiry-req').value.trim();
 
-                let valid = true;
-                if (!name || name.length < 2) {
-                    document.querySelector('#error-name').textContent = 'Please enter your name.';
-                    valid = false;
-                }
-                if (!phone || phone.length < 8) {
-                    document.querySelector('#error-phone').textContent = 'Please enter a valid phone number.';
-                    valid = false;
-                }
-                if (!email || !email.includes('@')) {
-                    document.querySelector('#error-email').textContent = 'Please enter a valid email.';
-                    valid = false;
-                }
-                if (!req || req.length < 5) {
-                    document.querySelector('#error-req').textContent = 'Please enter requirement details.';
-                    valid = false;
-                }
+            let valid = true;
+            if (!name || name.length < 2) {
+                document.querySelector('#error-name').textContent = 'Please enter your name.';
+                valid = false;
+            }
+            if (!phone || phone.length < 8) {
+                document.querySelector('#error-phone').textContent = 'Please enter a valid phone number.';
+                valid = false;
+            }
+            if (!email || !email.includes('@')) {
+                document.querySelector('#error-email').textContent = 'Please enter a valid email.';
+                valid = false;
+            }
+            if (!req || req.length < 5) {
+                document.querySelector('#error-req').textContent = 'Please enter requirement details.';
+                valid = false;
+            }
+            if (!valid || submitBtn.disabled) return;
 
-                if (valid) {
-                    const submitBtn = form.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.innerHTML;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-                    submitBtn.disabled = true;
+            // Hidden honeypot: real visitors never tick it, so a ticked box means a bot
+            if (document.querySelector('#enquiry-botcheck').checked) {
+                showStatus('fa-check', 'Enquiry Submitted', 'Thank you! Our team will contact you shortly.');
+                return;
+            }
 
-                    const formData = new FormData();
-                    formData.append('access_key', '2c0746e7-ba78-4283-9d0d-338352e27cb6');
-                    formData.append('subject', 'New Product Enquiry - Mara Infra');
-                    formData.append('Product/Subject', document.querySelector('#enquiry-product').value);
-                    formData.append('Name', name);
-                    formData.append('Phone', phone);
-                    formData.append('Email', email);
-                    formData.append('Requirements', req);
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
+            submitBtn.disabled = true;
 
-                    fetch('https://api.web3forms.com/submit', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            document.querySelector('#modal-body-content').innerHTML = `
-                                <div style="text-align: center; padding: 24px;">
-                                    <div style="width: 56px; height: 56px; background: var(--color-accent-light); color: var(--color-accent-dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.5rem;">
-                                        <i class="fa-solid fa-check"></i>
-                                    </div>
-                                    <h3>Enquiry Submitted</h3>
-                                    <p style="margin-top: 8px;">Thank you ${name}! Our technical team for Hosur & Krishnagiri will contact you shortly.</p>
-                                    <button type="button" class="btn btn-primary mt-6" onclick="document.querySelector('#enquiry-modal-overlay').classList.remove('active'); document.body.style.overflow='';">Continue Browsing</button>
-                                </div>
-                            `;
-                        } else {
-                            throw new Error('Form submission failed');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Web3Forms API failed, falling back to mailto:', error);
-                        
-                        const emailSubject = encodeURIComponent(`New Product Enquiry - ${document.querySelector('#enquiry-product').value}`);
-                        const emailBody = encodeURIComponent(
-                            `Name: ${name}\n` +
-                            `Phone: ${phone}\n` +
-                            `Email: ${email}\n\n` +
-                            `Requirement Details:\n${req}`
-                        );
-                        
-                        // Trigger mailto fallback
-                        window.location.href = `mailto:admin@marainfra.co.in?subject=${emailSubject}&body=${emailBody}`;
-                        
-                        // Update UI to explain the fallback
-                        document.querySelector('#modal-body-content').innerHTML = `
-                            <div style="text-align: center; padding: 24px;">
-                                <div style="width: 56px; height: 56px; background: var(--color-surface); color: var(--color-text-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.5rem; border: 1px solid var(--color-border);">
-                                    <i class="fa-solid fa-envelope-open-text"></i>
-                                </div>
-                                <h3>Opening Email App...</h3>
-                                <p style="margin-top: 8px;">Our automated system is currently unreachable (this can happen due to ad-blockers). We are opening your default email application to send this enquiry directly to <strong>admin@marainfra.co.in</strong>.</p>
-                                <button type="button" class="btn btn-primary mt-6" onclick="document.querySelector('#enquiry-modal-overlay').classList.remove('active'); document.body.style.overflow='';">Close Window</button>
-                            </div>
-                        `;
-                    });
-                }
-            });
-        }
+            const formData = new FormData();
+            formData.append('access_key', '2c0746e7-ba78-4283-9d0d-338352e27cb6');
+            formData.append('subject', 'New Project Enquiry - Mara Infra');
+            formData.append('Product/Subject', product);
+            formData.append('Name', name);
+            formData.append('Phone', phone);
+            formData.append('Email', email);
+            formData.append('Requirements', req);
+
+            fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) throw new Error('Form submission failed');
+                    showStatus('fa-check', 'Enquiry Submitted', `Thank you, ${name}! Our team will contact you shortly.`);
+                })
+                .catch(error => {
+                    console.warn('Web3Forms API failed, falling back to mailto:', error);
+                    const emailSubject = encodeURIComponent(`New Project Enquiry - ${product}`);
+                    const emailBody = encodeURIComponent(
+                        `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nRequirement Details:\n${req}`
+                    );
+                    window.location.href = `mailto:admin@marainfra.co.in?subject=${emailSubject}&body=${emailBody}`;
+                    showStatus('fa-envelope-open-text', 'Opening Email App...',
+                        'Our automated system is currently unreachable (this can happen due to ad-blockers). We are opening your default email application to send this enquiry directly to admin@marainfra.co.in.');
+                });
+        });
     }
 
-    // Web3Forms AJAX Submission Handler
-    document.addEventListener("DOMContentLoaded", () => {
-        const forms = document.querySelectorAll("form[action^='https://api.web3forms.com']");
-        forms.forEach(form => {
-            form.addEventListener("submit", async (e) => {
+    /* ==========================================================================
+       4. CONSTRUCTION STORY: STICKY PHOTO FOLLOWS THE SERVICE BEING READ
+       ========================================================================== */
+    function initStoryScroll() {
+        const story = document.querySelector('[data-cs-story]');
+        if (!story || !('IntersectionObserver' in window)) return;
+
+        const steps = Array.from(story.querySelectorAll('.cs-step'));
+        const shots = Array.from(story.querySelectorAll('.cs-shot'));
+        const rail = Array.from(story.querySelectorAll('.cs-rail li'));
+        const captionNum = story.querySelector('.cs-caption-num');
+        const captionName = story.querySelector('.cs-caption-name');
+        const frame = story.querySelector('.cs-frame');
+        let current = 0;
+
+        // The frame takes the exact shape of the photo on show, so no photo is cropped
+        function sizeFrame(index) {
+            if (!frame || !frame.clientWidth) return;
+            const [w, h] = (shots[index].dataset.ratio || '').split('/').map(Number);
+            if (w && h) frame.style.height = `${(frame.clientWidth * h) / w}px`;
+        }
+
+        function setStep(index) {
+            current = index;
+            sizeFrame(index);
+            steps.forEach((step, i) => step.classList.toggle('is-current', i === index));
+            shots.forEach((shot, i) => shot.classList.toggle('is-active', i === index));
+            rail.forEach((item, i) => {
+                item.classList.toggle('is-active', i === index);
+                item.classList.toggle('is-done', i < index);
+            });
+            if (captionNum) captionNum.textContent = String(index + 1).padStart(2, '0');
+            if (captionName) captionName.textContent = steps[index].querySelector('h2').textContent;
+        }
+
+        // The step crossing the middle of the screen is the one being read
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) setStep(steps.indexOf(entry.target));
+            });
+        }, { rootMargin: '-50% 0px -50% 0px' });
+        steps.forEach(step => observer.observe(step));
+
+        sizeFrame(0);
+        window.addEventListener('resize', () => sizeFrame(current));
+    }
+
+    /* ==========================================================================
+       5. HERO SERVICES MARQUEE (index.html)
+       ========================================================================== */
+    function initServiceMarquee() {
+        const marquee = document.querySelector('[data-svc-marquee]');
+        if (!marquee) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const track = marquee.querySelector('.svc-marquee-track');
+        const group = track.querySelector('.svc-marquee-group');
+        const originals = Array.from(group.children);
+
+        function hideCopy(node) {
+            node.setAttribute('aria-hidden', 'true');
+            node.querySelectorAll('a').forEach(link => link.setAttribute('tabindex', '-1'));
+            return node;
+        }
+
+        // Repeat the services until one group is wider than the widest screen, so the loop never shows a gap
+        const minWidth = Math.max(window.innerWidth, window.screen.width);
+        for (let i = 0; i < 10 && group.scrollWidth < minWidth; i++) {
+            originals.forEach(item => group.appendChild(hideCopy(item.cloneNode(true))));
+        }
+
+        // Two identical groups let the track slide by half its width and restart seamlessly
+        track.appendChild(hideCopy(group.cloneNode(true)));
+
+        const pixelsPerSecond = 40;
+        track.style.setProperty('--svc-marquee-duration', `${group.scrollWidth / pixelsPerSecond}s`);
+        marquee.classList.add('is-running');
+    }
+
+    /* ==========================================================================
+       6. HOW WE WORK: ACTIVE STEP AND ITS PHOTO
+       ========================================================================== */
+    function initProcessSteps() {
+        const wrap = document.querySelector('[data-hw]');
+        if (!wrap) return;
+
+        const steps = Array.from(wrap.querySelectorAll('.hw2-step'));
+        const buttons = steps.map(step => step.querySelector('.hw2-btn'));
+        const shots = Array.from(wrap.querySelectorAll('.hw2-shot'));
+        const stage = wrap.querySelector('.hw2-stage');
+        const captionNum = wrap.querySelector('.hw2-caption-num');
+        const captionText = wrap.querySelector('.hw2-caption-text');
+        let active = 0;
+
+        function setActive(index) {
+            active = (index + steps.length) % steps.length;
+            steps.forEach((step, i) => {
+                step.classList.toggle('is-active', i === active);
+                buttons[i].setAttribute('aria-pressed', String(i === active));
+            });
+            shots.forEach((shot, i) => {
+                shot.classList.toggle('is-active', i === active);
+                if (i === active) shot.removeAttribute('aria-hidden');
+                else shot.setAttribute('aria-hidden', 'true');
+            });
+            // The frame takes the active photo's shape, so the photo is shown whole
+            if (stage && shots[active].dataset.ratio) stage.style.aspectRatio = shots[active].dataset.ratio;
+            if (captionNum) captionNum.textContent = String(active + 1).padStart(2, '0');
+            if (captionText) captionText.textContent = buttons[active].textContent.trim();
+        }
+
+        // Clicking a step shows it and restarts the timer, so the steps keep advancing on their own
+        steps.forEach((step, i) => {
+            step.addEventListener('click', () => {
+                setActive(i);
+                restartTimer();
+            });
+        });
+
+        function restartTimer() {
+            const bar = steps[active].querySelector('.hw2-progress');
+            if (!bar) return;
+            bar.style.animation = 'none';
+            void bar.offsetWidth;
+            bar.style.animation = '';
+        }
+
+        // Advance on larger screens; phones show every step at once
+        const desktopQuery = window.matchMedia('(min-width: 992px)');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) return;
+
+        const syncAutoplay = () => wrap.classList.toggle('is-autoplay', desktopQuery.matches);
+        syncAutoplay();
+        desktopQuery.addEventListener('change', syncAutoplay);
+        wrap.classList.add('is-offscreen');
+
+        wrap.addEventListener('animationend', (e) => {
+            if (e.animationName === 'hw2-progress' && wrap.classList.contains('is-autoplay')) setActive(active + 1);
+        });
+
+        // Resting the pointer on a step pauses the timer while it is being read
+        steps.forEach(step => {
+            step.addEventListener('mouseenter', () => wrap.classList.add('is-paused'));
+            step.addEventListener('mouseleave', () => wrap.classList.remove('is-paused'));
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => wrap.classList.toggle('is-offscreen', !entry.isIntersecting));
+        }, { threshold: 0.35 });
+        observer.observe(wrap);
+    }
+
+    /* ==========================================================================
+       7. PAGE TRANSITIONS: FADE OUT BEFORE MOVING TO ANOTHER PAGE
+       ========================================================================== */
+    function initPageTransitions() {
+        const loader = document.createElement('div');
+        loader.className = 'page-loader';
+        loader.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(loader);
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        document.addEventListener('click', (e) => {
+            if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            const link = e.target.closest('a[href]');
+            if (!link || link.hasAttribute('download')) return;
+            if (link.target && link.target !== '_self') return;
+
+            const url = new URL(link.href, window.location.href);
+            if (url.protocol !== window.location.protocol || url.host !== window.location.host) return;
+            // Links within the same page keep their normal scroll behaviour
+            if (url.pathname === window.location.pathname) return;
+            if (!/(\.html?|\/)$/.test(url.pathname)) return;
+
+            e.preventDefault();
+            if (prefersReducedMotion) {
+                window.location.href = url.href;
+                return;
+            }
+            document.documentElement.classList.add('page-leaving');
+            setTimeout(() => { window.location.href = url.href; }, 280);
+        });
+
+        // Coming back with the browser's Back button shows the page again
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted) document.documentElement.classList.remove('page-leaving');
+        });
+    }
+
+    // Web3Forms AJAX Submission Handler (page forms)
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll("form[action^='https://api.web3forms.com']").forEach(form => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const btn = form.querySelector("button[type='submit']");
-                const originalBtnText = btn ? btn.innerHTML : "Send Message";
-                if (btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-                
-                const formData = new FormData(form);
-                
+                if (btn && btn.disabled) return;
+                const originalBtnText = btn ? btn.innerHTML : '';
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Sending...';
+                }
+
                 try {
-                    const response = await fetch(form.action, {
-                        method: "POST",
-                        body: formData
-                    });
-                    
-                    if (response.ok) {
-                        // Show animated success message in place of the form
-                        form.innerHTML = `
-                            <style>
-                                @keyframes formSuccessBounce {
-                                    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
-                                    100% { opacity: 1; transform: scale(1) translateY(0); }
-                                }
-                            </style>
-                            <div style="text-align: center; padding: 40px 20px; background: rgba(179,0,0,0.03); border-radius: var(--radius-lg); border: 1px dashed rgba(179,0,0,0.2); animation: formSuccessBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;">
-                                <div style="width: 70px; height: 70px; background: var(--color-accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 2rem; box-shadow: 0 10px 30px rgba(179,0,0,0.2);">
-                                    <i class="fa-solid fa-check"></i>
-                                </div>
-                                <h3 style="color: var(--color-accent); font-size: 1.5rem; margin-bottom: 12px;">Message Sent Successfully!</h3>
-                                <p style="color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 0;">Thank you for reaching out. Our technical team will get back to you shortly.</p>
-                            </div>
-                        `;
-                    } else {
-                        throw new Error("Failed to send");
-                    }
+                    const response = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+                    if (!response.ok) throw new Error('Failed to send');
+                    form.innerHTML = `
+                        <div class="form-status" role="status">
+                            <div class="form-status-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></div>
+                            <h3>Message Sent Successfully!</h3>
+                            <p>Thank you for reaching out. Our team will get back to you shortly.</p>
+                        </div>
+                    `;
                 } catch (error) {
-                    if (btn) btn.innerHTML = originalBtnText;
-                    alert("Something went wrong. Please try again later.");
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerHTML = originalBtnText;
+                    }
+                    alert('Something went wrong. Please try again later.');
                 }
             });
         });
