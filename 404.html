@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found | MaraInfra Constructions</title>
+    <title>404 - Page Not Found | Mara Infra Constructions</title>
+    <link rel="icon" type="image/png" href="assets/images/mara%20logo.png">
     <meta name="robots" content="noindex, follow">
     
     <!-- Google Fonts -->
@@ -12,7 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- CSS Architecture -->
     <link rel="stylesheet" href="css/style.css">
@@ -26,17 +29,17 @@
 
     <!-- Very Top Bar -->
     <div class="very-top-bar">
-        MaraInfra Constructions... <strong>Residential &amp; Commercial Construction Experts in Hosur &amp; Krishnagiri</strong>
+        Mara Infra Constructions... <strong>Built on Expertise. Driven by Precision.</strong>
     </div>
 
     <!-- Top Info Bar -->
     <div class="top-info-bar">
         <div class="container">
             <div class="top-info-contact">
-                <a href="https://www.google.com/maps/search/?api=1&amp;query=201-1%2C+Jalagandeswar+Nagar%2C+Opp.+to+Old+Bus+Stand%2C+Hosur+635109" target="_blank" rel="noopener noreferrer" class="top-info-item">
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=250%2C+Thirugnana+Sambandar+Street%2C+Srinivasa+Nagar%2C+Madipakkam%2C+Chennai+600091" target="_blank" rel="noopener noreferrer" class="top-info-item">
                     <div class="top-info-icon"><i class="fa-solid fa-location-dot"></i></div>
                     <div class="top-info-text">
-                        <span class="top-info-label">Hosur, Krishnagiri</span>
+                        <span class="top-info-label">Madipakkam, Chennai</span>
                         <span class="top-info-sub">Locate us</span>
                     </div>
                 </a>
@@ -45,7 +48,7 @@
                     <div class="top-info-icon"><i class="fa-solid fa-phone"></i></div>
                     <div class="top-info-text">
                         <span class="top-info-label">+91 99621 16999</span>
-                        <span class="top-info-sub">Mon - Fri: 9.00 am to 9.00 pm</span>
+                        <span class="top-info-sub">Mon - Sat: 9.00 am to 6.00 pm</span>
                     </div>
                 </a>
                 <div class="top-info-divider"></div>
@@ -57,10 +60,7 @@
                     </div>
                 </a>
             </div>
-            <div class="top-info-logos">
-                <img src="assets/images/weber%20logo.png" alt="Weber Saint-Gobain" class="top-logo-img">
-                <img src="assets/images/saint_gobain_logo.png" alt="Saint-Gobain" class="top-logo-img">
-            </div>
+            <div class="top-info-logos"><img src="assets/images/mara%20logo.png" alt="Mara Infra" class="top-logo-img"></div>
         </div>
     </div>
 
@@ -68,7 +68,7 @@
     <header class="site-header">
         <div class="container header-container">
             <a href="index.html" class="brand-logo">
-                <img src="assets/images/mara%20logo.png" alt="MaraInfra Constructions" class="brand-logo-img">
+                <img src="assets/images/mara%20logo.png" alt="Mara Infra Constructions" class="brand-logo-img">
             </a>
 
             <nav class="nav-menu">
@@ -83,21 +83,20 @@
                 <button type="button" class="btn btn-primary btn-enquire">
                     Get a Quote
                 </button>
+                <button type="button" class="mobile-toggle" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
         </div>
     </header>
 
     <main>
-        <section class="section" style="min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;">
-            <div class="container">
-                <div style="font-size: 5rem; font-family: var(--font-heading); font-weight: 800; color: var(--color-secondary); line-height: 1; margin-bottom: 16px;">
-                    404
-                </div>
-                <h1 class="mb-3">Page Not Found</h1>
-                <p style="max-width: 500px; margin: 0 auto 32px; color: var(--color-text-muted);">
-                    The page you are looking for does not exist, may have been moved, or the link may be incorrect.
-                </p>
-                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <section class="nf">
+            <div class="container" data-reveal>
+                <span class="nf-code" aria-hidden="true">404</span>
+                <h1>Page Not Found</h1>
+                <p>The page you are looking for does not exist, may have been moved, or the link may be incorrect.</p>
+                <div class="nf-actions">
                     <a href="index.html" class="btn btn-primary">Back Home</a>
                     <a href="construction.html" class="btn btn-outline">Our Construction Services</a>
                 </div>
@@ -107,13 +106,67 @@
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="container footer-bottom-flex" style="text-align: center; justify-content: center;">
-            <p>&copy; 2026 MaraInfra Constructions. All Rights Reserved. Residential &amp; Commercial Construction Experts.</p>
+        <div class="container ft-main">
+            <div class="ft-grid">
+                <div class="ft-brand">
+                    <a href="index.html" class="ft-logo" aria-label="Mara Infra Constructions home">
+                        <img src="assets/images/mara%20logo.png" alt="Mara Infra Constructions">
+                    </a>
+                    <p class="ft-about">Building lasting spaces through quality construction, thoughtful design and
+                        reliable workmanship.</p>
+                    <div class="ft-social">
+                        <a href="https://www.instagram.com/mara_infra/" target="_blank" rel="noopener noreferrer"
+                            aria-label="Mara Infra on Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/919962116999" target="_blank" rel="noopener noreferrer"
+                            aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+                <nav aria-label="Services">
+                    <h2 class="ft-title">What We Build</h2>
+                    <ul class="ft-links">
+                        <li><a href="construction.html#residential">Custom Home Building</a></li>
+                        <li><a href="construction.html#commercial">Commercial Construction</a></li>
+                        <li><a href="construction.html#renovation">Renovation &amp; Remodeling</a></li>
+                        <li><a href="construction.html#sustainable">Sustainable Building</a></li>
+                    </ul>
+                </nav>
+
+                <nav aria-label="Company">
+                    <h2 class="ft-title">Company</h2>
+                    <ul class="ft-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="construction.html">Construction</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+
+                <div class="ft-contact-col">
+                    <h2 class="ft-title">Get in Touch</h2>
+                    <ul class="ft-contact">
+                        <li><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:+919962116999">+91 99621 16999</a></li>
+                        <li><i class="fa-solid fa-envelope" aria-hidden="true"></i><a
+                                href="mailto:admin@marainfra.co.in">admin@marainfra.co.in</a></li>
+                        <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i><a
+                                href="https://www.google.com/maps/search/?api=1&amp;query=250%2C+Thirugnana+Sambandar+Street%2C+Srinivasa+Nagar%2C+Madipakkam%2C+Chennai+600091"
+                                target="_blank" rel="noopener noreferrer">250, Thirugnana Sambandar Street, Srinivasa
+                                Nagar, Madipakkam, Chennai 600091</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ft-bottom">
+            <div class="container ft-bottom-inner">
+                <p>&copy; 2026 Mara Infra Constructions. All rights reserved.</p>
+                <a href="#" class="ft-top">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a>
+            </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="data/products.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

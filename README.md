@@ -1,12 +1,12 @@
-# Mara Infra Solutions — Website Architecture
+# Mara Infra Constructions — Website Architecture
 
 ## Overview
-A high-performance, modular **Construction Products + Solutions + Product Catalogue + Enquiry Website** built from scratch for **Mara Infra Solutions** (Authorised Distributor of Saint-Gobain Weber).
+A fast, framework-free marketing website for **Mara Infra Constructions**: residential, commercial, renovation and sustainable construction, with enquiry forms.
 
 ---
 
 ## 🛠️ Technology Stack Compliance
-- **Core:** HTML5, CSS3, Vanilla JavaScript (ES Modules)
+- **Core:** HTML5, CSS3, Vanilla JavaScript (single `js/app.js`, no build step)
 - **Zero Framework Overhead:** No React, No Next.js, No Vue, No Angular, No Bootstrap, No Tailwind CSS, No jQuery.
 - **Strict Pricing Policy:** Absolutely ZERO rates, costs, or pricing symbols (`₹`, `INR`). Uses **Get a Quote** and **Enquire Now** CTAs exclusively.
 
@@ -15,44 +15,53 @@ A high-performance, modular **Construction Products + Solutions + Product Catalo
 ## 📁 Project Architecture
 
 ```text
-Mara/
-├── index.html            # Homepage (Hero, Trust bar, Categories, Solutions, About, CTA)
-├── products.html         # Live filterable Product Catalogue & Search
-├── product-detail.html   # Dynamic product detail page (renders from URL query ?id=...)
-├── solutions.html        # Requirement-to-solution discovery mapping
-├── about.html            # Company background, positioning, & Weber partnership
-├── resources.html        # Technical Data Sheets & product documentation downloads
-├── contact.html          # Showrooms in Hosur & Krishnagiri, Clickable tel & email
-├── 404.html              # Custom page not found page
+Mara_infra/
+├── index.html            # Homepage (hero, services, about, why choose us, contact)
+├── construction.html     # Construction services in detail
+├── about.html            # Company background and founders
+├── careers.html          # Careers
+├── contact.html          # Contact details, location and enquiry form
+├── 404.html              # Page not found
 │
 ├── css/
-│   ├── style.css         # CSS Variables / Custom Properties, Reset & Typography
-│   ├── components.css    # Reusable Buttons, Header, Cards, Modals, Tables, Forms
-│   └── responsive.css    # Breakpoint queries (375px, 390px, 430px, 768px, 1024px, 1280px, 1920px)
+│   ├── style.css         # Design tokens, reset and typography
+│   ├── components.css    # Buttons, header, cards, modals, forms, footer and page sections
+│   └── responsive.css    # Breakpoint overrides
 │
 ├── js/
-│   ├── main.js           # Central application coordinator
-│   ├── navigation.js     # Sticky header, mobile drawer toggle, active link tracking
-│   ├── products.js       # Reusable HTML component renderers (Product Card, Category Card)
-│   ├── filters.js        # Category filtering, product counter, empty state handler
-│   ├── search.js         # Debounced live keyword search handler
-│   ├── product-detail.js # Dynamic product page & specification table renderer
-│   ├── enquiry.js        # Modal lifecycle, pre-filling selected products, inline validation
-│   └── animations.js     # Lightweight IntersectionObserver scroll reveal animations
+│   └── app.js            # Navigation, scroll reveals, enquiry modal and homepage interactions
 │
-├── data/
-│   └── products.js       # Authentic product dataset & application taxonomy
+├── assets/
+│   ├── images/           # Project photos and logos
+│   └── videos/           # "Why choose us" video in three sizes, posters and a standalone player page
 │
+├── _headers              # Security headers (Netlify / Cloudflare Pages)
+├── robots.txt            # Allows crawling and points to the sitemap
+├── sitemap.xml           # The five indexable pages
 └── README.md
 ```
 
 ---
 
-## 🚀 Future Backend / Framework Migration Readiness
-The JavaScript architecture decouples data rendering from UI markup:
-- Product data in `data/products.js` can be seamlessly replaced with a `fetch('/api/products')` REST API call.
-- The `enquiry.js` module contains pre-configured submission hooks ready to POST data to a backend endpoint.
-- URL query parameters (`product-detail.html?id=weber-primer-401`) can be mapped directly to server-side routes like `/products/:id`.
+## ✉️ Enquiry Forms
+Forms post to Web3Forms (`https://api.web3forms.com/submit`); `js/app.js` submits them in the background and shows a confirmation in place of the form.
+
+---
+
+## 🌐 Deployment & SEO
+The site is built to live at the root of **https://marainfra.co.in** (canonical URLs, `sitemap.xml`, `robots.txt`, share previews and the 404 page's `<base href="/">` all assume this).
+- Host the folder as-is on any static host (Netlify, Vercel, Cloudflare Pages or GitHub Pages) and point the `marainfra.co.in` DNS at it. Configure the host to serve `404.html` for missing pages.
+- After launch, add the domain to Google Search Console and submit `https://marainfra.co.in/sitemap.xml`.
+- Keep the business name, address, phone numbers and hours identical on the site, Google Business Profile and Instagram. The homepage carries matching `GeneralContractor` structured data.
+- If the domain changes, update the canonical/`og:url`/`og:image` tags in each page head, the JSON-LD in `index.html`, `sitemap.xml` and `robots.txt` together.
+
+---
+
+## 🔒 Security
+- `_headers` sets a Content Security Policy, clickjacking protection (`frame-ancestors 'none'`, `X-Frame-Options`), `nosniff`, a referrer policy, a permissions policy and HSTS. On a host that ignores `_headers`, set the same headers in its config.
+- If you add a new third-party script, font, embed or form endpoint, add its domain to the matching directive in the CSP or the browser will block it.
+- Font Awesome loads with a Subresource Integrity hash. If you change its version, replace the `integrity` value on every page (cdnjs lists the hash next to each file).
+- The Web3Forms `access_key` in the forms is public by design: it can only send mail to the address registered with Web3Forms. Every form has a hidden `botcheck` honeypot. For extra spam protection, enable domain restriction and hCaptcha in the Web3Forms dashboard.
 
 ---
 
