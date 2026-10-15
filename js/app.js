@@ -705,13 +705,13 @@
                 <div class="modal-overlay" id="enquiry-modal-overlay">
                     <div class="modal-container">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="modal-title">Product Enquiry</h3>
+                            <h3 class="modal-title" id="modal-title">Request a quote</h3>
                             <button type="button" class="modal-close" id="modal-close-btn">&times;</button>
                         </div>
                         <div class="modal-body" id="modal-body-content">
                             <form id="enquiry-form" novalidate>
                                 <div class="form-group">
-                                    <label class="form-label" for="enquiry-product">Selected Product / Subject</label>
+                                    <label class="form-label" for="enquiry-product">Project type</label>
                                     <input type="text" id="enquiry-product" class="form-input" readonly style="background-color: var(--color-surface-subtle); font-weight: 600;">
                                 </div>
                                 <div class="form-group">

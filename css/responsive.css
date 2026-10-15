@@ -589,6 +589,16 @@
         padding: var(--space-4);
     }
 
+    .modal-header { min-height: 138px; }
+    .modal-header::before { top: 22px; left: var(--space-4); }
+    .modal-title { margin-top: 26px; }
+    .modal-body { padding-bottom: 24px; }
+
+    .modal-phone-email-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+
     /* ── Marquee: no perspective transform ── */
     .marquee-item img {
         transform: none !important;
