@@ -260,6 +260,29 @@ section[id], div[id="products"], div[id="services"], div[id="construction"] {
     padding: 2px 0;
 }
 
+.brand-name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    user-select: none;
+}
+
+.brand-name-main {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #8B1C1C;
+    letter-spacing: -0.02em;
+}
+
+.brand-name-sub {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #8B1C1C;
+    letter-spacing: -0.02em;
+}
+
 .nav-menu { display: flex; align-items: center; gap: var(--space-6); }
 
 .nav-link {
