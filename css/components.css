@@ -2902,3 +2902,178 @@ main > section:nth-of-type(2) { animation-delay: 0.08s; }
     .page-leaving main > section,
     .page-leaving .site-footer { animation: none; }
 }
+
+/* ==========================================================================
+   REVIEWS / CLIENT FEEDBACK SECTION
+   ========================================================================== */
+
+/* ── Grid of Instagram embed cards ───────────────────────────────────────── */
+.reviews-ig-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 52px;
+    align-items: start;
+}
+
+/* ── Individual card wrapper ─────────────────────────────────────────────── */
+.reviews-ig-card {
+    background: var(--color-surface, #fff);
+    border: 1px solid var(--color-hairline, rgba(0,0,0,0.08));
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm, 0 2px 12px rgba(0,0,0,0.06));
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews-ig-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(128, 0, 0, 0.12);
+}
+
+/* ── Label bar above embed ───────────────────────────────────────────────── */
+.reviews-ig-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #6e0000 0%, var(--color-accent, #800000) 100%);
+    color: #fff;
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.reviews-ig-label i {
+    font-size: 1rem;
+}
+
+/* ── Instagram blockquote / iframe container ─────────────────────────────── */
+.reviews-ig-card .instagram-media {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    flex-shrink: 0;
+}
+
+/* Keep the embedded iframe to a reasonable height */
+.reviews-ig-card iframe.instagram-media {
+    max-height: 680px;
+}
+
+/* ── Caption block below embed ───────────────────────────────────────────── */
+.reviews-ig-caption {
+    padding: 20px 24px 24px;
+    background: var(--color-tint, #faf8f6);
+    border-top: 1px solid var(--color-hairline, rgba(0,0,0,0.06));
+    flex: 1;
+}
+
+.reviews-ig-caption .fa-quote-left {
+    color: var(--color-accent, #800000);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    display: block;
+    opacity: 0.6;
+}
+
+.reviews-ig-caption p {
+    font-family: var(--font-heading, serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--color-text, #1a1a1a);
+    margin: 0 0 10px;
+}
+
+.reviews-ig-meta {
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted, #777);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ── Trust badges row ────────────────────────────────────────────────────── */
+.reviews-trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--color-hairline, rgba(0,0,0,0.08));
+}
+
+.reviews-trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--color-surface, #fff);
+    border: 1.5px solid var(--color-hairline, rgba(0,0,0,0.1));
+    border-radius: 50px;
+    font-family: var(--font-primary, sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text, #1a1a1a);
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.reviews-trust-badge i.fa-star { color: #f59e0b; }
+.reviews-trust-badge i.fa-thumbs-up { color: var(--color-accent, #800000); }
+.reviews-trust-badge i.fa-clock { color: var(--color-accent, #800000); }
+.reviews-trust-badge i.fa-instagram { color: #e1306c; }
+.reviews-trust-badge i.fa-arrow-right { font-size: 0.7rem; color: var(--color-accent, #800000); }
+
+.reviews-trust-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(128, 0, 0, 0.1);
+    border-color: var(--color-accent, #800000);
+}
+
+.reviews-trust-badge--link {
+    background: linear-gradient(135deg, #6e0000, var(--color-accent, #800000));
+    color: #fff !important;
+    border-color: transparent;
+    text-decoration: none;
+}
+
+.reviews-trust-badge--link i { color: #fff !important; }
+
+.reviews-trust-badge--link:hover {
+    box-shadow: 0 8px 24px rgba(128, 0, 0, 0.3);
+    transform: translateY(-3px);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+    .reviews-ig-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .reviews-trust-row {
+        gap: 8px;
+    }
+    .reviews-trust-badge {
+        font-size: 0.8rem;
+        padding: 10px 14px;
+    }
+    .reviews-ig-caption p {
+        font-size: 0.95rem;
+    }
+}
