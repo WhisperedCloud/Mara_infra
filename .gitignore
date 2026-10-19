@@ -34,3 +34,6 @@ pnpm-debug.log*
 # Build Outputs
 dist/
 build/
+
+# Vercel CLI project link
+.vercel

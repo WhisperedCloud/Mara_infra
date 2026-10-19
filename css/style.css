@@ -63,8 +63,8 @@
     --weight-bold: 700;
     --weight-extrabold: 800;
 
-    --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-heading: 'SangBleu Versailles', 'Playfair Display', serif;
+    --font-primary: 'Plus Jakarta Sans', 'Jakarta Fallback', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-heading: 'SangBleu Versailles', 'Playfair Display', 'Playfair Fallback', serif;
 
     /* Spacing */
     --space-1: 0.25rem;
@@ -98,6 +98,63 @@
     --transition-fast: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     --transition-base: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
     --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================================================
+   FALLBACK FONTS SIZED LIKE THE WEB FONTS
+   Until Playfair Display and Plus Jakarta Sans arrive from Google Fonts, text
+   shows in Times New Roman / Arial scaled to the same width, so headings keep
+   their line breaks and the page doesn't jump when the real fonts swap in.
+   ========================================================================== */
+@font-face {
+    font-family: 'Playfair Fallback';
+    src: local('Times New Roman'), local('TimesNewRomanPSMT');
+    font-weight: 100 500;
+    size-adjust: 110.18%;
+    ascent-override: 98.02%;
+    descent-override: 22.69%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Playfair Fallback';
+    src: local('Times New Roman Bold'), local('TimesNewRomanPS-BoldMT');
+    font-weight: 600 900;
+    size-adjust: 106.01%;
+    ascent-override: 101.88%;
+    descent-override: 23.58%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Playfair Fallback';
+    src: local('Times New Roman Bold Italic'), local('TimesNewRomanPS-BoldItalicMT');
+    font-weight: 600 900;
+    font-style: italic;
+    size-adjust: 107.67%;
+    ascent-override: 100.31%;
+    descent-override: 23.22%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Jakarta Fallback';
+    src: local('Arial'), local('ArialMT');
+    font-weight: 100 500;
+    size-adjust: 104.45%;
+    ascent-override: 99.57%;
+    descent-override: 21.06%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Jakarta Fallback';
+    src: local('Arial Bold'), local('Arial-BoldMT');
+    font-weight: 600 900;
+    size-adjust: 100.65%;
+    ascent-override: 103.33%;
+    descent-override: 21.86%;
+    line-gap-override: 0%;
 }
 
 /* ==========================================================================

@@ -18,6 +18,13 @@
         initServiceMarquee();
         initProcessSteps();
         initPageTransitions();
+        initLightbox();
+        initGalleryFilters();
+        initReviewClamp();
+        initLetterDialog();
+        initAccessibilityHelpers();
+        initTracking();
+        initDropdowns();
     });
 
     /* ==========================================================================
@@ -132,6 +139,7 @@
                 // 3. Highlight the page that matches the section under the reading line
                 const primarySections = [
                     { id: 'contact', href: 'contact.html' },
+                    { id: 'projects', href: 'gallery.html' },
                     { id: 'why-choose-us', href: 'about.html' },
                     { id: 'about', href: 'about.html' },
                     { id: 'services-overview', href: 'construction.html' }
@@ -246,8 +254,8 @@
                                         <div class="form-error" id="error-phone"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" for="enquiry-email">Email Address *</label>
-                                        <input type="email" id="enquiry-email" class="form-input" placeholder="Enter your email address" autocomplete="email" required>
+                                        <label class="form-label" for="enquiry-email">Email Address <span class="ct-optional">(optional)</span></label>
+                                        <input type="email" id="enquiry-email" class="form-input" placeholder="Enter your email address" autocomplete="email">
                                         <div class="form-error" id="error-email"></div>
                                     </div>
                                 </div>
@@ -332,6 +340,7 @@
             if (btn) {
                 e.preventDefault();
                 openModal(btn.getAttribute('data-product-name') || 'General Enquiry');
+                track('Quote form opened', { place: placeOf(btn) });
             }
         });
 
@@ -362,7 +371,7 @@
                 document.querySelector('#error-phone').textContent = 'Please enter a valid phone number.';
                 valid = false;
             }
-            if (!email || !email.includes('@')) {
+            if (email && !email.includes('@')) {
                 document.querySelector('#error-email').textContent = 'Please enter a valid email.';
                 valid = false;
             }
@@ -370,7 +379,18 @@
                 document.querySelector('#error-req').textContent = 'Please enter requirement details.';
                 valid = false;
             }
-            if (!valid || submitBtn.disabled) return;
+            [['#enquiry-name', '#error-name'], ['#enquiry-phone', '#error-phone'], ['#enquiry-email', '#error-email'], ['#enquiry-req', '#error-req']].forEach(([field, err]) => {
+                const input = document.querySelector(field);
+                const hasError = !!document.querySelector(err).textContent;
+                input.setAttribute('aria-invalid', String(hasError));
+                input.setAttribute('aria-describedby', err.slice(1));
+            });
+            if (!valid) {
+                const firstBad = form.querySelector('[aria-invalid="true"]');
+                if (firstBad) firstBad.focus();
+                return;
+            }
+            if (submitBtn.disabled) return;
 
             // Hidden honeypot: real visitors never tick it, so a ticked box means a bot
             if (document.querySelector('#enquiry-botcheck').checked) {
@@ -391,20 +411,25 @@
             formData.append('Requirements', req);
 
             fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
-                .then(response => response.json())
+                .then(response => response.json().catch(() => ({ success: false })), error => { throw error; })
                 .then(data => {
-                    if (!data.success) throw new Error('Form submission failed');
+                    if (!data.success) {
+                        showStatus('fa-circle-exclamation', "We couldn't send this",
+                            'Please call +91 99621 16999 or email admin@marainfra.co.in, and our team will help you right away.');
+                        return;
+                    }
                     showStatus('fa-check', 'Enquiry Submitted', `Thank you, ${name}! Our team will contact you shortly.`);
+                    track('Enquiry sent', { form: 'quote pop-up', service: product });
                 })
                 .catch(error => {
-                    console.warn('Web3Forms API failed, falling back to mailto:', error);
+                    console.warn('Web3Forms unreachable, falling back to email:', error);
                     const emailSubject = encodeURIComponent(`New Project Enquiry - ${product}`);
                     const emailBody = encodeURIComponent(
                         `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\n\nRequirement Details:\n${req}`
                     );
                     window.location.href = `mailto:admin@marainfra.co.in?subject=${emailSubject}&body=${emailBody}`;
-                    showStatus('fa-envelope-open-text', 'Opening Email App...',
-                        'Our automated system is currently unreachable (this can happen due to ad-blockers). We are opening your default email application to send this enquiry directly to admin@marainfra.co.in.');
+                    showStatus('fa-envelope-open-text', 'Opening your email app',
+                        "We couldn't reach our form service, so we're opening your email app with your enquiry filled in. If nothing opens, email admin@marainfra.co.in or call +91 99621 16999.");
                 });
         });
     }
@@ -600,6 +625,371 @@
         });
     }
 
+    /* ==========================================================================
+       8. PHOTO VIEWER, GALLERY FILTERS AND REVIEW "READ MORE"
+       ========================================================================== */
+    function initLightbox() {
+        const links = Array.from(document.querySelectorAll('[data-lightbox]'));
+        if (!links.length) return;
+
+        const box = document.createElement('div');
+        box.className = 'lb';
+        box.hidden = true;
+        box.setAttribute('role', 'dialog');
+        box.setAttribute('aria-modal', 'true');
+        box.setAttribute('aria-label', 'Photo viewer');
+        box.innerHTML = `
+            <button type="button" class="lb-btn lb-close" aria-label="Close photo viewer"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            <button type="button" class="lb-btn lb-prev" aria-label="Previous photo"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+            <figure class="lb-figure"><img class="lb-img" alt=""></figure>
+            <button type="button" class="lb-btn lb-next" aria-label="Next photo"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+            <div class="lb-bar"><span class="lb-count"></span><span class="lb-caption"></span></div>`;
+        document.body.appendChild(box);
+
+        const img = box.querySelector('.lb-img');
+        const caption = box.querySelector('.lb-caption');
+        const count = box.querySelector('.lb-count');
+        let items = [];
+        let index = 0;
+        let lastFocus = null;
+
+        function show(i) {
+            index = (i + items.length) % items.length;
+            const link = items[index];
+            const thumb = link.querySelector('img');
+            img.src = link.getAttribute('href');
+            img.alt = thumb ? thumb.alt : '';
+            img.style.animation = 'none';
+            void img.offsetWidth;
+            img.style.animation = '';
+            caption.textContent = link.dataset.caption || '';
+            count.textContent = `${index + 1} / ${items.length}`;
+            box.classList.toggle('is-single', items.length < 2);
+        }
+
+        function open(link) {
+            // Step through the visible photos of the same group (a gallery filter hides some)
+            const group = link.closest('[data-lightbox-group]');
+            items = (group ? Array.from(group.querySelectorAll('[data-lightbox]')) : [link]).filter(a => !a.hidden && a.offsetParent !== null);
+            if (!items.includes(link)) items = [link];
+            lastFocus = document.activeElement;
+            box.hidden = false;
+            requestAnimationFrame(() => box.classList.add('is-open'));
+            document.body.style.overflow = 'hidden';
+            show(items.indexOf(link));
+            box.querySelector('.lb-close').focus();
+        }
+
+        function close() {
+            box.classList.remove('is-open');
+            box.hidden = true;
+            document.body.style.overflow = '';
+            if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+        }
+
+        links.forEach(link => link.addEventListener('click', (e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+            e.preventDefault();
+            open(link);
+        }));
+
+        box.querySelector('.lb-close').addEventListener('click', close);
+        box.querySelector('.lb-prev').addEventListener('click', () => show(index - 1));
+        box.querySelector('.lb-next').addEventListener('click', () => show(index + 1));
+        box.addEventListener('click', (e) => {
+            if (e.target === box || e.target.classList.contains('lb-figure')) close();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (box.hidden) return;
+            if (e.key === 'Escape') close();
+            else if (e.key === 'ArrowLeft') show(index - 1);
+            else if (e.key === 'ArrowRight') show(index + 1);
+        });
+
+        // Swipe left or right on phones
+        let startX = null;
+        box.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+        box.addEventListener('touchend', (e) => {
+            if (startX === null) return;
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 50 && items.length > 1) show(index + (dx < 0 ? 1 : -1));
+            startX = null;
+        });
+    }
+
+    function initGalleryFilters() {
+        const grid = document.querySelector('[data-gallery]');
+        if (!grid) return;
+        const chips = Array.from(document.querySelectorAll('.gl-chip'));
+        const photos = Array.from(grid.querySelectorAll('.gl-item'));
+
+        chips.forEach(chip => chip.addEventListener('click', () => {
+            const filter = chip.dataset.filter;
+            chips.forEach(c => {
+                c.classList.toggle('is-active', c === chip);
+                c.setAttribute('aria-pressed', String(c === chip));
+            });
+            photos.forEach(photo => {
+                photo.hidden = filter !== 'all' && photo.dataset.cat !== filter;
+            });
+        }));
+    }
+
+    function initLetterDialog() {
+        const dialog = document.querySelector('#letter-dialog');
+        const openers = document.querySelectorAll('[data-letter-open]');
+        if (!dialog || !openers.length) return;
+        // Animated sections would otherwise position this fixed overlay relative to themselves
+        document.body.appendChild(dialog);
+        const closeBtn = dialog.querySelector('.lt-close');
+        let lastFocus = null;
+
+        function open() {
+            lastFocus = document.activeElement;
+            dialog.hidden = false;
+            dialog.scrollTop = 0;
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        }
+
+        function close() {
+            if (dialog.hidden) return;
+            dialog.hidden = true;
+            document.body.style.overflow = '';
+            if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+        }
+
+        openers.forEach(btn => btn.addEventListener('click', open));
+        closeBtn.addEventListener('click', close);
+        dialog.addEventListener('click', (e) => { if (e.target === dialog) close(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    }
+
+    function initReviewClamp() {
+        document.querySelectorAll('.rv-text[data-clamp]').forEach(text => {
+            const button = text.parentElement.querySelector('.rv-more');
+            if (!button) return;
+            // Show "Read more" only when the review is longer than the visible lines
+            const check = () => {
+                if (text.classList.contains('is-open')) return;
+                button.hidden = text.scrollHeight <= text.clientHeight + 2;
+                if (!button.hasAttribute('aria-expanded')) button.setAttribute('aria-expanded', 'false');
+            };
+            check();
+            window.addEventListener('resize', check);
+            button.addEventListener('click', () => {
+                const opening = !text.classList.contains('is-open');
+                text.classList.toggle('is-open', opening);
+                button.textContent = opening ? 'Show less' : 'Read more';
+                button.setAttribute('aria-expanded', String(opening));
+            });
+        });
+    }
+
+    /* ==========================================================================
+       9. BACK TO TOP AND KEYBOARD FOCUS INSIDE OPEN DIALOGS
+       ========================================================================== */
+    function initAccessibilityHelpers() {
+        // "Back to top" scrolls this page (the 404 page's base URL would otherwise send it home)
+        document.querySelectorAll('.ft-top').forEach(link => link.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+        }));
+
+        // While a dialog is open, Tab and Shift+Tab cycle through its own controls only
+        const openDialog = () => document.querySelector('#enquiry-modal-overlay.active, .lb:not([hidden]), #letter-dialog:not([hidden])');
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab') return;
+            const dialog = openDialog();
+            if (!dialog) return;
+            const items = Array.from(dialog.querySelectorAll('a[href], button:not([disabled]), input:not([type="hidden"]):not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'))
+                .filter(el => el.offsetParent !== null && getComputedStyle(el).visibility !== 'hidden');
+            if (!items.length) return;
+            const first = items[0], last = items[items.length - 1];
+            if (!dialog.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+            else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+    }
+
+    /* ==========================================================================
+       10. VISITOR TRACKING (CALLS, WHATSAPP, EMAIL, DIRECTIONS, ENQUIRIES)
+       Sends named events to Umami when its script is on the page (see README).
+       Without it, track() does nothing.
+       ========================================================================== */
+    function track(name, data) {
+        try {
+            if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, data);
+        } catch (err) { /* analytics must never break the page */ }
+    }
+
+    // Where on the page a link sits, so reports can tell the header from the footer or a section
+    function placeOf(el) {
+        if (el.closest('header, .top-info-bar, .very-top-bar')) return 'header';
+        if (el.closest('.site-footer')) return 'footer';
+        if (el.closest('#enquiry-modal-overlay')) return 'quote pop-up';
+        const section = el.closest('section[id]');
+        if (section) return section.id;
+        return el.getAttribute('aria-label') === 'Chat on WhatsApp' ? 'floating button' : 'page';
+    }
+
+    function initTracking() {
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a[href]');
+            if (!link) return;
+            const href = link.getAttribute('href');
+            let name = '';
+            if (href.startsWith('tel:')) name = 'Call click';
+            else if (href.includes('wa.me/')) name = 'WhatsApp click';
+            else if (href.startsWith('mailto:')) name = 'Email click';
+            else if (href.includes('google.com/maps')) name = 'Directions click';
+            else if (href.includes('instagram.com')) name = 'Instagram click';
+            else if (href.includes('forms.gle/')) name = 'Job application click';
+            if (name) track(name, { place: placeOf(link) });
+        }, true);
+    }
+
+    /* ==========================================================================
+       11. PROJECT TYPE DROPDOWN
+       Swaps the browser's plain menu for a styled list. The native <select> stays
+       in the form (hidden), so the chosen value is still sent with the enquiry.
+       ========================================================================== */
+    function initDropdowns() {
+        document.querySelectorAll('.ct-field select').forEach(select => {
+            const label = document.querySelector(`label[for="${select.id}"]`);
+            const placeholder = select.querySelector('option[value=""]');
+            const options = Array.from(select.options).filter(o => o.value !== '');
+
+            const wrap = document.createElement('div');
+            wrap.className = 'dd';
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'dd-btn';
+            btn.id = select.id + '-btn';
+            btn.setAttribute('aria-haspopup', 'listbox');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.innerHTML = '<span class="dd-value"></span><span class="dd-caret" aria-hidden="true"></span>';
+            const valueEl = btn.querySelector('.dd-value');
+
+            const list = document.createElement('ul');
+            list.className = 'dd-list';
+            list.id = select.id + '-list';
+            list.setAttribute('role', 'listbox');
+            list.tabIndex = -1;
+            list.hidden = true;
+            btn.setAttribute('aria-controls', list.id);
+
+            if (label) {
+                label.id = label.id || select.id + '-label';
+                label.htmlFor = btn.id;
+                btn.setAttribute('aria-labelledby', label.id + ' ' + btn.id);
+                list.setAttribute('aria-labelledby', label.id);
+            }
+
+            const items = options.map((opt, i) => {
+                const li = document.createElement('li');
+                li.id = `${select.id}-opt-${i}`;
+                li.setAttribute('role', 'option');
+                if (opt.dataset.icon) {
+                    li.innerHTML = `<span class="dd-ico" aria-hidden="true"><i class="fa-solid ${opt.dataset.icon}"></i></span>`;
+                }
+                const text = document.createElement('span');
+                text.className = 'dd-text';
+                text.textContent = opt.textContent;
+                li.appendChild(text);
+                li.insertAdjacentHTML('beforeend', '<i class="fa-solid fa-check dd-tick" aria-hidden="true"></i>');
+                list.appendChild(li);
+                return li;
+            });
+
+            select.classList.add('dd-native');
+            select.tabIndex = -1;
+            select.setAttribute('aria-hidden', 'true');
+            wrap.append(btn, list);
+            select.after(wrap);
+
+            let active = 0;
+
+            function render() {
+                const chosen = options.findIndex(o => o.value === select.value);
+                valueEl.textContent = chosen >= 0 ? options[chosen].textContent : (placeholder ? placeholder.textContent : '');
+                btn.classList.toggle('is-placeholder', chosen < 0);
+                items.forEach((li, k) => li.setAttribute('aria-selected', String(k === chosen)));
+            }
+
+            function setActive(i) {
+                active = Math.max(0, Math.min(items.length - 1, i));
+                items.forEach((li, k) => li.classList.toggle('is-active', k === active));
+                list.setAttribute('aria-activedescendant', items[active].id);
+                const li = items[active];
+                if (li.offsetTop < list.scrollTop) list.scrollTop = li.offsetTop;
+                else if (li.offsetTop + li.offsetHeight > list.scrollTop + list.clientHeight) {
+                    list.scrollTop = li.offsetTop + li.offsetHeight - list.clientHeight;
+                }
+            }
+
+            function open() {
+                if (!list.hidden) return;
+                list.hidden = false;
+                btn.setAttribute('aria-expanded', 'true');
+                // Open upwards when there isn't room below
+                wrap.classList.remove('dd--up');
+                const room = window.innerHeight - btn.getBoundingClientRect().bottom;
+                if (room < list.offsetHeight + 12 && btn.getBoundingClientRect().top > list.offsetHeight + 12) wrap.classList.add('dd--up');
+                const chosen = options.findIndex(o => o.value === select.value);
+                setActive(chosen >= 0 ? chosen : 0);
+                list.focus({ preventScroll: true });
+            }
+
+            function close(refocus) {
+                if (list.hidden) return;
+                list.hidden = true;
+                btn.setAttribute('aria-expanded', 'false');
+                if (refocus) btn.focus();
+            }
+
+            function choose(i) {
+                select.value = options[i].value;
+                select.dispatchEvent(new Event('change', { bubbles: true }));
+                render();
+                close(true);
+            }
+
+            // Keep focus on the open list while the button is pressed, so a click can close it
+            btn.addEventListener('mousedown', (e) => e.preventDefault());
+            btn.addEventListener('click', () => (list.hidden ? open() : close(true)));
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open(); }
+            });
+
+            list.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+                else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+                else if (e.key === 'Home') { e.preventDefault(); setActive(0); }
+                else if (e.key === 'End') { e.preventDefault(); setActive(items.length - 1); }
+                else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(active); }
+                else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(true); }
+                else if (e.key === 'Tab') { close(false); }
+                else if (e.key.length === 1) {
+                    // Jump to the option that starts with the typed letter
+                    const k = options.findIndex(o => o.textContent.trim().toLowerCase().startsWith(e.key.toLowerCase()));
+                    if (k >= 0) setActive(k);
+                }
+            });
+            list.addEventListener('focusout', (e) => {
+                if (!wrap.contains(e.relatedTarget)) close(false);
+            });
+            items.forEach((li, i) => {
+                li.addEventListener('click', () => choose(i));
+                li.addEventListener('mousemove', () => { if (active !== i) setActive(i); });
+            });
+
+            select.addEventListener('change', render);
+            if (select.form) select.form.addEventListener('reset', () => setTimeout(render));
+            render();
+        });
+    }
+
     // Web3Forms AJAX Submission Handler (page forms)
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll("form[action^='https://api.web3forms.com']").forEach(form => {
@@ -617,18 +1007,27 @@
                     const response = await fetch(form.action, { method: 'POST', body: new FormData(form) });
                     if (!response.ok) throw new Error('Failed to send');
                     form.innerHTML = `
-                        <div class="form-status" role="status">
+                        <div class="form-status" role="status" tabindex="-1">
                             <div class="form-status-icon"><i class="fa-solid fa-check" aria-hidden="true"></i></div>
                             <h3>Message Sent Successfully!</h3>
                             <p>Thank you for reaching out. Our team will get back to you shortly.</p>
                         </div>
                     `;
+                    form.querySelector('.form-status').focus();
+                    track('Enquiry sent', { form: location.pathname.includes('contact') ? 'contact page' : 'homepage' });
                 } catch (error) {
                     if (btn) {
                         btn.disabled = false;
                         btn.innerHTML = originalBtnText;
                     }
-                    alert('Something went wrong. Please try again later.');
+                    let msg = form.querySelector('.form-error-msg');
+                    if (!msg) {
+                        msg = document.createElement('p');
+                        msg.className = 'form-error-msg';
+                        msg.setAttribute('role', 'alert');
+                        (btn || form.lastElementChild).insertAdjacentElement('beforebegin', msg);
+                    }
+                    msg.textContent = "We couldn't send your message. Please try again, or call +91 99621 16999.";
                 }
             });
         });
