@@ -26,11 +26,8 @@
     <meta name="twitter:description" content="Residential, commercial, renovation and sustainable construction in Chennai by Mara Infra, with building approvals and a hassle-free handover.">
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
-        rel="stylesheet">
+    <link rel="preload" href="assets/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="css/icons.css">
@@ -157,7 +154,7 @@
                 </a>
             </div>
             <div class="top-info-logos">
-                <img src="assets/images/mara-logo-320.webp" width="239" height="320" alt="Mara Infra" class="top-logo-img" style="height: 40px; object-fit: contain;">
+                <img src="assets/images/mara-logo-320.webp" srcset="assets/images/mara-logo-120.webp 120w, assets/images/mara-logo-320.webp 239w" sizes="(max-width: 1023px) 33px, 49px" width="239" height="320" alt="Mara Infra" class="top-logo-img" style="height: 40px; object-fit: contain;">
             </div>
         </div>
     </div>
@@ -166,7 +163,7 @@
     <header class="site-header">
         <div class="container header-container">
             <a href="/" class="brand-logo">
-                <img src="assets/images/mara-logo-320.webp" width="239" height="320" alt="" class="brand-logo-img"><span class="brand-name"><span class="brand-name-main">Mara Infra</span><span class="brand-name-sub">Constructions</span></span>
+                <img src="assets/images/mara-logo-320.webp" srcset="assets/images/mara-logo-120.webp 120w, assets/images/mara-logo-320.webp 239w" sizes="(max-width: 1023px) 33px, 49px" width="239" height="320" alt="" class="brand-logo-img"><span class="brand-name"><span class="brand-name-main">Mara Infra</span><span class="brand-name-sub">Constructions</span></span>
             </a>
 
             <nav class="nav-menu" id="site-nav" aria-label="Main">
@@ -216,10 +213,10 @@
                 <div class="cs-story" data-cs-story>
                     <div class="cs-stage" aria-hidden="true">
                         <div class="cs-frame">
-                            <img decoding="async" class="cs-shot is-active" src="assets/images/white-villa-1600.webp" srcset="assets/images/white-villa-800.webp 800w, assets/images/white-villa-1600.webp 1600w" sizes="(max-width: 768px) 100vw, 50vw" width="1600" height="900" data-ratio="1448 / 1086" alt="" loading="lazy">
-                            <img decoding="async" class="cs-shot" src="assets/images/IMG_8-1448.webp" srcset="assets/images/IMG_8-800.webp 800w, assets/images/IMG_8-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" data-ratio="1448 / 1086" alt="" loading="lazy">
-                            <img decoding="async" class="cs-shot" src="assets/images/IMG_1-1536.webp" srcset="assets/images/IMG_1-800.webp 800w, assets/images/IMG_1-1536.webp 1536w" sizes="(max-width: 768px) 100vw, 50vw" width="1536" height="1024" data-ratio="1536 / 1024" alt="" loading="lazy">
-                            <img decoding="async" class="cs-shot" src="assets/images/sustainable-building-1448.webp" srcset="assets/images/sustainable-building-800.webp 800w, assets/images/sustainable-building-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" data-ratio="1448 / 1086" alt="" loading="lazy">
+                            <img decoding="async" class="cs-shot is-active" src="assets/images/white-villa-1600.webp" srcset="assets/images/white-villa-480.webp 480w, assets/images/white-villa-640.webp 640w, assets/images/white-villa-800.webp 800w, assets/images/white-villa-1600.webp 1600w" sizes="(max-width: 767px) 100vw, (max-width: 1100px) 66vw, 606px" width="1600" height="900" data-ratio="1448 / 1086" alt="" loading="lazy">
+                            <img decoding="async" class="cs-shot" src="assets/images/IMG_8-1448.webp" srcset="assets/images/IMG_8-480.webp 480w, assets/images/IMG_8-640.webp 640w, assets/images/IMG_8-800.webp 800w, assets/images/IMG_8-1448.webp 1448w" sizes="(max-width: 767px) 100vw, (max-width: 1100px) 70vw, 642px" width="1448" height="1086" data-ratio="1448 / 1086" alt="" loading="lazy">
+                            <img decoding="async" class="cs-shot" src="assets/images/IMG_1-1536.webp" srcset="assets/images/IMG_1-480.webp 480w, assets/images/IMG_1-640.webp 640w, assets/images/IMG_1-800.webp 800w, assets/images/IMG_1-1536.webp 1536w" sizes="(max-width: 767px) 100vw, (max-width: 1100px) 70vw, 642px" width="1536" height="1024" data-ratio="1536 / 1024" alt="" loading="lazy">
+                            <img decoding="async" class="cs-shot" src="assets/images/sustainable-building-1448.webp" srcset="assets/images/sustainable-building-480.webp 480w, assets/images/sustainable-building-640.webp 640w, assets/images/sustainable-building-800.webp 800w, assets/images/sustainable-building-1448.webp 1448w" sizes="(max-width: 767px) 100vw, (max-width: 1100px) 70vw, 642px" width="1448" height="1086" data-ratio="1448 / 1086" alt="" loading="lazy">
                             <span class="cs-crop cs-crop--tl"></span><span class="cs-crop cs-crop--tr"></span>
                             <span class="cs-crop cs-crop--bl"></span><span class="cs-crop cs-crop--br"></span>
                             <div class="cs-caption"><span class="cs-caption-num">01</span><span
@@ -235,7 +232,7 @@
 
                     <div class="cs-steps">
                     <article class="cs-step is-current" id="residential" data-step="0">
-                        <img decoding="async" class="cs-step-img" src="assets/images/white-villa-1600.webp" srcset="assets/images/white-villa-800.webp 800w, assets/images/white-villa-1600.webp 1600w" sizes="(max-width: 768px) 100vw, 50vw" width="1600" height="900" alt="Elegant white villa with ornate gates" loading="lazy">
+                        <img decoding="async" class="cs-step-img" src="assets/images/white-villa-1600.webp" srcset="assets/images/white-villa-480.webp 480w, assets/images/white-villa-640.webp 640w, assets/images/white-villa-800.webp 800w, assets/images/white-villa-1600.webp 1600w" sizes="(max-width: 767px) 92vw, (max-width: 1100px) 96vw, 736px" width="1600" height="900" alt="Elegant white villa with ornate gates" loading="lazy">
                         <span class="cs-eyebrow">Service 01</span>
                         <h2>Residential Construction</h2>
                         <p class="cs-lead">Whether it’s a custom home or a residential complex, we bring your vision to
@@ -251,7 +248,7 @@
                         </div>
                     </article>
                     <article class="cs-step" id="commercial" data-step="1">
-                        <img decoding="async" class="cs-step-img" src="assets/images/IMG_8-1448.webp" srcset="assets/images/IMG_8-800.webp 800w, assets/images/IMG_8-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" alt="Multi-storey school building with a sports court in front" loading="lazy">
+                        <img decoding="async" class="cs-step-img" src="assets/images/IMG_8-1448.webp" srcset="assets/images/IMG_8-480.webp 480w, assets/images/IMG_8-640.webp 640w, assets/images/IMG_8-800.webp 800w, assets/images/IMG_8-1448.webp 1448w" sizes="(max-width: 767px) 92vw, (max-width: 1100px) 96vw, 736px" width="1448" height="1086" alt="Multi-storey school building with a sports court in front" loading="lazy">
                         <span class="cs-eyebrow">Service 02</span>
                         <h2>Commercial Construction</h2>
                         <p class="cs-lead">Functional, scalable and future-ready spaces. Mara Infra has delivered 30+
@@ -269,7 +266,7 @@
                         </div>
                     </article>
                     <article class="cs-step" id="renovation" data-step="2">
-                        <img decoding="async" class="cs-step-img" src="assets/images/IMG_1-1536.webp" srcset="assets/images/IMG_1-800.webp 800w, assets/images/IMG_1-1536.webp 1536w" sizes="(max-width: 768px) 100vw, 50vw" width="1536" height="1024" alt="Before and after photos of a renovated house entrance" loading="lazy">
+                        <img decoding="async" class="cs-step-img" src="assets/images/IMG_1-1536.webp" srcset="assets/images/IMG_1-480.webp 480w, assets/images/IMG_1-640.webp 640w, assets/images/IMG_1-800.webp 800w, assets/images/IMG_1-1536.webp 1536w" sizes="(max-width: 767px) 92vw, (max-width: 1100px) 96vw, 736px" width="1536" height="1024" alt="Before and after photos of a renovated house entrance" loading="lazy">
                         <span class="cs-eyebrow">Service 03</span>
                         <h2>Renovation &amp; Remodeling</h2>
                         <p class="cs-lead">From minor upgrades to full-scale renovations, we help modernize, expand and
@@ -285,7 +282,7 @@
                         </div>
                     </article>
                     <article class="cs-step" id="sustainable" data-step="3">
-                        <img decoding="async" class="cs-step-img" src="assets/images/sustainable-building-1448.webp" srcset="assets/images/sustainable-building-800.webp 800w, assets/images/sustainable-building-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" alt="Modern home with rooftop solar panels and a landscaped garden" loading="lazy">
+                        <img decoding="async" class="cs-step-img" src="assets/images/sustainable-building-1448.webp" srcset="assets/images/sustainable-building-480.webp 480w, assets/images/sustainable-building-640.webp 640w, assets/images/sustainable-building-800.webp 800w, assets/images/sustainable-building-1448.webp 1448w" sizes="(max-width: 767px) 92vw, (max-width: 1100px) 96vw, 736px" width="1448" height="1086" alt="Modern home with rooftop solar panels and a landscaped garden" loading="lazy">
                         <span class="cs-eyebrow">Service 04</span>
                         <h2>Sustainable Building</h2>
                         <p class="cs-lead">Building for a better tomorrow through eco-friendly materials,
@@ -321,7 +318,7 @@
                             <div class="hw2-text">
                                 <h3><button type="button" class="hw2-btn" aria-pressed="true"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Consultation &amp; Planning</button></h3>
                                 <p>We begin with a thorough on-site consultation to accurately understand your structural needs and create a customized, engineered plan.</p>
-                                <img decoding="async" class="hw2-inline" src="assets/images/site-ceremony-1448.webp" srcset="assets/images/site-ceremony-800.webp 800w, assets/images/site-ceremony-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" alt="Mara Infra team meeting clients on their plot" loading="lazy">
+                                <img decoding="async" class="hw2-inline" src="assets/images/site-ceremony-1448.webp" srcset="assets/images/site-ceremony-480.webp 480w, assets/images/site-ceremony-640.webp 640w, assets/images/site-ceremony-800.webp 800w, assets/images/site-ceremony-1448.webp 1448w" sizes="(max-width: 767px) 82vw, (max-width: 1100px) 81vw, 616px" width="1448" height="1086" alt="Mara Infra team meeting clients on their plot" loading="lazy">
                             </div>
                             <span class="hw2-progress" aria-hidden="true"></span>
                         </li>
@@ -330,7 +327,7 @@
                             <div class="hw2-text">
                                 <h3><button type="button" class="hw2-btn" aria-pressed="false"><i class="fa-solid fa-helmet-safety" aria-hidden="true"></i> Design &amp; Execution</button></h3>
                                 <p>Our experienced contracting team meticulously designs and executes the work using genuine materials with absolute attention to detail.</p>
-                                <img decoding="async" class="hw2-inline" src="assets/images/site-excavation-1024.webp" srcset="assets/images/site-excavation-800.webp 800w, assets/images/site-excavation-1024.webp 1024w" sizes="(max-width: 768px) 100vw, 50vw" width="1024" height="900" alt="Excavator preparing the foundation on a construction site" loading="lazy">
+                                <img decoding="async" class="hw2-inline" src="assets/images/site-excavation-1024.webp" srcset="assets/images/site-excavation-480.webp 480w, assets/images/site-excavation-640.webp 640w, assets/images/site-excavation-800.webp 800w, assets/images/site-excavation-1024.webp 1024w" sizes="(max-width: 767px) 82vw, (max-width: 1100px) 81vw, 616px" width="1024" height="900" alt="Excavator preparing the foundation on a construction site" loading="lazy">
                             </div>
                             <span class="hw2-progress" aria-hidden="true"></span>
                         </li>
@@ -339,15 +336,15 @@
                             <div class="hw2-text">
                                 <h3><button type="button" class="hw2-btn" aria-pressed="false"><i class="fa-solid fa-house-circle-check" aria-hidden="true"></i> Quality &amp; Completion</button></h3>
                                 <p>We conduct rigorous testing to guarantee the quality of our work, ensuring your absolute satisfaction before handing over the project.</p>
-                                <img decoding="async" class="hw2-inline" src="assets/images/two-storey-house-1448.webp" srcset="assets/images/two-storey-house-800.webp 800w, assets/images/two-storey-house-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" alt="Completed two-storey house ready for handover" loading="lazy">
+                                <img decoding="async" class="hw2-inline" src="assets/images/two-storey-house-1448.webp" srcset="assets/images/two-storey-house-480.webp 480w, assets/images/two-storey-house-640.webp 640w, assets/images/two-storey-house-800.webp 800w, assets/images/two-storey-house-1448.webp 1448w" sizes="(max-width: 767px) 82vw, (max-width: 1100px) 81vw, 616px" width="1448" height="1086" alt="Completed two-storey house ready for handover" loading="lazy">
                             </div>
                             <span class="hw2-progress" aria-hidden="true"></span>
                         </li>
                     </ol>
                     <div class="hw2-stage">
-                        <img decoding="async" class="hw2-shot is-active" src="assets/images/site-ceremony-1448.webp" srcset="assets/images/site-ceremony-800.webp 800w, assets/images/site-ceremony-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" data-ratio="1448 / 1086" alt="Mara Infra team meeting clients on their plot" loading="lazy">
-                        <img decoding="async" class="hw2-shot" src="assets/images/site-excavation-1024.webp" srcset="assets/images/site-excavation-800.webp 800w, assets/images/site-excavation-1024.webp 1024w" sizes="(max-width: 768px) 100vw, 50vw" width="1024" height="900" data-ratio="1024 / 900" alt="Excavator preparing the foundation on a construction site" loading="lazy" aria-hidden="true">
-                        <img decoding="async" class="hw2-shot" src="assets/images/two-storey-house-1448.webp" srcset="assets/images/two-storey-house-800.webp 800w, assets/images/two-storey-house-1448.webp 1448w" sizes="(max-width: 768px) 100vw, 50vw" width="1448" height="1086" data-ratio="1448 / 1086" alt="Completed two-storey house ready for handover" loading="lazy" aria-hidden="true">
+                        <img decoding="async" class="hw2-shot is-active" src="assets/images/site-ceremony-1448.webp" srcset="assets/images/site-ceremony-480.webp 480w, assets/images/site-ceremony-640.webp 640w, assets/images/site-ceremony-800.webp 800w, assets/images/site-ceremony-1448.webp 1448w" sizes="(max-width: 767px) 100vw, (max-width: 1100px) 67vw, 624px" width="1448" height="1086" data-ratio="1448 / 1086" alt="Mara Infra team meeting clients on their plot" loading="lazy">
+                        <img decoding="async" class="hw2-shot" src="assets/images/site-excavation-1024.webp" srcset="assets/images/site-excavation-480.webp 480w, assets/images/site-excavation-640.webp 640w, assets/images/site-excavation-800.webp 800w, assets/images/site-excavation-1024.webp 1024w" sizes="(max-width: 767px) 100vw, (max-width: 1100px) 70vw, 649px" width="1024" height="900" data-ratio="1024 / 900" alt="Excavator preparing the foundation on a construction site" loading="lazy" aria-hidden="true">
+                        <img decoding="async" class="hw2-shot" src="assets/images/two-storey-house-1448.webp" srcset="assets/images/two-storey-house-480.webp 480w, assets/images/two-storey-house-640.webp 640w, assets/images/two-storey-house-800.webp 800w, assets/images/two-storey-house-1448.webp 1448w" sizes="(max-width: 767px) 100vw, (max-width: 1100px) 70vw, 649px" width="1448" height="1086" data-ratio="1448 / 1086" alt="Completed two-storey house ready for handover" loading="lazy" aria-hidden="true">
                         <span class="hw2-caption"><span class="hw2-caption-num">01</span> <span class="hw2-caption-text">Consultation &amp; Planning</span></span>
                     </div>
                 </div>
@@ -382,7 +379,7 @@
             <div class="ft-grid">
                 <div class="ft-brand">
                     <a href="/" class="ft-logo" aria-label="Mara Infra Constructions home">
-                        <img src="assets/images/mara-logo-320.webp" width="239" height="320" alt="Mara Infra Constructions">
+                        <img src="assets/images/mara-logo-320.webp" srcset="assets/images/mara-logo-120.webp 120w, assets/images/mara-logo-320.webp 239w" sizes="104px" width="239" height="320" alt="Mara Infra Constructions">
                     </a>
                     <p class="ft-about">Building lasting spaces through quality construction, thoughtful design and
                         reliable workmanship.</p>

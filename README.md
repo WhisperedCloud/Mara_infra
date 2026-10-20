@@ -33,11 +33,13 @@ Mara_infra/
 │   └── app.js            # Navigation, scroll reveals, enquiry modal and homepage interactions
 │
 ├── assets/
+│   ├── fonts/            # Self-hosted Playfair Display and Plus Jakarta Sans
 │   ├── images/           # Project photos and logos
 │   └── videos/           # "Why choose us" video in three sizes, posters and a standalone player page
 │
 ├── tools/
-│   └── build-icons.py    # Rebuilds css/icons.css after adding or removing an icon
+│   ├── build-icons.py    # Rebuilds css/icons.css after adding or removing an icon
+│   └── inline-css.mjs    # Vercel build step: puts the CSS inside each deployed page
 │
 ├── _headers              # Security headers (Netlify / Cloudflare Pages)
 ├── vercel.json           # The same headers for Vercel
@@ -58,6 +60,8 @@ Forms post to Web3Forms (`https://api.web3forms.com/submit`); `js/app.js` submit
 ## 🌐 Deployment & SEO
 The site is built to live at the root of **https://marainfra.co.in** (canonical URLs, `sitemap.xml`, `robots.txt`, share previews and the 404 page's `<base href="/">` all assume this).
 - Host the folder as-is on any static host (Netlify, Vercel, Cloudflare Pages or GitHub Pages) and point the `marainfra.co.in` DNS at it. Configure the host to serve `404.html` for missing pages.
+- On Vercel, `vercel.json` runs a short build on every deploy, in the deployed copy only: it minifies `css/*.css` and `js/app.js` (with esbuild), then `tools/inline-css.mjs` puts the CSS directly inside each page so nothing blocks the first paint. The files in the repository stay readable, keep their `<link>` tags, and need no build to preview locally. If a deploy ever fails at this step, check the build log in Vercel; removing `buildCommand` and `outputDirectory` from `vercel.json` deploys the files as they are.
+- Fonts (Playfair Display and Plus Jakarta Sans, latin characters) are served from `assets/fonts` and declared at the top of `css/style.css`, so no request goes to Google Fonts. Each page preloads the two upright fonts.
 - After launch, add the domain to Google Search Console and submit `https://marainfra.co.in/sitemap.xml`.
 - Keep the business name, address, phone numbers and hours identical on the site, Google Business Profile and Instagram. The homepage carries matching `GeneralContractor` structured data.
 - Photos are served as WebP in two sizes (800px and full size, named `name-800.webp` / `name-1600.webp`). Add new photos the same way so pages stay fast.

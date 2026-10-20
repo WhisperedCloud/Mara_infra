@@ -2653,7 +2653,7 @@ a.cx-value:hover { color: var(--color-accent); }
 .wc4-media .why-choose-video-wrapper {
     position: relative;
     max-width: none;
-    background: #f3ebe6 url("../assets/videos/poster1-1080.webp") center / cover no-repeat;
+    background: #f3ebe6 url("../assets/videos/poster1-640.webp") center / cover no-repeat;
     box-shadow: 0 30px 60px rgba(60, 0, 0, 0.16);
 }
 
@@ -3753,6 +3753,9 @@ main > section:nth-of-type(2) { animation-delay: 0.08s; }
     border-radius: 24px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
 }
+
+/* The first hero photo sits in a <picture> (so phones skip it); keep the slide layout unchanged */
+.hero-slide > picture { display: contents; }
 
 .vtb-sep {
     margin: 0 6px;

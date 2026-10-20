@@ -1,6 +1,6 @@
 # Security headers for Netlify and Cloudflare Pages (other hosts: set the same headers in their config)
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cloud.umami.is; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://api.web3forms.com https://cloud.umami.is https://api-gateway.umami.dev; frame-src https://www.google.com https://maps.google.com; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cloud.umami.is; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; media-src 'self'; connect-src 'self' https://api.web3forms.com https://cloud.umami.is https://api-gateway.umami.dev; frame-src https://www.google.com https://maps.google.com; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
