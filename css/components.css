@@ -3332,6 +3332,22 @@ main > section:nth-of-type(2) { animation-delay: 0.08s; }
 
 .gl-item[hidden] { display: none; }
 
+/* With JavaScript: each photo goes to the bottom of the shortest column, so the
+   columns end almost level. Row spans are set in js/app.js from each photo's size. */
+.gl-grid.is-masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(280px, calc((100% - 36px) / 3)), 1fr));
+    grid-auto-rows: 1px;
+    column-gap: 18px;
+    row-gap: 0;
+    columns: auto;
+}
+
+.gl-grid.is-masonry .gl-item {
+    align-self: start;
+    margin: 0;
+}
+
 .gl-item img {
     display: block;
     width: 100%;

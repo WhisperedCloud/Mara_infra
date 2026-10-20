@@ -11,6 +11,7 @@
         // Mark document as JS ready for smooth progressive enhancement
         document.documentElement.classList.add('js-reveal-ready');
 
+        fixLocalLinks();
         initNavigation();
         initAnimations();
         initEnquiryModal();
@@ -20,12 +21,32 @@
         initPageTransitions();
         initLightbox();
         initGalleryFilters();
+        initGalleryMasonry();
         initReviewClamp();
         initLetterDialog();
         initAccessibilityHelpers();
         initTracking();
         initDropdowns();
     });
+
+    // "/about", "/about.html", "about.html" and a full file:// path all name the same page: "/about"
+    function routeOf(href) {
+        const path = new URL(href, window.location.href).pathname.replace(/\/+$/, '');
+        const page = path.split('/').pop().replace(/\.html?$/, '');
+        return (!page || page === 'index') ? '/' : '/' + page;
+    }
+
+    // The site links to clean addresses like "/about", which only a web server understands.
+    // When a page is opened straight from disk (file://), point those links at the .html files.
+    function fixLocalLinks() {
+        if (window.location.protocol !== 'file:') return;
+        const root = window.location.href.split(/[?#]/)[0].replace(/[^/]*$/, '');
+        document.querySelectorAll('a[href^="/"]').forEach(link => {
+            const [path, hash] = link.getAttribute('href').split('#');
+            const page = path.replace(/^\/+|\/+$/g, '') || 'index';
+            link.setAttribute('href', root + page + '.html' + (hash ? '#' + hash : ''));
+        });
+    }
 
     /* ==========================================================================
        1. NAVIGATION MODULE
@@ -84,13 +105,12 @@
         }
 
         // Dynamic Active Link Navigation & Intelligent ScrollSpy
-        const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
-        const isHomePage = currentPath === '/' || currentPath === '/index.html';
+        const currentPath = routeOf(window.location.href);
+        const isHomePage = currentPath === '/';
 
         function setActiveNav(targetHref) {
             navLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href === targetHref) {
+                if (routeOf(link.getAttribute('href')) === targetHref) {
                     link.classList.add('active');
                 } else {
                     link.classList.remove('active');
@@ -107,7 +127,7 @@
 
             // Smooth scroll to top when clicking Home link while already on home page
             navLinks.forEach(link => {
-                if (link.getAttribute('href') === '/') {
+                if (routeOf(link.getAttribute('href')) === '/') {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -608,7 +628,8 @@
             if (url.protocol !== window.location.protocol || url.host !== window.location.host) return;
             // Links within the same page keep their normal scroll behaviour
             if (url.pathname === window.location.pathname) return;
-            if (!/(\.html?|\/)$/.test(url.pathname)) return;
+            // Pages only: "/about", "/", "about.html" (not photos or other files)
+            if (!/(\.html?|\/|\/[^./]+)$/.test(url.pathname)) return;
 
             e.preventDefault();
             if (prefersReducedMotion) {
@@ -733,6 +754,30 @@
                 photo.hidden = filter !== 'all' && photo.dataset.cat !== filter;
             });
         }));
+    }
+
+    // Gallery masonry: give each photo a row span matching its height, and the grid
+    // places it at the bottom of the shortest column. Photos keep their full shape.
+    function initGalleryMasonry() {
+        const grid = document.querySelector('[data-gallery]');
+        if (!grid || !('ResizeObserver' in window)) return;
+        const GAP = 18;
+        const photos = Array.from(grid.querySelectorAll('.gl-item'));
+
+        function layout() {
+            const first = photos.find(p => !p.hidden);
+            if (!first) return;
+            const width = first.getBoundingClientRect().width;
+            photos.forEach(photo => {
+                const img = photo.querySelector('img');
+                const ratio = img.getAttribute('height') / img.getAttribute('width');
+                photo.style.gridRowEnd = 'span ' + Math.ceil(width * ratio + GAP);
+            });
+        }
+
+        grid.classList.add('is-masonry');
+        layout();
+        new ResizeObserver(layout).observe(grid);
     }
 
     function initLetterDialog() {
