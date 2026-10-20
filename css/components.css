@@ -1641,6 +1641,7 @@ section[id], div[id="products"], div[id="services"], div[id="construction"] {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    width: 108%;
 }
 
 .cs-frame {
@@ -2147,6 +2148,16 @@ a.cx-value:hover { color: var(--color-accent); }
     width: 100%;
     height: auto;
     transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Match the commercial card's 4:3 media panel and fill it edge to edge. */
+.wb3-card:first-child .wb3-photo {
+    aspect-ratio: 1448 / 1086;
+}
+.wb3-card:first-child .wb3-photo img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .wb3-card:hover .wb3-photo img { transform: scale(1.03); }
