@@ -84,8 +84,8 @@
         }
 
         // Dynamic Active Link Navigation & Intelligent ScrollSpy
-        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-        const isHomePage = currentPath === 'index.html' || currentPath === '';
+        const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+        const isHomePage = currentPath === '/' || currentPath === '/index.html';
 
         function setActiveNav(targetHref) {
             navLinks.forEach(link => {
@@ -99,15 +99,15 @@
         }
 
         if (!isHomePage) {
-            // Static active link for dedicated subpages (about.html, contact.html, etc.)
+            // Static active link for dedicated subpages (/about, /contact, etc.)
             setActiveNav(currentPath);
         } else {
             // Intelligent ScrollSpy for Home Page
-            setActiveNav('index.html');
+            setActiveNav('/');
 
             // Smooth scroll to top when clicking Home link while already on home page
             navLinks.forEach(link => {
-                if (link.getAttribute('href') === 'index.html') {
+                if (link.getAttribute('href') === '/') {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -124,25 +124,25 @@
 
                 // 1. If at the top of the page, always highlight Home
                 if (scrollY < 200) {
-                    setActiveNav('index.html');
+                    setActiveNav('/');
                     ticking = false;
                     return;
                 }
 
                 // 2. If scrolled near the bottom of the page, highlight Contact
                 if ((window.innerHeight + scrollY) >= (document.documentElement.scrollHeight - 80)) {
-                    setActiveNav('contact.html');
+                    setActiveNav('/contact');
                     ticking = false;
                     return;
                 }
 
                 // 3. Highlight the page that matches the section under the reading line
                 const primarySections = [
-                    { id: 'contact', href: 'contact.html' },
-                    { id: 'projects', href: 'gallery.html' },
-                    { id: 'why-choose-us', href: 'about.html' },
-                    { id: 'about', href: 'about.html' },
-                    { id: 'services-overview', href: 'construction.html' }
+                    { id: 'contact', href: '/contact' },
+                    { id: 'projects', href: '/gallery' },
+                    { id: 'why-choose-us', href: '/about' },
+                    { id: 'about', href: '/about' },
+                    { id: 'services-overview', href: '/construction' }
                 ];
 
                 for (const sec of primarySections) {
@@ -157,7 +157,7 @@
                     }
                 }
 
-                setActiveNav('index.html');
+                setActiveNav('/');
 
                 ticking = false;
             }

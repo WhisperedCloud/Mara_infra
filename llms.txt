@@ -17,8 +17,8 @@
 ## Pages
 
 - [Home](https://marainfra.co.in/): services, how the company works, project photos, client reviews and FAQs
-- [Construction services](https://marainfra.co.in/construction.html): residential, commercial, renovation and sustainable building
-- [Project gallery](https://marainfra.co.in/gallery.html): photos of completed homes, apartments, a school, a temple, site work and key handovers
-- [About](https://marainfra.co.in/about.html): company story, founders and approvals
-- [Contact](https://marainfra.co.in/contact.html): phone, WhatsApp, email, office address, map and enquiry form
-- [Careers](https://marainfra.co.in/careers.html): open roles in Chennai
+- [Construction services](https://marainfra.co.in/construction): residential, commercial, renovation and sustainable building
+- [Project gallery](https://marainfra.co.in/gallery): photos of completed homes, apartments, a school, a temple, site work and key handovers
+- [About](https://marainfra.co.in/about): company story, founders and approvals
+- [Contact](https://marainfra.co.in/contact): phone, WhatsApp, email, office address, map and enquiry form
+- [Careers](https://marainfra.co.in/careers): open roles in Chennai
